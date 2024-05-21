@@ -1,0 +1,1 @@
+import{O as u,a1 as i,v as f}from"./main-Cw78g-lL.js";const m=(e,t,s,o,r=!1)=>{const n=u(),{global:a}=i();return f(()=>a.name.value==="light"?n.skin==="bordered"&&r?s:e:a.name.value==="dark"?n.skin==="bordered"&&r?o:t:e)};export{m as u};
