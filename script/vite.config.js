@@ -12,6 +12,7 @@ import VueDevTools from 'vite-plugin-vue-devtools'
 import Layouts from 'vite-plugin-vue-layouts'
 import vuetify from 'vite-plugin-vuetify'
 import svgLoader from 'vite-svg-loader'
+import path from 'path' // Add this line
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -57,6 +58,8 @@ export default defineConfig({
     }), // Docs: https://github.com/johncampionjr/vite-plugin-vue-layouts#vite-plugin-vue-layouts
     Layouts({
       layoutsDirs: './resources/js/layouts/',
+      pagesDirs: 'src/pages',
+      defaultLayout: 'default'
     }), // Docs: https://github.com/antfu/unplugin-vue-components#unplugin-vue-components
     Components({
       dirs: ['resources/js/@core/components', 'resources/js/views/demos', 'resources/js/components'],
@@ -99,6 +102,7 @@ export default defineConfig({
   define: { 'process.env': {} },
   resolve: {
     alias: {
+      'ziggy-js': path.resolve('vendor/tightenco/ziggy'),
       '@core-scss': fileURLToPath(new URL('./resources/styles/@core', import.meta.url)),
       '@': fileURLToPath(new URL('./resources/js', import.meta.url)),
       '@themeConfig': fileURLToPath(new URL('./themeConfig.js', import.meta.url)),

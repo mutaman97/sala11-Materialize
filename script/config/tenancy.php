@@ -17,6 +17,7 @@ return [
      */
     'central_domains' => [
         '127.0.0.1',
+        '192.168.8.12',
         'localhost',
         env('APP_PROTOCOLESS_URL'),
         env('APP_URL'),

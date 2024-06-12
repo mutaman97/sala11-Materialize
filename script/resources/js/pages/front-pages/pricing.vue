@@ -7,7 +7,11 @@ import poseFs9 from '@images/pages/pose-fs-9.png'
 const store = useConfigStore()
 
 store.skin = 'default'
-definePage({ meta: { layout: 'blank' } })
+// definePage({ meta: { layout: 'blank' } })
+
+import Layout from '@/layouts/blank.vue'
+
+defineOptions({ layout: Layout })
 
 const features = [
   {

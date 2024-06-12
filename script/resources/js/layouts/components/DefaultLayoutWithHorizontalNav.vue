@@ -61,15 +61,25 @@ watch([
     <AppLoadingIndicator ref="refLoadingIndicator" />
 
     <!-- 👉 Pages -->
-    <RouterView v-slot="{ Component }">
-      <Suspense
-        :timeout="0"
-        @fallback="isFallbackStateActive = true"
-        @resolve="isFallbackStateActive = false"
-      >
-        <Component :is="Component" />
-      </Suspense>
-    </RouterView>
+<!--    <RouterView v-slot="{ Component }">-->
+<!--      <Suspense-->
+<!--        :timeout="0"-->
+<!--        @fallback="isFallbackStateActive = true"-->
+<!--        @resolve="isFallbackStateActive = false"-->
+<!--      >-->
+<!--        <Component :is="Component" />-->
+<!--      </Suspense>-->
+<!--    </RouterView>-->
+
+    <VLocaleProvider :rtl="configStore.isAppRTL">
+      <!-- ℹ️ This is required to set the background color of active nav link based on currently active global theme's primary -->
+      <VApp :style="`--v-global-theme-primary: ${hexToRgb(global.current.value.colors.primary)}`">
+        <div class="layout-wrapper layout-blank">
+          <slot />
+        </div>
+        <ScrollToTop />
+      </VApp>
+    </VLocaleProvider>
 
     <!-- 👉 Footer -->
     <template #footer>

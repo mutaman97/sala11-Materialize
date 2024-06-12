@@ -6,6 +6,7 @@ import NavbarThemeSwitcher from '@/layouts/components/NavbarThemeSwitcher.vue'
 import navImg from '@images/front-pages/misc/nav-img.png'
 import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
 import { themeConfig } from '@themeConfig'
+import { Link } from '@inertiajs/vue3'
 
 const props = defineProps({
   activeId: {
@@ -20,7 +21,7 @@ const props = defineProps({
 })
 
 const display = useDisplay()
-const route = useRoute()
+const vueroute = useRoute()
 const router = useRouter()
 const { y } = useWindowScroll()
 const sidebar = ref(false)
@@ -133,7 +134,7 @@ const menuItems = [
 ]
 
 const isCurrentRoute = to => {
-  return route.matched.some(_route => _route.path.startsWith(router.resolve(to).path))
+  return vueroute.matched.some(_route => _route.path.startsWith(router.resolve(to).path))
 
   // ℹ️ Below is much accurate approach if you don't have any nested routes
 
@@ -215,13 +216,21 @@ const isPageActive = computed(() => menuItems.some(item => item.navItems.some(li
               </ul>
             </div>
           </div>
-          <RouterLink
-            to="/"
-            target="_blank"
-            class="text-body-1 font-weight-medium nav-link px-0"
-          >
-            Admin
-          </RouterLink>
+<!--          <RouterLink-->
+<!--            to="/"-->
+<!--            target="_blank"-->
+<!--            class="text-body-1 font-weight-medium nav-link px-0"-->
+<!--          >-->
+<!--            Admin-->
+<!--          </RouterLink>-->
+
+<!--          <Link :href="route('princing.index')"-->
+<!--                class="text-body-1 font-weight-medium nav-link px-0">Pricing-->
+<!--          </Link>-->
+          <Link :href="route('helpcenter.index')"
+                class="text-body-1 font-weight-medium nav-link px-0">Help Center
+          </Link>
+
         </div>
       </div>
       <!-- Navigation drawer close icon -->
@@ -278,8 +287,10 @@ const isPageActive = computed(() => menuItems.some(item => item.navItems.some(li
           :class="$vuetify.display.mdAndUp ? 'd-flex' : 'd-none'"
           class="text-base align-center gap-x-2"
         >
+          <Link href="/" class="nav-link font-weight-medium">Home</Link>
+
           <RouterLink
-            v-for="(item, index) in ['Home', 'Features', 'Team', 'FAQ', 'Contact us']"
+            v-for="(item, index) in ['Features', 'Team', 'FAQ', 'Contact us']"
             :key="index"
             :to="{ name: 'front-pages-landing-page', hash: `#${item.toLowerCase().replace(' ', '-')}` }"
             class="nav-link font-weight-medium"
@@ -367,13 +378,19 @@ const isPageActive = computed(() => menuItems.some(item => item.navItems.some(li
             </VMenu>
           </span>
 
-          <RouterLink
-            to="/"
-            target="_blank"
-            class="nav-link font-weight-medium"
-          >
-            Admin
-          </RouterLink>
+<!--          <RouterLink-->
+<!--            to="/"-->
+<!--            target="_blank"-->
+<!--            class="nav-link font-weight-medium"-->
+<!--          >-->
+<!--            Admin-->
+<!--          </RouterLink>-->
+          <Link :href="route('princing.index')"
+                class="nav-link font-weight-medium">Pricing
+          </Link>
+          <Link :href="route('helpcenter.index')"
+                class="nav-link font-weight-medium">Help Center
+          </Link>
         </div>
       </div>
 

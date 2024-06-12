@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Number;
 use Inertia\Inertia;
 
 
@@ -23,328 +25,509 @@ use Inertia\Inertia;
 // });
 
  Route::get('php-info',function(){
-     return Inertia::render('views/analytics', [
-
-     ]);
-//   phpinfo();
+   $num = Number::spell(9079800390);
+   dd($num);
  });
-
 // END
 
 
-// Match my own domain
-$appUrl = env('APP_URL');
+foreach (config('tenancy.central_domains') as $domain) {
+    Route::domain($domain)->group(function () {
+        Auth::routes(['verify' => true]); // Include the 'verify' option to enable email verification routes
 
-Route::group(['domain' => $appUrl], function ($domain) {
+        Route::controller(App\Http\Controllers\WelcomeController::class)
+            ->group(function () {
+                Route::get('/', 'index')->name('welcome');
+                Route::get('demos', 'demos')->name('demos');
+                Route::post('/seller/lang/switch', 'lang_switch')
+                    ->name('lang.switch');
+                Route::post('subscribe', 'subscribe')->name('subscribe');
+            });
 
-    Auth::routes(['verify' => true]); // Include the 'verify' option to enable email verification routes
+        Route::controller(App\Http\Controllers\BlogController::class)
+            ->group(function () {
+                Route::get('blog/{title}', 'show')->name('blog.show');
+                Route::get('blogs/search', 'search')->name('blog.search');
+                Route::get('blogs', 'lists')->name('blog.lists');
+            });
 
-    Route::controller(App\Http\Controllers\WelcomeController::class)->group(function () {
-        Route::get('/', 'index')->name('welcome');
-        Route::get('demos','demos')->name('demos');
-        Route::post('/seller/lang/switch','lang_switch')->name('lang.switch');
-        Route::post('subscribe','subscribe')->name('subscribe');
-    });
+        Route::get('page/{slug}',
+            [App\Http\Controllers\PageController::class, 'show'])
+            ->name('page.show');
 
-    Route::controller(App\Http\Controllers\BlogController::class)->group(function() {
-        Route::get('blog/{title}','show')->name('blog.show');
-        Route::get('blogs/search','search')->name('blog.search');
-        Route::get('blogs','lists')->name('blog.lists');
-    });
+        Route::controller(App\Http\Controllers\ContactController::class)
+            ->group(function () {
+                Route::get('contact', 'index')->name('contact.index');
+                Route::post('contact/send', 'send')->name('contact.send')
+                    ->middleware('throttle:2,1');
+            });
 
-    Route::get('page/{slug}',[App\Http\Controllers\PageController::class, 'show'])->name('page.show');
+        Route::get('pricing',
+            [App\Http\Controllers\PricingController::class, 'index'])
+            ->name('princing.index');
 
-    Route::controller(App\Http\Controllers\ContactController::class)->group(function() {
-        Route::get('contact','index')->name('contact.index');
-        Route::post('contact/send','send')->name('contact.send')->middleware('throttle:2,1');
-    });
+        Route::get('help-center',
+            [App\Http\Controllers\HelpCenterController::class, 'index'])
+            ->name('helpcenter.index');
 
-    Route::get('pricing',[App\Http\Controllers\PricingController::class, 'index'])->name('princing.index');
+        Route::controller(App\Http\Controllers\RegisterController::class)
+            ->group(function () {
+                Route::get('register', 'index')->name('user.register')
+                    ->middleware('guest');
+                Route::get('user/login', 'login')->name('user.login')
+                    ->middleware('guest');
+                Route::post('user/store', 'store')->name('user.store')
+                    ->middleware('guest');
+            });
 
-    Route::controller(App\Http\Controllers\RegisterController::class)->group(function() {
-        Route::get('register','index')->name('user.register')->middleware('guest');
-        Route::get('user/login','login')->name('user.login')->middleware('guest');
-        Route::post('user/store','store')->name('user.store')->middleware('guest');
-    });
+        // **---------------------------------------CRON JOB ROUTES START---------------------------------------** //
 
-    // **---------------------------------------CRON JOB ROUTES START---------------------------------------** //
+        Route::controller(App\Http\Controllers\CronController::class)
+            ->group(function () {
+                //automatic charge from the credits
+                Route::get('cron/make-charge', 'makeCharge');
+                // Alert after Order Expired
+                Route::get('cron/alert-user/after/order/expired',
+                    'alertUserAfterExpiredOrder')
+                    ->name('alert.after.order.expired');
+                // Alert before Order Expired
+                Route::get('cron/alert-user/before/order/expired',
+                    'alertUserBeforeExpiredOrder')
+                    ->name('alert.before.order.expired');
+                Route::get('cron/tenant-reset-product-price',
+                    'tenantPricereset');
+            });
 
-    Route::controller(App\Http\Controllers\CronController::class)->group(function() {
-        //automatic charge from the credits
-        Route::get('cron/make-charge', 'makeCharge');
-        // Alert after Order Expired
-        Route::get('cron/alert-user/after/order/expired', 'alertUserAfterExpiredOrder')->name('alert.after.order.expired');
-        // Alert before Order Expired
-        Route::get('cron/alert-user/before/order/expired', 'alertUserBeforeExpiredOrder')->name('alert.before.order.expired');
-        Route::get('cron/tenant-reset-product-price', 'tenantPricereset');
-    });
 
+        Route::get('/sitemap.xml',
+            [App\Http\Controllers\SettingController::class, 'sitemapView']);
+        Route::get('locale/lang',
+            [App\Http\Controllers\LocalizationController::class, 'store'])
+            ->name('language.set');
 
-     Route::get('/sitemap.xml', [App\Http\Controllers\SettingController::class, 'sitemapView']);
-     Route::get('locale/lang', [App\Http\Controllers\LocalizationController::class, 'store'])->name('language.set');
+        Route::get('/home',
+            [App\Http\Controllers\HomeController::class, 'index'])
+            ->name('home');
 
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+        Route::controller(App\Http\Controllers\Admin\UserController::class)
+            ->group(function () {
+                Route::get('/mysettings', 'index')
+                    ->name('admin.admin.mysettings')->middleware('auth');
+                Route::post('genup', 'genUpdate')->name('admin.users.genupdate')
+                    ->middleware('auth');
+                Route::post('passup', 'updatePassword')
+                    ->name('admin.users.passup')->middleware('auth');
+            });
 
-    Route::controller(App\Http\Controllers\Admin\UserController::class)->group(function() {
-        Route::get('/mysettings', 'index')->name('admin.admin.mysettings')->middleware('auth');
-        Route::post('genup', 'genUpdate')->name('admin.users.genupdate')->middleware('auth');
-        Route::post('passup', 'updatePassword')->name('admin.users.passup')->middleware('auth');
-    });
+        Route::group(['as'         => 'admin.', 'prefix' => 'admin',
+                      'namespace'  => 'Admin',
+                      'middleware' => ['auth', 'admin', 'user']
+        ], function () {
+            Route::get('dashboard', [
+                App\Http\Controllers\Admin\AdminController::class, 'dashboard'
+            ])->name('dashboard');
 
-    Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'admin','user']], function () {
-        Route::get('dashboard', [App\Http\Controllers\Admin\AdminController::class, 'dashboard'])->name('dashboard');
+            Route::controller(App\Http\Controllers\Admin\DashboardController::class)
+                ->group(function () {
+                    Route::get('/dashboard/static', 'staticData');
+                    Route::get('/dashboard/perfomance/{period}', 'perfomance');
+                    Route::get('/dashboard/deposit/perfomance/{period}',
+                        'depositPerfomance');
+                    Route::get('/dashboard/order_statics/{month}',
+                        'order_statics');
+                    Route::get('/dashboard/visitors/{days}',
+                        'google_analytics');
+                });
 
-        Route::controller(App\Http\Controllers\Admin\DashboardController::class)->group(function() {
-            Route::get('/dashboard/static', 'staticData');
-            Route::get('/dashboard/perfomance/{period}', 'perfomance');
-            Route::get('/dashboard/deposit/perfomance/{period}', 'depositPerfomance');
-            Route::get('/dashboard/order_statics/{month}', 'order_statics');
-            Route::get('/dashboard/visitors/{days}', 'google_analytics');
-        });
+            Route::resource('cron',
+                App\Http\Controllers\Admin\CronController::class);
 
-        Route::resource('cron', App\Http\Controllers\Admin\CronController::class);
+            Route::resource('store',
+                App\Http\Controllers\Admin\StoreController::class);
+            Route::post('stores/destroys',
+                [App\Http\Controllers\Admin\StoreController::class, 'destroy'])
+                ->name('stores.destroys');
 
-        Route::resource('store', App\Http\Controllers\Admin\StoreController::class);
-        Route::post('stores/destroys', [App\Http\Controllers\Admin\StoreController::class, 'destroy'])->name('stores.destroys');
+            Route::resource('domain',
+                App\Http\Controllers\Admin\DomainController::class);
+            Route::post('domains/destroys',
+                [App\Http\Controllers\Admin\DomainController::class, 'destroy'])
+                ->name('domains.destroys');
 
-        Route::resource('domain', App\Http\Controllers\Admin\DomainController::class);
-        Route::post('domains/destroys', [App\Http\Controllers\Admin\DomainController::class, 'destroy'])->name('domains.destroys');
+            Route::controller(App\Http\Controllers\Admin\StoreController::class)
+                ->group(function () {
+                    Route::get('domain/edit/database/{id}', 'databaseView')
+                        ->name('domain.database.edit');
+                    Route::put('domain/update/database/{id}', 'databaseUpdate')
+                        ->name('database.update');
+                    Route::get('domain/edit/plan/{id}', 'planView')
+                        ->name('domain.plan.edit');
+                    Route::put('domain/update/plan/{id}', 'planUpdate')
+                        ->name('domain.plan.update');
+                });
 
-        Route::controller(App\Http\Controllers\Admin\StoreController::class)->group(function() {
-            Route::get('domain/edit/database/{id}', 'databaseView')->name('domain.database.edit');
-            Route::put('domain/update/database/{id}', 'databaseUpdate')->name('database.update');
-            Route::get('domain/edit/plan/{id}', 'planView')->name('domain.plan.edit');
-            Route::put('domain/update/plan/{id}', 'planUpdate')->name('domain.plan.update');
-        });
+            Route::resource('seo',
+                App\Http\Controllers\Admin\SeoController::class);
+            Route::resource('env',
+                App\Http\Controllers\Admin\EnvController::class);
+            Route::get('site/settings', [
+                App\Http\Controllers\Admin\EnvController::class,
+                'theme_settings'
+            ])->name('site.settings');
 
-        Route::resource('seo', App\Http\Controllers\Admin\SeoController::class);
-        Route::resource('env', App\Http\Controllers\Admin\EnvController::class);
-        Route::get('site/settings', [App\Http\Controllers\Admin\EnvController::class, 'theme_settings'])->name('site.settings');
+            Route::resource('plan',
+                App\Http\Controllers\Admin\PlanController::class);
 
-        Route::resource('plan', App\Http\Controllers\Admin\PlanController::class);
+            Route::controller(App\Http\Controllers\Admin\PlanController::class)
+                ->group(function () {
+                    Route::post('plans/delete', 'destroy')
+                        ->name('plans.destroys');
+                    Route::get('/plan/config/settings', 'settings')
+                        ->name('plan.settings');
+                    Route::put('/plan/config/update/{type}', 'settingsUpdate')
+                        ->name('plan.settings.update');
+                });
 
-        Route::controller(App\Http\Controllers\Admin\PlanController::class)->group(function() {
-            Route::post('plans/delete', 'destroy')->name('plans.destroys');
-            Route::get('/plan/config/settings','settings')->name('plan.settings');
-            Route::put('/plan/config/update/{type}','settingsUpdate')->name('plan.settings.update');
-        });
+            //language
+            Route::resource('language', 'LanguageController');
+            Route::controller(App\Http\Controllers\Admin\LanguageController::class)
+                ->group(function () {
+                    Route::get('languages/delete/{id}', 'destroy')
+                        ->name('languages.delete');
+                    Route::post('languages/setActiveLanuguage',
+                        'setActiveLanuguage')->name('languages.active');
+                    Route::post('languages/add_key', 'add_key')
+                        ->name('language.add_key');
+                });
 
-        //language
-        Route::resource('language', 'LanguageController');
-        Route::controller(App\Http\Controllers\Admin\LanguageController::class)->group(function() {
-            Route::get('languages/delete/{id}', 'destroy')->name('languages.delete');
-            Route::post('languages/setActiveLanuguage', 'setActiveLanuguage')->name('languages.active');
-            Route::post('languages/add_key', 'add_key')->name('language.add_key');
-        });
+            // Menu Route
+            Route::resource('menu', 'MenuController');
+            Route::controller(App\Http\Controllers\Admin\MenuController::class)
+                ->group(function () {
+                    Route::post('/menus/destroy', 'destroy')
+                        ->name('menus.destroy');
+                    Route::post('menues/node', 'MenuNodeStore')
+                        ->name('menus.MenuNodeStore');
+                });
 
-        // Menu Route
-        Route::resource('menu', 'MenuController');
-        Route::controller(App\Http\Controllers\Admin\MenuController::class)->group(function() {
-            Route::post('/menus/destroy', 'destroy')->name('menus.destroy');
-            Route::post('menues/node', 'MenuNodeStore')->name('menus.MenuNodeStore');
-        });
+            //role routes
+            Route::resource('role',
+                App\Http\Controllers\Admin\RoleController::class);
+            Route::post('roles/destroy',
+                [App\Http\Controllers\Admin\RoleController::class, 'destroy'])
+                ->name('roles.destroy');
+            // Admin Route
+            Route::resource('admin',
+                App\Http\Controllers\Admin\AdminController::class);
+            Route::post('/admins/destroy',
+                [App\Http\Controllers\Admin\AdminController::class, 'destroy'])
+                ->name('admins.destroy');
 
-        //role routes
-        Route::resource('role', App\Http\Controllers\Admin\RoleController::class);
-        Route::post('roles/destroy', [App\Http\Controllers\Admin\RoleController::class, 'destroy'])->name('roles.destroy');
-        // Admin Route
-        Route::resource('admin', App\Http\Controllers\Admin\AdminController::class);
-        Route::post('/admins/destroy', [App\Http\Controllers\Admin\AdminController::class, 'destroy'])->name('admins.destroy');
+            //Gateway crud controller
+            Route::resource('gateway',
+                App\Http\Controllers\Admin\PaymentGatewayController::class);
+            //Blog crud controller
+            Route::resource('blog',
+                App\Http\Controllers\Admin\BlogController::class);
+            //Page crud controller
+            Route::resource('page',
+                App\Http\Controllers\Admin\PageController::class);
 
-        //Gateway crud controller
-        Route::resource('gateway', App\Http\Controllers\Admin\PaymentGatewayController::class);
-        //Blog crud controller
-        Route::resource('blog', App\Http\Controllers\Admin\BlogController::class);
-        //Page crud controller
-        Route::resource('page', App\Http\Controllers\Admin\PageController::class);
+            Route::resource('template',
+                App\Http\Controllers\Admin\ThemeController::class);
 
-        Route::resource('template', App\Http\Controllers\Admin\ThemeController::class);
+            Route::controller(App\Http\Controllers\Admin\StoreController::class)
+                ->group(function () {
+                    Route::get('/dns/settings', 'dnsSettingView')
+                        ->name('dns.settings');
+                    Route::put('/dns/update', 'dnsUpdate')->name('dns.update');
+                    Route::get('/developer/instruction', 'instructionView')
+                        ->name('developer.instruction');
+                    Route::put('/instruction/update', 'instructionUpdate')
+                        ->name('developer.instruction.update');
+                });
 
-        Route::controller(App\Http\Controllers\Admin\StoreController::class)->group(function() {
-            Route::get('/dns/settings', 'dnsSettingView')->name('dns.settings');
-            Route::put('/dns/update', 'dnsUpdate')->name('dns.update');
-            Route::get('/developer/instruction', 'instructionView')->name('developer.instruction');
-            Route::put('/instruction/update', 'instructionUpdate')->name('developer.instruction.update');
-        });
+            //Support Route
+            Route::resource('support',
+                App\Http\Controllers\Admin\SupportController::class);
 
-        //Support Route
-        Route::resource('support', App\Http\Controllers\Admin\SupportController::class);
+            Route::controller(App\Http\Controllers\Admin\SupportController::class)
+                ->group(function () {
+                    Route::post('supportInfo', 'getSupportData')
+                        ->name('support.info');
+                    Route::post('supportstatus', 'supportStatus')
+                        ->name('support.status');
+                });
 
-        Route::controller(App\Http\Controllers\Admin\SupportController::class)->group(function() {
-            Route::post('supportInfo', 'getSupportData')->name('support.info');
-            Route::post('supportstatus', 'supportStatus')->name('support.status');
-        });
+            //Option route
+            Route::controller(App\Http\Controllers\Admin\OptionController::class)
+                ->group(function () {
+                    Route::get('option/edit/{key}', 'edit')
+                        ->name('option.edit');
+                    Route::post('option/update/{key}', 'update')
+                        ->name('option.update');
+                    Route::get('option/sco-index', 'seoIndex')
+                        ->name('option.seo-index');
+                    Route::get('option/seo-edit/{id}', 'seoEdit')
+                        ->name('option.seo-edit');
+                    Route::put('option/seo-update/{id}', 'seoUpdate')
+                        ->name('option.seo-update');
 
-        //Option route
-        Route::controller(App\Http\Controllers\Admin\OptionController::class)->group(function() {
-            Route::get('option/edit/{key}', 'edit')->name('option.edit');
-            Route::post('option/update/{key}', 'update')->name('option.update');
-            Route::get('option/sco-index', 'seoIndex')->name('option.seo-index');
-            Route::get('option/seo-edit/{id}', 'seoEdit')->name('option.seo-edit');
-            Route::put('option/seo-update/{id}', 'seoUpdate')->name('option.seo-update');
+                    //Theme settings
+                    Route::get('theme/settings', 'settingsEdit')
+                        ->name('theme.settings');
+                    Route::put('theme/settings-update/{id}', 'settingsUpdate')
+                        ->name('theme.settings.update');
+                });
+
 
             //Theme settings
-            Route::get('theme/settings', 'settingsEdit')->name('theme.settings');
-            Route::put('theme/settings-update/{id}', 'settingsUpdate')->name('theme.settings.update');
+            Route::controller(App\Http\Controllers\Admin\ThemesettingsController::class)
+                ->group(function () {
+                    Route::get('theme/settings/General', 'general')
+                        ->name('settings.general');
+                    Route::post('theme/settings/General', 'generalupdate')
+                        ->name('settings.general.update');
+                    Route::get('theme/settings/services', 'serviceindex')
+                        ->name('settings.service.index');
+                    Route::get('theme/settings/services/create',
+                        'servicecreate')->name('settings.service.create');
+                    Route::post('theme/settings/services/store', 'servicestore')
+                        ->name('settings.service.store');
+                    Route::get('theme/settings/services/{id}/edit',
+                        'serviceedit')->name('settings.service.edit');
+                    Route::put('theme/settings/services/update/{id}',
+                        'serviceupdate')->name('settings.service.update');
+                    Route::post('theme/settings/services/destroy',
+                        'servicedestroy')->name('settings.service.destroy');
+                    Route::get('theme/footer', 'footerindex')
+                        ->name('settings.footer.index');
+                    Route::post('theme/settings/footer', 'footerupdate')
+                        ->name('settings.footer.update');
+                    Route::get('theme/settings/themes', 'demo_lists')
+                        ->name('settings.demo');
+                    Route::get('theme/settings/theme/create', 'demo_create')
+                        ->name('settings.demo.create');
+                    Route::post('theme/settings/theme/create', 'demo_store')
+                        ->name('settings.demo.store');
+                    Route::get('theme/settings/theme/{id}/edit', 'demo_edit')
+                        ->name('settings.demo.edit');
+                    Route::put('theme/settings/theme/update/{id}',
+                        'demo_update')->name('settings.demo.update');
+                    Route::post('theme/settings/theme/destroy', 'demo_destroy')
+                        ->name('settings.demo.destroy');
+                    // Added by mutaman for testimonials
+                    Route::get('theme/settings/testimonials',
+                        'testimonials_lists')->name('settings.testimonials');
+                    Route::get('theme/settings/testimonial/create',
+                        'testimonial_create')
+                        ->name('settings.testimonial.create');
+                    Route::post('theme/settings/testimonial/create',
+                        'testimonial_store')
+                        ->name('settings.testimonial.store');
+                    Route::get('theme/settings/testimonial/{id}/edit',
+                        'testimonial_edit')->name('settings.testimonial.edit');
+                    Route::put('theme/settings/testimonial/update/{id}',
+                        'testimonial_update')
+                        ->name('settings.testimonial.update');
+                    Route::post('theme/settings/testimonial/destroy',
+                        'testimonial_destroy')
+                        ->name('settings.testimonial.destroy');
+                    // end added
+                });
+
+            //Order Route
+            Route::resource('order',
+                App\Http\Controllers\Admin\OrderController::class);
+
+            //merchant crud and mail controller
+            Route::resource('partner',
+                App\Http\Controllers\Admin\MerchantController::class);
+
+            Route::controller(App\Http\Controllers\Admin\MerchantController::class)
+                ->group(function () {
+                    Route::post('merchant-send-mail/{id}', 'sendMail');
+                    Route::get('merchant-login/{id}', 'login')
+                        ->name('merchant.login');
+                });
+
+
+            //Report Route
+            Route::resource('report',
+                App\Http\Controllers\Admin\ReportController::class);
+
+            Route::controller(App\Http\Controllers\Admin\ReportController::class)
+                ->group(function () {
+                    Route::get('order-excel', 'excel')->name('order.excel');
+                    Route::get('order-csv', 'csv')->name('order.csv');
+                    Route::get('order-pdf', 'pdf')->name('order.pdf');
+                    Route::get('report-invoice/{id}', 'invoicePdf')
+                        ->name('report.pdf');
+                });
+
+            // Fund History Route
+            Route::controller(App\Http\Controllers\Admin\FundController::class)
+                ->group(function () {
+                    Route::get('fund/history', 'history')->name('fund.history');
+                    Route::post('fund/approved', 'approved')
+                        ->name('fund.approved');
+                    Route::post('fund/store', 'store')->name('fund.store');
+                });
         });
 
 
-        //Theme settings
-        Route::controller(App\Http\Controllers\Admin\ThemesettingsController::class)->group(function() {
-            Route::get('theme/settings/General','general')->name('settings.general');
-            Route::post('theme/settings/General','generalupdate')->name('settings.general.update');
-            Route::get('theme/settings/services','serviceindex')->name('settings.service.index');
-            Route::get('theme/settings/services/create','servicecreate')->name('settings.service.create');
-            Route::post('theme/settings/services/store','servicestore')->name('settings.service.store');
-            Route::get('theme/settings/services/{id}/edit','serviceedit')->name('settings.service.edit');
-            Route::put('theme/settings/services/update/{id}','serviceupdate')->name('settings.service.update');
-            Route::post('theme/settings/services/destroy','servicedestroy')->name('settings.service.destroy');
-            Route::get('theme/footer','footerindex')->name('settings.footer.index');
-            Route::post('theme/settings/footer','footerupdate')->name('settings.footer.update');
-            Route::get('theme/settings/themes','demo_lists')->name('settings.demo');
-            Route::get('theme/settings/theme/create','demo_create')->name('settings.demo.create');
-            Route::post('theme/settings/theme/create','demo_store')->name('settings.demo.store');
-            Route::get('theme/settings/theme/{id}/edit','demo_edit')->name('settings.demo.edit');
-            Route::put('theme/settings/theme/update/{id}','demo_update')->name('settings.demo.update');
-            Route::post('theme/settings/theme/destroy','demo_destroy')->name('settings.demo.destroy');
-            // Added by mutaman for testimonials
-            Route::get('theme/settings/testimonials','testimonials_lists')->name('settings.testimonials');
-            Route::get('theme/settings/testimonial/create','testimonial_create')->name('settings.testimonial.create');
-            Route::post('theme/settings/testimonial/create','testimonial_store')->name('settings.testimonial.store');
-            Route::get('theme/settings/testimonial/{id}/edit','testimonial_edit')->name('settings.testimonial.edit');
-            Route::put('theme/settings/testimonial/update/{id}','testimonial_update')->name('settings.testimonial.update');
-            Route::post('theme/settings/testimonial/destroy','testimonial_destroy')->name('settings.testimonial.destroy');
-            // end added
+        Route::group(['prefix'     => 'partner', 'as' => 'merchant.',
+                      'namespace'  => 'Merchant',
+                      'middleware' => ['auth', 'merchant', 'user']
+        ], function () {
+            //        TODO
+            Route::get('dashboard', 'DashboardController@index')
+                ->name('dashboard');
+            Route::get('/dashboard-data', 'DashboardController@staticData');
+
+            Route::controller(App\Http\Controllers\Merchant\DomainController::class)
+                ->group(function () {
+                    Route::get('domain', 'index')->name('domain.list');
+                    Route::get('domain/create', 'create')
+                        ->name('domain.create');
+                    Route::get('domain/edit/{id}', 'edit')->name('domain.edit');
+                    Route::put('domain/update/{id}', 'update')
+                        ->name('domain.update');
+                    Route::post('domain/check', 'check')->name('domain.check');
+                    Route::post('domain/store', 'store')->name('domain.store');
+                    Route::get('domain/select/plan', 'gateway')
+                        ->name('domain.payment');
+
+                    Route::get('domain/configuration/{id}', 'domainConfig')
+                        ->name('domain.domainConfig');
+                    Route::post('domain/add-subdomain/{id}', 'addSubdomain')
+                        ->name('add.subdomain');
+                    Route::put('domain/update-subdomain/{id}',
+                        'updateSubdomain')->name('update.subdomain');
+                    Route::delete('domain/delete-subdomain/{id}', 'destroy')
+                        ->name('destroy.subdomain');
+
+                    Route::post('domain/add-customdomain/{id}',
+                        'addCustomDomain')->name('add.customdomain');
+                    Route::put('domain/update-customdomain/{id}',
+                        'updateCustomDomain')->name('update.customdomain');
+                    Route::delete('domain/delete-customdomain/{id}',
+                        'destroyCustomdomain')->name('destroy.customdomain');
+
+                    Route::get('/domain/transfer/{id}', 'transferView')
+                        ->name('domain.transfer');
+                    Route::post('/domain/otp/{id}', 'sendOtp')
+                        ->name('domain.transfer.otp')
+                        ->middleware('throttle:5,1');
+                    Route::post('/domain/varifyotp/{id}', 'verifyOtp')
+                        ->name('domain.verify.otp')->middleware('throttle:5,1');
+
+                    Route::get('/domain/developer-mode/{id}', 'developerView')
+                        ->name('domain.developer');
+                    Route::post('/domain/migrate-seed/{id}', 'migrateWithSeed')
+                        ->name('domain.migrate-seed');
+                    Route::post('/domain/migrate/{id}', 'migrate')
+                        ->name('domain.migrate');
+                    // added by mutaman for fresh migrate
+                    Route::post('/domain/fresh-migrate/{id}', 'freshMigrate')
+                        ->name('domain.fresh-migrate');
+                    // end added
+                    Route::post('/domain/clear-cache/{id}', 'cacheClear')
+                        ->name('domain.clear-cache');
+                    Route::post('/domain/remove-storage/{id}', 'removeStorage')
+                        ->name('domain.storage.clear');
+                    // added by mutaman for maintenance mode
+                    Route::post('/domain/enable-maintenance/{id}',
+                        'enableMaintenance')->name('domain.enable.maintenance');
+                    Route::post('/domain/disable-maintenance/{id}',
+                        'disableMaintenance')
+                        ->name('domain.disable.maintenance');
+                    // end
+                    Route::post('/domain/login/{id}', 'login')
+                        ->name('domain.login');
+                    Route::post('/domain-login/{id}', 'loginByDomain')
+                        ->name('domain.login.domain');
+                });
+
+
+            Route::resource('plan',
+                App\Http\Controllers\Merchant\PlanController::class);
+
+            Route::controller(App\Http\Controllers\Merchant\PlanController::class)
+                ->group(function () {
+                    Route::get('/domain/renew/{id}', 'renewView')
+                        ->name('domain.renew');
+                    Route::get('/plan/domain/{id}', 'changePlan')
+                        ->name('domain.plan');
+                    Route::get('/plancharge/{domain}/{id}', 'ChanePlanGateways')
+                        ->name('plan.gateways');
+                    Route::post('/domain/renewcharge/{id}', 'renewCharge')
+                        ->name('plan.renew-plan');
+
+                    Route::get('/gateways/{id}', 'gateways')
+                        ->name('plan.gateways');
+                    Route::post('/deposit', 'deposit')->name('plan.deposit');
+                    Route::get('plan-invoice/{id}', 'invoicePdf');
+                    Route::get('enroll', 'enroll')->name('plan.enroll');
+                    Route::post('enroll/store', 'storePlan')
+                        ->name('enroll.domain');
+
+                    // Store Create
+                    Route::get('store/create', 'strorecreate')
+                        ->name('plan.strorecreate');
+
+                    //Payment status route
+                    Route::get('payment/success', 'success')
+                        ->name('payment.success');
+                    Route::get('payment/failed', 'failed')
+                        ->name('payment.failed');
+                });
+
+            //Support Route
+            Route::resource('support',
+                App\Http\Controllers\Merchant\SupportController::class);
+
+            //Report Route
+            Route::resource('report',
+                App\Http\Controllers\Merchant\ReportController::class);
+
+            // Fund Route
+            Route::resource('fund',
+                App\Http\Controllers\Merchant\FundController::class);
+
+            Route::controller(App\Http\Controllers\Merchant\FundController::class)
+                ->group(function () {
+                    Route::get('fund/payment/select', 'payment')
+                        ->name('fund.payment');
+                    Route::post('fund/deposit', 'deposit')
+                        ->name('fund.deposit');
+                    Route::get('fund/history/list', 'history')
+                        ->name('fund.history');
+                    Route::get('fund/redirect/success', 'success')
+                        ->name('fund.success');
+                    Route::get('fund/redirect/fail', 'fail')->name('fund.fail');
+                });
+
+            Route::get('plan-renew/redirect/success', [
+                App\Http\Controllers\Merchant\PlanController::class,
+                'renewSuccess'
+            ]);
+            Route::get('plan-renew/redirect/fail', [
+                App\Http\Controllers\Merchant\PlanController::class, 'renewFail'
+            ]);
+
+            // Lock Store
+            Route::get('store/lock/{id}',
+                [App\Http\Controllers\Merchant\PlanController::class, 'lock'])
+                ->name('store.lock');
+
+            // Order Routes
+            Route::get('order',
+                [App\Http\Controllers\Merchant\OrderController::class, 'index'])
+                ->name('order.index');
         });
-
-        //Order Route
-        Route::resource('order', App\Http\Controllers\Admin\OrderController::class);
-
-        //merchant crud and mail controller
-        Route::resource('partner', App\Http\Controllers\Admin\MerchantController::class);
-
-        Route::controller(App\Http\Controllers\Admin\MerchantController::class)->group(function() {
-            Route::post('merchant-send-mail/{id}', 'sendMail');
-            Route::get('merchant-login/{id}', 'login')->name('merchant.login');
-        });
-
-
-        //Report Route
-        Route::resource('report', App\Http\Controllers\Admin\ReportController::class);
-
-        Route::controller(App\Http\Controllers\Admin\ReportController::class)->group(function() {
-            Route::get('order-excel', 'excel')->name('order.excel');
-            Route::get('order-csv', 'csv')->name('order.csv');
-            Route::get('order-pdf', 'pdf')->name('order.pdf');
-            Route::get('report-invoice/{id}', 'invoicePdf')->name('report.pdf');
-        });
-
-        // Fund History Route
-        Route::controller(App\Http\Controllers\Admin\FundController::class)->group(function() {
-            Route::get('fund/history','history')->name('fund.history');
-            Route::post('fund/approved','approved')->name('fund.approved');
-            Route::post('fund/store','store')->name('fund.store');
-        });
-
     });
-
-
-    Route::group(['prefix' => 'partner', 'as' => 'merchant.', 'namespace' => 'Merchant', 'middleware' => ['auth', 'merchant','user']], function () {
-//        TODO
-        Route::get('dashboard', 'DashboardController@index')->name('dashboard');
-        Route::get('/dashboard-data','DashboardController@staticData');
-
-        Route::controller(App\Http\Controllers\Merchant\DomainController::class)->group(function() {
-
-            Route::get('domain', 'index')->name('domain.list');
-            Route::get('domain/create','create')->name('domain.create');
-            Route::get('domain/edit/{id}', 'edit')->name('domain.edit');
-            Route::put('domain/update/{id}', 'update')->name('domain.update');
-            Route::post('domain/check','check')->name('domain.check');
-            Route::post('domain/store','store')->name('domain.store');
-            Route::get('domain/select/plan','gateway')->name('domain.payment');
-
-            Route::get('domain/configuration/{id}', 'domainConfig')->name('domain.domainConfig');
-            Route::post('domain/add-subdomain/{id}','addSubdomain')->name('add.subdomain');
-            Route::put('domain/update-subdomain/{id}','updateSubdomain')->name('update.subdomain');
-            Route::delete('domain/delete-subdomain/{id}','destroy')->name('destroy.subdomain');
-
-            Route::post('domain/add-customdomain/{id}','addCustomDomain')->name('add.customdomain');
-            Route::put('domain/update-customdomain/{id}','updateCustomDomain')->name('update.customdomain');
-            Route::delete('domain/delete-customdomain/{id}','destroyCustomdomain')->name('destroy.customdomain');
-
-            Route::get('/domain/transfer/{id}','transferView')->name('domain.transfer');
-            Route::post('/domain/otp/{id}','sendOtp')->name('domain.transfer.otp')->middleware('throttle:5,1');
-            Route::post('/domain/varifyotp/{id}','verifyOtp')->name('domain.verify.otp')->middleware('throttle:5,1');
-
-            Route::get('/domain/developer-mode/{id}','developerView')->name('domain.developer');
-            Route::post('/domain/migrate-seed/{id}','migrateWithSeed')->name('domain.migrate-seed');
-            Route::post('/domain/migrate/{id}','migrate')->name('domain.migrate');
-            // added by mutaman for fresh migrate
-            Route::post('/domain/fresh-migrate/{id}','freshMigrate')->name('domain.fresh-migrate');
-            // end added
-            Route::post('/domain/clear-cache/{id}','cacheClear')->name('domain.clear-cache');
-            Route::post('/domain/remove-storage/{id}','removeStorage')->name('domain.storage.clear');
-            // added by mutaman for maintenance mode
-            Route::post('/domain/enable-maintenance/{id}','enableMaintenance')->name('domain.enable.maintenance');
-            Route::post('/domain/disable-maintenance/{id}','disableMaintenance')->name('domain.disable.maintenance');
-            // end
-            Route::post('/domain/login/{id}','login')->name('domain.login');
-            Route::post('/domain-login/{id}','loginByDomain')->name('domain.login.domain');
-        });
-
-
-        Route::resource('plan', App\Http\Controllers\Merchant\PlanController::class);
-
-        Route::controller(App\Http\Controllers\Merchant\PlanController::class)->group(function() {
-            Route::get('/domain/renew/{id}','renewView')->name('domain.renew');
-            Route::get('/plan/domain/{id}','changePlan')->name('domain.plan');
-            Route::get('/plancharge/{domain}/{id}', 'ChanePlanGateways')->name('plan.gateways');
-            Route::post('/domain/renewcharge/{id}','renewCharge')->name('plan.renew-plan');
-
-            Route::get('/gateways/{id}', 'gateways')->name('plan.gateways');
-            Route::post('/deposit', 'deposit')->name('plan.deposit');
-            Route::get('plan-invoice/{id}', 'invoicePdf');
-            Route::get('enroll', 'enroll')->name('plan.enroll');
-            Route::post('enroll/store', 'storePlan')->name('enroll.domain');
-
-            // Store Create
-            Route::get('store/create','strorecreate')->name('plan.strorecreate');
-
-            //Payment status route
-            Route::get('payment/success', 'success')->name('payment.success');
-            Route::get('payment/failed', 'failed')->name('payment.failed');
-        });
-
-        //Support Route
-        Route::resource('support', App\Http\Controllers\Merchant\SupportController::class);
-
-        //Report Route
-        Route::resource('report', App\Http\Controllers\Merchant\ReportController::class);
-
-        // Fund Route
-        Route::resource('fund', App\Http\Controllers\Merchant\FundController::class);
-
-        Route::controller(App\Http\Controllers\Merchant\FundController::class)->group(function() {
-            Route::get('fund/payment/select','payment')->name('fund.payment');
-            Route::post('fund/deposit','deposit')->name('fund.deposit');
-            Route::get('fund/history/list','history')->name('fund.history');
-            Route::get('fund/redirect/success', 'success')->name('fund.success');
-            Route::get('fund/redirect/fail', 'fail')->name('fund.fail');
-        });
-
-        Route::get('plan-renew/redirect/success', [App\Http\Controllers\Merchant\PlanController::class, 'renewSuccess']);
-        Route::get('plan-renew/redirect/fail', [App\Http\Controllers\Merchant\PlanController::class, 'renewFail']);
-
-        // Lock Store
-        Route::get('store/lock/{id}', [App\Http\Controllers\Merchant\PlanController::class, 'lock'])->name('store.lock');
-
-        // Order Routes
-        Route::get('order', [App\Http\Controllers\Merchant\OrderController::class, 'index'])->name('order.index');
-    });
-
-});
-
+}
 
 
 

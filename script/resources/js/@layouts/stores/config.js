@@ -1,6 +1,7 @@
 import { AppContentLayoutNav, NavbarType } from '@layouts/enums'
 import { injectionKeyIsVerticalNavHovered } from '@layouts/symbols'
 import { _setDirAttr } from '@layouts/utils'
+import { usePage } from '@inertiajs/vue3';
 
 // ℹ️ We should not import themeConfig here but in urgency we are doing it for now
 import { layoutConfig } from '@themeConfig'
@@ -11,6 +12,7 @@ export const cookieRef = (key, defaultValue) => {
 }
 export const useLayoutConfigStore = defineStore('layoutConfig', () => {
   const route = useRoute()
+  const { props } = usePage();
 
   // 👉 Navbar Type
   const navbarType = ref(layoutConfig.navbar.type)
@@ -67,7 +69,7 @@ export const useLayoutConfigStore = defineStore('layoutConfig', () => {
       `layout-content-width-${appContentWidth.value}`,
       { 'layout-overlay-nav': isLessThanOverlayNavBreakpoint.value },
       { 'window-scrolled': unref(windowScrollY) },
-      route.meta.layoutWrapperClasses ? route.meta.layoutWrapperClasses : null,
+      props.route.meta.layoutWrapperClasses ? 'layout-content-height-fixed' : 'layout-content-height-fixed',
     ]
   })
 

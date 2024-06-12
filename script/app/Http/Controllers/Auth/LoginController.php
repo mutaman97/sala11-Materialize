@@ -8,6 +8,8 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Auth;
 use Cart;
+use Inertia\Inertia;
+use Laravel\Pennant\Feature;
 
 class LoginController extends Controller
 {
@@ -39,6 +41,16 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function showLoginForm()
+    {
+        if (Feature::active('vue-homepage')) {
+            return Inertia::render('login', [
+                'info' => "info",
+            ]);
+        }
+        return view('auth.login');
     }
 
     public function redirectTo()

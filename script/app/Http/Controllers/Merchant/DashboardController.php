@@ -9,19 +9,29 @@ use App\Models\Order;
 use App\Models\Option;
 use Auth;
 use Carbon\Carbon;
+use Inertia\Inertia;
+use Laravel\Pennant\Feature;
+
 class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Inertia\Response
      */
-    public function index()
+    public function index(): \Illuminate\Http\Response|\Inertia\Response
     {
         $orders = Order::where([['user_id', Auth::id()],['price','>',0]])->with('plan','orderlog')->latest()->take(5)->get();
         $total_active_stores=Tenant::where([['user_id',Auth::id()],['will_expire','>',now()],['status',1]])->count();
         $order_method=Option::where('key','order_method')->first();
         $order_method=$order_method->value ?? '';
+
+        if (Feature::active('vue-homepage')) {
+            return Inertia::render('dashboards/ecommerce', [
+                'info' => "info",
+            ]);
+        }
+
         return view('merchant.dashboard',compact('orders','order_method','total_active_stores'));
     }
 

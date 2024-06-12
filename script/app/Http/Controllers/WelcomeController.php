@@ -22,56 +22,56 @@ class WelcomeController extends Controller
 {
     public function index()
     {
-//        $info = get_option('theme',true);
-//        $services = Term::with('serviceMeta')->where([
-//            ['type','service'],
-//            ['status', 1]
-//        ])->take(6)->get();
-//        $plans = Plan::where('status',1)->take(3)->get();
-//        $plans365=Plan::where(['status'=>1,['duration','=',365]])->take(3)->get();
-//        $blogs = Term::with('preview','excerpt')->where([
-//            ['type','blog'],
-//            ['status',1]
-//        ])->latest()->take(3)->get();
-//
-//        $demos = Term::with('meta')->where([
-//            ['type','theme_demo'],
-//            ['status',1]
-//        ])->latest()->take(3)->get();
-//
-//        $testimonials = Term::with('meta')->where([
-//            ['type','testimonial'],
-//            ['status',1]
-//        ])->latest()->take(5)->get();
-//
-//        $seo=get_option('seo_home',true);
-//
-//        JsonLdMulti::setTitle($seo->{'site_name_'.Session::get('locale')} ?? env('APP_NAME'));
-//        JsonLdMulti::setDescription($seo->{'matadescription_'.Session::get('locale')} ?? null);
-//        JsonLdMulti::addImage(asset('uploads/logo.png'));
-//
-//        SEOMeta::setTitle($seo->{'site_name_'.Session::get('locale')} ?? env('APP_NAME'));
-//        SEOMeta::setDescription($seo->{'matadescription_'.Session::get('locale')} ?? null);
-//        SEOMeta::addKeyword($seo->{'matatag_'.Session::get('locale')} ?? null);
-//
-//        SEOTools::setTitle($seo->{'site_name_'.Session::get('locale')} ?? env('APP_NAME'));
-//        SEOTools::setDescription($seo->{'matadescription_'.Session::get('locale')} ?? null);
-//        SEOTools::setCanonical(url('/'));
-//        SEOTools::opengraph()->addProperty('keywords', $seo->{'matatag_'.Session::get('locale')} ?? null);
-//        SEOTools::opengraph()->addProperty('image', asset('uploads/logo.png'));
-//        SEOTools::twitter()->setTitle($seo->{'twitter_site_title_'.Session::get('locale')} ?? env('APP_NAME'));
-//        SEOTools::twitter()->setSite('@salaplatform' ?? null);
-//        SEOTools::jsonLd()->addImage(asset('uploads/logo.png'));
+        $info = get_option('theme',true);
+        $services = Term::with('serviceMeta')->where([
+            ['type','service'],
+            ['status', 1]
+        ])->take(6)->get();
+        $plans = Plan::where('status',1)->take(3)->get();
+        $plans365=Plan::where(['status'=>1,['duration','=',365]])->take(3)->get();
+        $blogs = Term::with('preview','excerpt')->where([
+            ['type','blog'],
+            ['status',1]
+        ])->latest()->take(3)->get();
+
+        $demos = Term::with('meta')->where([
+            ['type','theme_demo'],
+            ['status',1]
+        ])->latest()->take(3)->get();
+
+        $testimonials = Term::with('meta')->where([
+            ['type','testimonial'],
+            ['status',1]
+        ])->latest()->take(5)->get();
+
+        $seo=get_option('seo_home',true);
+
+        JsonLdMulti::setTitle($seo->{'site_name_'.Session::get('locale')} ?? env('APP_NAME'));
+        JsonLdMulti::setDescription($seo->{'matadescription_'.Session::get('locale')} ?? null);
+        JsonLdMulti::addImage(asset('uploads/logo.png'));
+
+        SEOMeta::setTitle($seo->{'site_name_'.Session::get('locale')} ?? env('APP_NAME'));
+        SEOMeta::setDescription($seo->{'matadescription_'.Session::get('locale')} ?? null);
+        SEOMeta::addKeyword($seo->{'matatag_'.Session::get('locale')} ?? null);
+
+        SEOTools::setTitle($seo->{'site_name_'.Session::get('locale')} ?? env('APP_NAME'));
+        SEOTools::setDescription($seo->{'matadescription_'.Session::get('locale')} ?? null);
+        SEOTools::setCanonical(url('/'));
+        SEOTools::opengraph()->addProperty('keywords', $seo->{'matatag_'.Session::get('locale')} ?? null);
+        SEOTools::opengraph()->addProperty('image', asset('uploads/logo.png'));
+        SEOTools::twitter()->setTitle($seo->{'twitter_site_title_'.Session::get('locale')} ?? env('APP_NAME'));
+        SEOTools::twitter()->setSite('@salaplatform' ?? null);
+        SEOTools::jsonLd()->addImage(asset('uploads/logo.png'));
 
         if (Feature::active('vue-homepage')) {
             return Inertia::render('front-pages/landing-page/index', [
-//                'info' => $info,
-//                'services' => $services,
-//                'plans' => $plans,
-//                'plans365' => $plans365,
-//                'blogs' => $blogs,
-//                'demos' => $demos,
-//                'testimonials' => $testimonials
+                'info' => $info,
+                'services' => $services,
+                'plans' => $plans,
+                'plans365' => $plans365,
+                'blogs' => $blogs,
+                'demos' => $demos,
+                'testimonials' => $testimonials
             ]);
         }
 

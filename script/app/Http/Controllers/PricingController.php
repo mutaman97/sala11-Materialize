@@ -11,6 +11,8 @@ use Artesaos\SEOTools\Facades\JsonLd;
 use Artesaos\SEOTools\Facades\JsonLdMulti;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Support\Facades\Session;
+use Inertia\Inertia;
+use Laravel\Pennant\Feature;
 
 class PricingController extends Controller
 {
@@ -37,6 +39,18 @@ class PricingController extends Controller
 
         $plans = Plan::where('status',1)->take(3)->get();
         $plans365=Plan::where(['status'=>1,['duration','=',365]])->take(3)->get();
+
+        if (Feature::active('vue-homepage')) {
+            return Inertia::render('front-pages/pricing', [
+//                'info' => $info,
+//                'services' => $services,
+//                'plans' => $plans,
+//                'plans365' => $plans365,
+//                'blogs' => $blogs,
+//                'demos' => $demos,
+//                'testimonials' => $testimonials
+            ]);
+        }
         return view('pricing',compact('plans','plans365'));
     }
 }
