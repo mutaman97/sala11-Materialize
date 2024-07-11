@@ -3,7 +3,5 @@
 vendor
 /vendor
 vendor/
-storage/
-storage
 node_modules/
 /node_modules
