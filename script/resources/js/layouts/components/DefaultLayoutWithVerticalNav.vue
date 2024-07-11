@@ -1,22 +1,4 @@
 <script setup>
-import { useTheme } from 'vuetify'
-import ScrollToTop from '@core/components/ScrollToTop.vue'
-import initCore from '@core/initCore'
-import {
-  initConfigStore,
-  useConfigStore,
-} from '@core/stores/config'
-import { hexToRgb } from '@layouts/utils'
-
-const { global } = useTheme()
-
-// ℹ️ Sync current theme with initial loader theme
-initCore()
-initConfigStore()
-
-const configStore = useConfigStore()
-
-
 import navItems from '@/navigation/vertical'
 import { useConfigStore } from '@core/stores/config'
 import { themeConfig } from '@themeConfig'
@@ -96,24 +78,16 @@ watch([
 
     <!-- 👉 Pages -->
 <!--    <RouterView v-slot="{ Component }">-->
-<!--      <Suspense-->
-<!--        :timeout="0"-->
-<!--        @fallback="isFallbackStateActive = true"-->
-<!--        @resolve="isFallbackStateActive = false"-->
-<!--      >-->
+      <Suspense
+        :timeout="0"
+        @fallback="isFallbackStateActive = true"
+        @resolve="isFallbackStateActive = false"
+      >
 <!--        <Component :is="Component" />-->
-<!--      </Suspense>-->
+        <slot></slot>
+      </Suspense>
 <!--    </RouterView>-->
 
-    <VLocaleProvider :rtl="configStore.isAppRTL">
-      <!-- ℹ️ This is required to set the background color of active nav link based on currently active global theme's primary -->
-      <VApp :style="`--v-global-theme-primary: ${hexToRgb(global.current.value.colors.primary)}`">
-        <div class="layout-wrapper layout-blank">
-          <slot />
-        </div>
-        <ScrollToTop />
-      </VApp>
-    </VLocaleProvider>
 
     <!-- 👉 Footer -->
     <template #footer>

@@ -69,7 +69,7 @@ export const useLayoutConfigStore = defineStore('layoutConfig', () => {
       `layout-content-width-${appContentWidth.value}`,
       { 'layout-overlay-nav': isLessThanOverlayNavBreakpoint.value },
       { 'window-scrolled': unref(windowScrollY) },
-      props.route.meta.layoutWrapperClasses ? 'layout-content-height-fixed' : 'layout-content-height-fixed',
+      'layout-content-height-fixed',
     ]
   })
 

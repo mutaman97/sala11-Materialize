@@ -141,7 +141,7 @@ const statisticsWithImages = [
       md="8"
       order="4"
     >
-      <EcommerceUserList />
+<!--      <EcommerceUserList />-->
     </VCol>
 
     <!-- 👉 Visits by day -->
