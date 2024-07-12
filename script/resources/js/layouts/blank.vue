@@ -1,14 +1,14 @@
 <script setup>
-import {useTheme} from 'vuetify'
+import { useTheme } from 'vuetify'
 import ScrollToTop from '@core/components/ScrollToTop.vue'
 import initCore from '@core/initCore'
 import {
     initConfigStore,
     useConfigStore,
 } from '@core/stores/config'
-import {hexToRgb} from '@layouts/utils'
+import { hexToRgb } from '@layouts/utils'
 
-const {global} = useTheme()
+const { global } = useTheme()
 
 // ℹ️ Sync current theme with initial loader theme
 initCore()
@@ -16,7 +16,7 @@ initConfigStore()
 
 const configStore = useConfigStore()
 
-const {injectSkinClasses} = useSkins()
+const { injectSkinClasses } = useSkins()
 
 // ℹ️ This will inject classes in body tag for accurate styling
 injectSkinClasses()
@@ -33,7 +33,7 @@ watch([
         refLoadingIndicator.value.fallbackHandle()
     if (!isFallbackStateActive.value && refLoadingIndicator.value)
         refLoadingIndicator.value.resolveHandle()
-}, {immediate: true})
+}, { immediate: true })
 // !SECTION
 </script>
 
@@ -41,7 +41,7 @@ watch([
     <VLocaleProvider :rtl="configStore.isAppRTL">
         <!-- ℹ️ This is required to set the background color of active nav link based on currently active global theme's primary -->
         <VApp :style="`--v-global-theme-primary: ${hexToRgb(global.current.value.colors.primary)}`">
-            <AppLoadingIndicator ref="refLoadingIndicator"/>
+            <AppLoadingIndicator ref="refLoadingIndicator" />
 
             <div class="layout-wrapper layout-blank">
                 <Suspense
@@ -49,10 +49,10 @@ watch([
                     @fallback="isFallbackStateActive = true"
                     @resolve="isFallbackStateActive = false"
                 >
-                    <slot/>
+                    <slot />
                 </Suspense>
             </div>
-            <ScrollToTop/>
+            <ScrollToTop />
         </VApp>
     </VLocaleProvider>
 </template>

@@ -1,3 +1,3 @@
 <template>
-    <VRating hover/>
+  <VRating hover />
 </template>

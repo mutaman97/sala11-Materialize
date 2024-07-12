@@ -1,6 +1,6 @@
 <template>
-    <VFileInput
-        multiple
-        label="File input"
-    />
+  <VFileInput
+    multiple
+    label="File input"
+  />
 </template>

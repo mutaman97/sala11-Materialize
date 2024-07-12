@@ -1,6 +1,6 @@
 <template>
-    <VTextField
-        label="Regular"
-        placeholder="Placeholder Text"
-    />
+  <VTextField
+    label="Regular"
+    placeholder="Placeholder Text"
+  />
 </template>

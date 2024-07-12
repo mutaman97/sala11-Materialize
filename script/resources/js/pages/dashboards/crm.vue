@@ -15,22 +15,22 @@ import CrmWeeklyOverview from '@/views/dashboards/crm/CrmWeeklyOverview.vue'
 import Layout from '@/layouts/default.vue'
 
 const statisticsVertical = [
-    {
-        title: 'Total Orders',
-        color: 'primary',
-        icon: 'ri-shopping-cart-line',
-        stats: '155k',
-        change: 22,
-        subtitle: 'Last 4 months',
-    },
-    {
-        title: 'Total Sales',
-        color: 'success',
-        icon: 'ri-handbag-line',
-        stats: '13.4k',
-        change: 38,
-        subtitle: 'Last Six months',
-    },
+  {
+    title: 'Total Orders',
+    color: 'primary',
+    icon: 'ri-shopping-cart-line',
+    stats: '155k',
+    change: 22,
+    subtitle: 'Last 4 months',
+  },
+  {
+    title: 'Total Sales',
+    color: 'success',
+    icon: 'ri-handbag-line',
+    stats: '13.4k',
+    change: 38,
+    subtitle: 'Last Six months',
+  },
 ]
 
 defineOptions({layout: Layout})
@@ -38,130 +38,130 @@ defineOptions({layout: Layout})
 </script>
 
 <template>
-    <VRow class="match-height">
-        <!-- 👉 Award -->
-        <VCol
-            cols="12"
-            md="4"
-        >
-            <CrmCongratulationsNorris/>
-        </VCol>
+  <VRow class="match-height">
+    <!-- 👉 Award -->
+    <VCol
+      cols="12"
+      md="4"
+    >
+      <CrmCongratulationsNorris />
+    </VCol>
 
-        <!-- 👉 Total Orders -->
-        <VCol
-            v-for="statistics in statisticsVertical"
-            :key="statistics.title"
-            cols="12"
-            sm="3"
-            md="2"
-        >
-            <CardStatisticsVertical v-bind="statistics"/>
-        </VCol>
+    <!-- 👉 Total Orders -->
+    <VCol
+      v-for="statistics in statisticsVertical"
+      :key="statistics.title"
+      cols="12"
+      sm="3"
+      md="2"
+    >
+      <CardStatisticsVertical v-bind="statistics" />
+    </VCol>
 
-        <!-- 👉 Profile Line Charts -->
-        <VCol
-            cols="12"
-            sm="3"
-            md="2"
-        >
-            <CrmProfitBarWithGapCharts/>
-        </VCol>
+    <!-- 👉 Profile Line Charts -->
+    <VCol
+      cols="12"
+      sm="3"
+      md="2"
+    >
+      <CrmProfitBarWithGapCharts />
+    </VCol>
 
-        <!-- 👉 Total Growth -->
-        <VCol
-            cols="12"
-            md="2"
-            sm="3"
-        >
-            <CrmGrowthDonutCharts/>
-        </VCol>
+    <!-- 👉 Total Growth -->
+    <VCol
+      cols="12"
+      md="2"
+      sm="3"
+    >
+      <CrmGrowthDonutCharts />
+    </VCol>
 
-        <!-- 👉 Organic Sessions -->
-        <VCol
-            cols="12"
-            md="4"
-        >
-            <CrmOrganicSessions/>
-        </VCol>
+    <!-- 👉 Organic Sessions -->
+    <VCol
+      cols="12"
+      md="4"
+    >
+      <CrmOrganicSessions />
+    </VCol>
 
-        <!-- 👉 Project Timeline -->
-        <VCol
-            cols="12"
-            md="8"
-        >
-            <CrmProjectTimeline/>
-        </VCol>
+    <!-- 👉 Project Timeline -->
+    <VCol
+      cols="12"
+      md="8"
+    >
+      <CrmProjectTimeline />
+    </VCol>
 
-        <!-- 👉 Weekly Overview -->
-        <VCol
-            cols="12"
-            sm="6"
-            md="4"
-        >
-            <CrmWeeklyOverview/>
-        </VCol>
+    <!-- 👉 Weekly Overview -->
+    <VCol
+      cols="12"
+      sm="6"
+      md="4"
+    >
+      <CrmWeeklyOverview />
+    </VCol>
 
-        <!-- 👉 Social Network Visits -->
-        <VCol
-            cols="12"
-            sm="6"
-            md="4"
-        >
-            <CrmSocialNetworkVisits/>
-        </VCol>
+    <!-- 👉 Social Network Visits -->
+    <VCol
+      cols="12"
+      sm="6"
+      md="4"
+    >
+      <CrmSocialNetworkVisits />
+    </VCol>
 
-        <!-- 👉 Monthly Budget -->
-        <VCol
-            cols="12"
-            md="4"
-            sm="6"
-        >
-            <CrmMonthlyBudget/>
-        </VCol>
+    <!-- 👉 Monthly Budget -->
+    <VCol
+      cols="12"
+      md="4"
+      sm="6"
+    >
+      <CrmMonthlyBudget />
+    </VCol>
 
-        <!-- 👉 Meeting Schedule -->
-        <VCol
-            cols="12"
-            md="4"
-            sm="6"
-        >
-            <CrmMeetingSchedule/>
-        </VCol>
+    <!-- 👉 Meeting Schedule -->
+    <VCol
+      cols="12"
+      md="4"
+      sm="6"
+    >
+      <CrmMeetingSchedule />
+    </VCol>
 
-        <!-- 👉 External Links -->
-        <VCol
-            cols="12"
-            sm="6"
-            md="4"
-        >
-            <CrmExternalLinks/>
-        </VCol>
+    <!-- 👉 External Links -->
+    <VCol
+      cols="12"
+      sm="6"
+      md="4"
+    >
+      <CrmExternalLinks />
+    </VCol>
 
-        <!-- 👉 Payment History -->
-        <VCol
-            cols="12"
-            sm="6"
-            md="4"
-        >
-            <CrmPaymentHistory/>
-        </VCol>
+    <!-- 👉 Payment History -->
+    <VCol
+      cols="12"
+      sm="6"
+      md="4"
+    >
+      <CrmPaymentHistory />
+    </VCol>
 
-        <!-- 👉 Most Sales in Countries -->
-        <VCol
-            cols="12"
-            md="4"
-        >
-            <CrmMostSalesInCountries/>
-        </VCol>
+    <!-- 👉 Most Sales in Countries -->
+    <VCol
+      cols="12"
+      md="4"
+    >
+      <CrmMostSalesInCountries />
+    </VCol>
 
-        <!-- 👉 User List -->
-        <VCol
-            cols="12"
-            md="8"
-        >
-            <CrmUserList/>
-        </VCol>
-    </VRow>
+    <!-- 👉 User List -->
+    <VCol
+      cols="12"
+      md="8"
+    >
+      <CrmUserList />
+    </VCol>
+  </VRow>
 </template>
 
 <style lang="scss">

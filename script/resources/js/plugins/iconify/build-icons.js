@@ -10,32 +10,31 @@
  * This example uses Iconify Tools to import and clean up icons.
  * For Iconify Tools documentation visit https://docs.iconify.design/tools/tools2/
  */
-import {promises as fs} from 'node:fs';
-import {dirname, join} from 'node:path';
+import { promises as fs } from 'node:fs';
+import { dirname, join } from 'node:path';
 // Installation: npm install --save-dev @iconify/tools @iconify/utils @iconify/json @iconify/iconify
-import {cleanupSVG, importDirectory, isEmptyColor, parseColors, runSVGO} from '@iconify/tools';
-import {getIcons, getIconsCSS, stringToIcon} from '@iconify/utils';
-
+import { cleanupSVG, importDirectory, isEmptyColor, parseColors, runSVGO } from '@iconify/tools';
+import { getIcons, getIconsCSS, stringToIcon } from '@iconify/utils';
 const sources = {
     svg: [
-        // {
-        //   dir: 'resources/images/iconify-svg',
-        //   monotone: true,
-        //   prefix: 'custom',
-        // },
-        // {
-        //   dir: 'emojis',
-        //   monotone: false,
-        //   prefix: 'emoji',
-        // },
+    // {
+    //   dir: 'resources/images/iconify-svg',
+    //   monotone: true,
+    //   prefix: 'custom',
+    // },
+    // {
+    //   dir: 'emojis',
+    //   monotone: false,
+    //   prefix: 'emoji',
+    // },
     ],
     icons: [
-        // 'mdi:home',
-        // 'mdi:account',
-        // 'mdi:login',
-        // 'mdi:logout',
-        // 'octicon:book-24',
-        // 'octicon:code-square-24',
+    // 'mdi:home',
+    // 'mdi:account',
+    // 'mdi:login',
+    // 'mdi:logout',
+    // 'octicon:book-24',
+    // 'octicon:code-square-24',
     ],
     json: [
         // Custom JSON file
@@ -81,7 +80,8 @@ const target = join(__dirname, 'icons.css');
         await fs.mkdir(dir, {
             recursive: true,
         });
-    } catch (err) {
+    }
+    catch (err) {
         //
     }
     const allIcons = [];
@@ -116,7 +116,8 @@ const target = join(__dirname, 'icons.css');
                     throw new Error(`Cannot find required icons in ${filename}`);
                 // Collect filtered icons
                 allIcons.push(filteredContent);
-            } else {
+            }
+            else {
                 // Collect all icons from the JSON file
                 allIcons.push(content);
             }
@@ -159,7 +160,8 @@ const target = join(__dirname, 'icons.css');
                     }
                     // Optimise
                     await runSVGO(svg);
-                } catch (err) {
+                }
+                catch (err) {
                     // Invalid icon
                     console.error(`Error parsing ${name} from ${source.dir}:`, err);
                     iconSet.remove(name);
@@ -174,7 +176,7 @@ const target = join(__dirname, 'icons.css');
     }
     // Generate CSS from collected icons
     const cssContent = allIcons
-        .map(iconSet => getIconsCSS(iconSet, Object.keys(iconSet.icons), {iconSelector: '.{prefix}-{name}'}))
+        .map(iconSet => getIconsCSS(iconSet, Object.keys(iconSet.icons), { iconSelector: '.{prefix}-{name}' }))
         .join('\n');
     // Save the CSS to a file
     await fs.writeFile(target, cssContent, 'utf8');
@@ -182,7 +184,6 @@ const target = join(__dirname, 'icons.css');
 })().catch(err => {
     console.error(err);
 });
-
 /**
  * Sort icon names by prefix
  */

@@ -3,23 +3,23 @@ import avatar1 from '@images/avatars/avatar-1.png'
 </script>
 
 <template>
-    <div class="demo-space-x">
-        <!-- avatar -->
-        <VBadge>
-            <template #badge>
-                <VIcon icon="ri-error-warning-line"/>
-            </template>
+  <div class="demo-space-x">
+    <!-- avatar -->
+    <VBadge>
+      <template #badge>
+        <VIcon icon="ri-error-warning-line" />
+      </template>
 
-            <VAvatar>
-                <VImg :src="avatar1"/>
-            </VAvatar>
-        </VBadge>
+      <VAvatar>
+        <VImg :src="avatar1" />
+      </VAvatar>
+    </VBadge>
 
-        <!-- icon -->
-        <VBadge icon="ri-lock-unlock-line">
-            <VAvatar>
-                <VImg :src="avatar1"/>
-            </VAvatar>
-        </VBadge>
-    </div>
+    <!-- icon -->
+    <VBadge icon="ri-lock-unlock-line">
+      <VAvatar>
+        <VImg :src="avatar1" />
+      </VAvatar>
+    </VBadge>
+  </div>
 </template>

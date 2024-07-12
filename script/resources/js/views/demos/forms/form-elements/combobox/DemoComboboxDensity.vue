@@ -1,24 +1,24 @@
 <script setup>
 const select = ref([
-    'Vuetify',
-    'Programming',
+  'Vuetify',
+  'Programming',
 ])
 
 const items = [
-    'Programming',
-    'Design',
-    'Vue',
-    'Vuetify',
+  'Programming',
+  'Design',
+  'Vue',
+  'Vuetify',
 ]
 </script>
 
 <template>
-    <VCombobox
-        v-model="select"
-        :items="items"
-        label="Combobox"
-        density="compact"
-        placeholder="deployment"
-        multiple
-    />
+  <VCombobox
+    v-model="select"
+    :items="items"
+    label="Combobox"
+    density="compact"
+    placeholder="deployment"
+    multiple
+  />
 </template>

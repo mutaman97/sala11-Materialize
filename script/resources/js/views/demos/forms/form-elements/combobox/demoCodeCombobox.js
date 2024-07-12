@@ -1,5 +1,4 @@
-export const basic = {
-    ts: `<script lang="ts" setup>
+export const basic = { ts: `<script lang="ts" setup>
 const selectedItem = ref('Programming')
 const items = ['Programming', 'Design', 'Vue', 'Vuetify']
 </script>
@@ -29,11 +28,9 @@ const items = [
     placeholder="deployment"
   />
 </template>
-`
-}
+` }
 
-export const clearable = {
-    ts: `<script lang="ts" setup>
+export const clearable = { ts: `<script lang="ts" setup>
 const select = ref(['Vuetify', 'Programming'])
 const items = ['Programming', 'Design', 'Vue', 'Vuetify']
 </script>
@@ -72,11 +69,9 @@ const items = [
     clearable
   />
 </template>
-`
-}
+` }
 
-export const density = {
-    ts: `<script lang="ts" setup>
+export const density = { ts: `<script lang="ts" setup>
 const select = ref(['Vuetify', 'Programming'])
 const items = ['Programming', 'Design', 'Vue', 'Vuetify']
 </script>
@@ -115,11 +110,9 @@ const items = [
     multiple
   />
 </template>
-`
-}
+` }
 
-export const multiple = {
-    ts: `<script lang="ts" setup>
+export const multiple = { ts: `<script lang="ts" setup>
 const selectedItem = ref(['Vuetify', 'Programming'])
 const items = ['Programming', 'Design', 'Vue', 'Vuetify']
 </script>
@@ -258,11 +251,9 @@ const items = [
     </VCol>
   </VRow>
 </template>
-`
-}
+` }
 
-export const noDataWithChips = {
-    ts: `<script lang="ts" setup>
+export const noDataWithChips = { ts: `<script lang="ts" setup>
 const items = ['Gaming', 'Programming', 'Vue', 'Vuetify']
 const selectedList = ref(['Vuetify'])
 const search = ref(null)
@@ -334,11 +325,9 @@ watch(selectedList, value => {
     </template>
   </VCombobox>
 </template>
-`
-}
+` }
 
-export const variant = {
-    ts: `<script lang="ts" setup>
+export const variant = { ts: `<script lang="ts" setup>
 const selectedItem = ref(['Programming'])
 const items = ['Programming', 'Design', 'Vue', 'Vuetify']
 </script>
@@ -462,6 +451,5 @@ const items = [
     </VCol>
   </VRow>
 </template>
-`
-}
+` }
 

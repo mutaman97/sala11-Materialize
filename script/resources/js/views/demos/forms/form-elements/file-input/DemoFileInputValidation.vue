@@ -3,11 +3,11 @@ const rules = [fileList => !fileList || !fileList.length || fileList[0].size < 1
 </script>
 
 <template>
-    <VFileInput
-        :rules="rules"
-        label="Avatar"
-        accept="image/png, image/jpeg, image/bmp"
-        placeholder="Pick an avatar"
-        prepend-icon="ri-camera-2-line"
-    />
+  <VFileInput
+    :rules="rules"
+    label="Avatar"
+    accept="image/png, image/jpeg, image/bmp"
+    placeholder="Pick an avatar"
+    prepend-icon="ri-camera-2-line"
+  />
 </template>

@@ -1,5 +1,4 @@
-export const basic = {
-    ts: `<script lang="ts" setup>
+export const basic = { ts: `<script lang="ts" setup>
 const toggleSwitch = ref(true)
 const toggleFalseSwitch = ref(false)
 
@@ -47,11 +46,9 @@ const capitalizedLabel = label => {
     />
   </div>
 </template>
-`
-}
+` }
 
-export const colors = {
-    ts: `<script lang="ts" setup>
+export const colors = { ts: `<script lang="ts" setup>
 const selectedSwitch = ref(['Primary', 'Secondary', 'Success', 'Info', 'Warning', 'Error'])
 const switches = ref(['Primary', 'Secondary', 'Success', 'Info', 'Warning', 'Error'])
 </script>
@@ -100,11 +97,9 @@ const switches = ref([
     />
   </div>
 </template>
-`
-}
+` }
 
-export const inset = {
-    ts: `<script lang="ts" setup>
+export const inset = { ts: `<script lang="ts" setup>
 const insetSwitch1 = ref(true)
 const insetSwitch2 = ref(false)
 </script>
@@ -142,11 +137,9 @@ const insetSwitch2 = ref(false)
     />
   </div>
 </template>
-`
-}
+` }
 
-export const labelSlot = {
-    ts: `<script lang="ts" setup>
+export const labelSlot = { ts: `<script lang="ts" setup>
 const switchMe = ref(false)
 </script>
 
@@ -176,11 +169,9 @@ const switchMe = ref(false)
     </template>
   </VSwitch>
 </template>
-`
-}
+` }
 
-export const modelAsArray = {
-    ts: `<script lang="ts" setup>
+export const modelAsArray = { ts: `<script lang="ts" setup>
 const people = ref(['John'])
 </script>
 
@@ -226,11 +217,9 @@ const people = ref(['John'])
     {{ people }}
   </p>
 </template>
-`
-}
+` }
 
-export const states = {
-    ts: `<script setup lang="ts">
+export const states = { ts: `<script setup lang="ts">
 const switchOn = ref('on')
 const switchOnDisabled = ref('on')
 const switchOnLoading = ref(true)
@@ -300,11 +289,9 @@ const switchOnLoading = ref(true)
     />
   </div>
 </template>
-`
-}
+` }
 
-export const trueAndFalseValue = {
-    ts: `<script lang="ts" setup>
+export const trueAndFalseValue = { ts: `<script lang="ts" setup>
 const switch1 = ref(1)
 const switch2 = ref('Show')
 </script>
@@ -348,6 +335,5 @@ const switch2 = ref('Show')
     />
   </div>
 </template>
-`
-}
+` }
 

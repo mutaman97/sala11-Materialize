@@ -1,5 +1,5 @@
 <script setup>
-import {register} from 'swiper/element/bundle'
+import { register } from 'swiper/element/bundle'
 import swiper20 from '@images/banner/banner-20.jpg'
 import swiper4 from '@images/banner/banner-4.jpg'
 import swiper5 from '@images/banner/banner-5.jpg'
@@ -11,14 +11,14 @@ register()
 </script>
 
 <template>
-    <swiper-container
-        pagination-clickable="true"
-        autoplay="true"
-        navigation="true"
-        events-prefix="swiper-"
-    >
-        <swiper-slide
-            v-for="swiperImg in [
+  <swiper-container
+    pagination-clickable="true"
+    autoplay="true"
+    navigation="true"
+    events-prefix="swiper-"
+  >
+    <swiper-slide
+      v-for="swiperImg in [
         swiper4,
         swiper5,
         swiper9,
@@ -26,14 +26,14 @@ register()
         swiper8,
         swiper20,
       ]"
-            :key="swiperImg"
-            lazy="true"
-        >
-            <VImg
-                :src="swiperImg"
-                cover
-                loading="lazy"
-            />
-        </swiper-slide>
-    </swiper-container>
+      :key="swiperImg"
+      lazy="true"
+    >
+      <VImg
+        :src="swiperImg"
+        cover
+        loading="lazy"
+      />
+    </swiper-slide>
+  </swiper-container>
 </template>

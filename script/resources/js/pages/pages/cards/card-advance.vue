@@ -23,190 +23,190 @@ import CardAdvancedDeliveryPerformance from '@/views/pages/cards/card-advance/Ca
 </script>
 
 <template>
-    <VRow>
-        <!-- 👉 Transactions -->
-        <VCol
-            cols="12"
-            md="6"
-            lg="4"
-        >
-            <CardAdvanceTransactions/>
-        </VCol>
+  <VRow>
+    <!-- 👉 Transactions -->
+    <VCol
+      cols="12"
+      md="6"
+      lg="4"
+    >
+      <CardAdvanceTransactions />
+    </VCol>
 
-        <!-- 👉 Upgrade Your Plan -->
-        <VCol
-            cols="12"
-            md="6"
-            lg="4"
-        >
-            <CardAdvanceUpgradeYourPlan/>
-        </VCol>
+    <!-- 👉 Upgrade Your Plan -->
+    <VCol
+      cols="12"
+      md="6"
+      lg="4"
+    >
+      <CardAdvanceUpgradeYourPlan />
+    </VCol>
 
-        <!-- 👉 Meeting Schedule -->
-        <VCol
-            cols="12"
-            md="6"
-            lg="4"
-        >
-            <CardAdvanceMeetingSchedule/>
-        </VCol>
+    <!-- 👉 Meeting Schedule -->
+    <VCol
+      cols="12"
+      md="6"
+      lg="4"
+    >
+      <CardAdvanceMeetingSchedule />
+    </VCol>
 
-        <!-- 👉 Project Statistics -->
-        <VCol
-            cols="12"
-            md="6"
-            lg="4"
-        >
-            <CardAdvancedProjectStatistics/>
-        </VCol>
+    <!-- 👉 Project Statistics -->
+    <VCol
+      cols="12"
+      md="6"
+      lg="4"
+    >
+      <CardAdvancedProjectStatistics />
+    </VCol>
 
-        <!-- 👉 Top Referral Sources -->
-        <VCol
-            cols="12"
-            md="6"
-            lg="8"
-        >
-            <CardAdvancedTopReferralSources/>
-        </VCol>
+    <!-- 👉 Top Referral Sources -->
+    <VCol
+      cols="12"
+      md="6"
+      lg="8"
+    >
+      <CardAdvancedTopReferralSources />
+    </VCol>
 
-        <!-- 👉 Total Earning -->
-        <VCol
-            cols="12"
-            md="6"
-            lg="4"
-        >
-            <CardAdvanceTotalEarning/>
-        </VCol>
+    <!-- 👉 Total Earning -->
+    <VCol
+      cols="12"
+      md="6"
+      lg="4"
+    >
+      <CardAdvanceTotalEarning />
+    </VCol>
 
-        <!-- 👉 General Statistics -->
-        <VCol
-            cols="12"
-            md="6"
-            lg="4"
-        >
-            <CardAdvancedGeneralStatistics/>
-        </VCol>
+    <!-- 👉 General Statistics -->
+    <VCol
+      cols="12"
+      md="6"
+      lg="4"
+    >
+      <CardAdvancedGeneralStatistics />
+    </VCol>
 
-        <!-- 👉 Popular Instructors -->
-        <VCol
-            cols="12"
-            md="6"
-            lg="4"
-        >
-            <CardAdvancedPopularInstructors/>
-        </VCol>
+    <!-- 👉 Popular Instructors -->
+    <VCol
+      cols="12"
+      md="6"
+      lg="4"
+    >
+      <CardAdvancedPopularInstructors />
+    </VCol>
 
-        <!-- 👉 Top Courses -->
-        <VCol
-            cols="12"
-            md="6"
-            lg="4"
-        >
-            <CardAdvancedTopCourses/>
-        </VCol>
+    <!-- 👉 Top Courses -->
+    <VCol
+      cols="12"
+      md="6"
+      lg="4"
+    >
+      <CardAdvancedTopCourses />
+    </VCol>
 
-        <!-- 👉 Upcoming Webinar -->
-        <VCol
-            cols="12"
-            md="6"
-            lg="4"
-        >
-            <CardAdvancedUpcomingWebinar/>
-        </VCol>
+    <!-- 👉 Upcoming Webinar -->
+    <VCol
+      cols="12"
+      md="6"
+      lg="4"
+    >
+      <CardAdvancedUpcomingWebinar />
+    </VCol>
 
-        <!-- 👉 Assignment Progress -->
-        <VCol
-            cols="12"
-            md="6"
-            lg="4"
-        >
-            <CardAdvancedAssignmentProgress/>
-        </VCol>
+    <!-- 👉 Assignment Progress -->
+    <VCol
+      cols="12"
+      md="6"
+      lg="4"
+    >
+      <CardAdvancedAssignmentProgress />
+    </VCol>
 
-        <!-- 👉 Most Sales In Countries -->
-        <VCol
-            cols="12"
-            md="6"
-            lg="4"
-        >
-            <CardAdvancedMostSalesInCountries/>
-        </VCol>
+    <!-- 👉 Most Sales In Countries -->
+    <VCol
+      cols="12"
+      md="6"
+      lg="4"
+    >
+      <CardAdvancedMostSalesInCountries />
+    </VCol>
 
-        <!-- 👉 Payment History -->
-        <VCol
-            cols="12"
-            md="6"
-            lg="4"
-        >
-            <CardAdvancedPaymentHistory/>
-        </VCol>
+    <!-- 👉 Payment History -->
+    <VCol
+      cols="12"
+      md="6"
+      lg="4"
+    >
+      <CardAdvancedPaymentHistory />
+    </VCol>
 
-        <!-- 👉 Subscribers By Country -->
-        <VCol
-            cols="12"
-            md="6"
-            lg="4"
-        >
-            <CardAdvanceSubscribersByCountry/>
-        </VCol>
+    <!-- 👉 Subscribers By Country -->
+    <VCol
+      cols="12"
+      md="6"
+      lg="4"
+    >
+      <CardAdvanceSubscribersByCountry />
+    </VCol>
 
-        <!-- 👉 Order By Countries -->
-        <VCol
-            cols="12"
-            md="6"
-            lg="4"
-        >
-            <CardAdvancedOrderByCountries/>
-        </VCol>
+    <!-- 👉 Order By Countries -->
+    <VCol
+      cols="12"
+      md="6"
+      lg="4"
+    >
+      <CardAdvancedOrderByCountries />
+    </VCol>
 
-        <!-- 👉 Delivery Performance -->
-        <VCol
-            cols="12"
-            md="6"
-            lg="4"
-        >
-            <CardAdvancedDeliveryPerformance/>
-        </VCol>
+    <!-- 👉 Delivery Performance -->
+    <VCol
+      cols="12"
+      md="6"
+      lg="4"
+    >
+      <CardAdvancedDeliveryPerformance />
+    </VCol>
 
-        <!-- 👉 Social Network Visits -->
-        <VCol
-            cols="12"
-            md="6"
-            lg="4"
-        >
-            <CardAdvancedSocialNetworkVisits/>
-        </VCol>
+    <!-- 👉 Social Network Visits -->
+    <VCol
+      cols="12"
+      md="6"
+      lg="4"
+    >
+      <CardAdvancedSocialNetworkVisits />
+    </VCol>
 
-        <!-- 👉 Activity Timeline -->
-        <VCol
-            cols="12"
-            md="6"
-            lg="8"
-        >
-            <CardAdvanceActivityTimeline/>
-        </VCol>
+    <!-- 👉 Activity Timeline -->
+    <VCol
+      cols="12"
+      md="6"
+      lg="8"
+    >
+      <CardAdvanceActivityTimeline />
+    </VCol>
 
-        <!-- 👉 IOS Finance App -->
-        <VCol
-            cols="12"
-            md="6"
-            lg="4"
-        >
-            <CardAdvancedIosFinanceApp/>
-        </VCol>
+    <!-- 👉 IOS Finance App -->
+    <VCol
+      cols="12"
+      md="6"
+      lg="4"
+    >
+      <CardAdvancedIosFinanceApp />
+    </VCol>
 
-        <VCol
-            cols="12"
-            md="6"
-        >
-            <CardAdvancedMarketingSales/>
-        </VCol>
+    <VCol
+      cols="12"
+      md="6"
+    >
+      <CardAdvancedMarketingSales />
+    </VCol>
 
-        <VCol
-            cols="12"
-            md="6"
-        >
-            <CardAdvancedWeeklySalesBg/>
-        </VCol>
-    </VRow>
+    <VCol
+      cols="12"
+      md="6"
+    >
+      <CardAdvancedWeeklySalesBg />
+    </VCol>
+  </VRow>
 </template>

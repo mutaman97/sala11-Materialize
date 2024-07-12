@@ -1,13 +1,13 @@
 <script setup>
 const sliderValues = ref([
-    20,
-    40,
+  20,
+  40,
 ])
 </script>
 
 <template>
-    <VRangeSlider
-        v-model="sliderValues"
-        direction="vertical"
-    />
+  <VRangeSlider
+    v-model="sliderValues"
+    direction="vertical"
+  />
 </template>

@@ -1,5 +1,4 @@
-export const basic = {
-    ts: `<script setup lang="ts">
+export const basic = { ts: `<script setup lang="ts">
 const numberedSteps = [
   {
     title: 'Account Details',
@@ -560,11 +559,9 @@ const onSubmit = () => {
     </VCardText>
   </VCard>
 </template>
-`
-}
+` }
 
-export const validation = {
-    ts: `<script setup lang="ts">
+export const validation = { ts: `<script setup lang="ts">
 import { VForm } from 'vuetify/components/VForm'
 
 const numberedSteps = [
@@ -1343,11 +1340,9 @@ const validateSocialLinkForm = () => {
     </VCardText>
   </VCard>
 </template>
-`
-}
+` }
 
-export const vertical = {
-    ts: `<script setup lang="ts">
+export const vertical = { ts: `<script setup lang="ts">
 const numberedSteps = [
   {
     title: 'Account Details',
@@ -1930,6 +1925,5 @@ const onSubmit = () => {
     </VRow>
   </VCard>
 </template>
-`
-}
+` }
 

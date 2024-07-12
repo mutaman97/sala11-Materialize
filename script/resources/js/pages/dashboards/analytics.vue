@@ -14,162 +14,162 @@ import AnalyticsWeeklySales from '@/views/dashboards/analytics/AnalyticsWeeklySa
 import Layout from '@/layouts/blank.vue'
 
 const statisticsVertical = [
-    {
-        title: 'Total Orders',
-        color: 'primary',
-        icon: 'ri-shopping-cart-line',
-        stats: '155k',
-        change: 22,
-        subtitle: 'Last 4 Month',
-    },
-    {
-        title: 'Total Sales',
-        color: 'success',
-        icon: 'ri-handbag-line',
-        stats: '$13.4k',
-        change: 38,
-        subtitle: 'Last Six Months',
-    },
-    {
-        title: 'Total Impression',
-        color: 'info',
-        icon: 'ri-link',
-        stats: '142.8k',
-        change: 62,
-        subtitle: 'Last One Year',
-    },
+  {
+    title: 'Total Orders',
+    color: 'primary',
+    icon: 'ri-shopping-cart-line',
+    stats: '155k',
+    change: 22,
+    subtitle: 'Last 4 Month',
+  },
+  {
+    title: 'Total Sales',
+    color: 'success',
+    icon: 'ri-handbag-line',
+    stats: '$13.4k',
+    change: 38,
+    subtitle: 'Last Six Months',
+  },
+  {
+    title: 'Total Impression',
+    color: 'info',
+    icon: 'ri-link',
+    stats: '142.8k',
+    change: 62,
+    subtitle: 'Last One Year',
+  },
 ]
 
-defineOptions({layout: Layout})
+defineOptions({ layout: Layout })
 
 </script>
 
 <template>
-    <VRow class="match-height">
-        <!-- 👉 Congratulations John -->
-        <VCol
-            cols="12"
-            md="8"
-            lg="8"
-        >
-            <AnalyticsCongratulationsJohn/>
+  <VRow class="match-height">
+    <!-- 👉 Congratulations John -->
+    <VCol
+      cols="12"
+      md="8"
+      lg="8"
+    >
+      <AnalyticsCongratulationsJohn />
+    </VCol>
+
+    <!-- 👉 Vertical Cards -->
+    <VCol
+      cols="12"
+      sm="6"
+      md="2"
+      lg="2"
+    >
+      <CardStatisticsVertical v-bind="statisticsVertical[0]" />
+    </VCol>
+
+    <!--  👉 Sessions line chart -->
+    <VCol
+      cols="12"
+      sm="6"
+      md="2"
+      lg="2"
+    >
+      <AnalyticsTotalProfitLineCharts />
+    </VCol>
+
+    <!-- 👉 Total Transactions -->
+    <VCol
+      cols="12"
+      md="8"
+    >
+      <AnalyticsTotalTransactions />
+    </VCol>
+
+    <!-- 👉 Performance Chart -->
+    <VCol
+      cols="12"
+      sm="6"
+      md="4"
+    >
+      <AnalyticsPerformance />
+    </VCol>
+
+    <!-- 👉 Project statistics -->
+    <VCol
+      cols="12"
+      sm="6"
+      md="4"
+    >
+      <AnalyticsProjectStatistics />
+    </VCol>
+
+    <VCol
+      cols="12"
+      md="4"
+    >
+      <VRow>
+        <!-- 👉 Revenue Bar Charts -->
+        <VCol cols="6">
+          <AnalyticsTotalRevenueBarCharts />
         </VCol>
 
-        <!-- 👉 Vertical Cards -->
-        <VCol
-            cols="12"
-            sm="6"
-            md="2"
-            lg="2"
-        >
-            <CardStatisticsVertical v-bind="statisticsVertical[0]"/>
+        <!-- 👉 Total Sales -->
+        <VCol cols="6">
+          <CardStatisticsVertical v-bind="statisticsVertical[1]" />
         </VCol>
 
-        <!--  👉 Sessions line chart -->
-        <VCol
-            cols="12"
-            sm="6"
-            md="2"
-            lg="2"
-        >
-            <AnalyticsTotalProfitLineCharts/>
+        <!-- 👉 Total Impression -->
+        <VCol cols="6">
+          <CardStatisticsVertical v-bind="statisticsVertical[2]" />
         </VCol>
 
-        <!-- 👉 Total Transactions -->
-        <VCol
-            cols="12"
-            md="8"
-        >
-            <AnalyticsTotalTransactions/>
+        <!-- 👉 Overview Radial Bar Charts -->
+        <VCol cols="6">
+          <AnalyticsOverviewRadialBarCharts />
         </VCol>
+      </VRow>
+    </VCol>
 
-        <!-- 👉 Performance Chart -->
-        <VCol
-            cols="12"
-            sm="6"
-            md="4"
-        >
-            <AnalyticsPerformance/>
-        </VCol>
+    <!-- 👉 Sales Country -->
+    <VCol
+      cols="12"
+      md="4"
+    >
+      <AnalyticsSalesCountry />
+    </VCol>
 
-        <!-- 👉 Project statistics -->
-        <VCol
-            cols="12"
-            sm="6"
-            md="4"
-        >
-            <AnalyticsProjectStatistics/>
-        </VCol>
+    <!-- 👉 Top Referral Sources -->
+    <VCol
+      cols="12"
+      md="8"
+    >
+      <AnalyticsTopReferralSources />
+    </VCol>
 
-        <VCol
-            cols="12"
-            md="4"
-        >
-            <VRow>
-                <!-- 👉 Revenue Bar Charts -->
-                <VCol cols="6">
-                    <AnalyticsTotalRevenueBarCharts/>
-                </VCol>
+    <!-- 👉 Weekly Sales -->
+    <VCol
+      cols="12"
+      md="4"
+      sm="6"
+    >
+      <AnalyticsWeeklySales />
+    </VCol>
 
-                <!-- 👉 Total Sales -->
-                <VCol cols="6">
-                    <CardStatisticsVertical v-bind="statisticsVertical[1]"/>
-                </VCol>
+    <!-- 👉 Visits by Day -->
+    <VCol
+      cols="12"
+      md="4"
+      sm="6"
+    >
+      <AnalyticsVisitsByDay />
+    </VCol>
 
-                <!-- 👉 Total Impression -->
-                <VCol cols="6">
-                    <CardStatisticsVertical v-bind="statisticsVertical[2]"/>
-                </VCol>
-
-                <!-- 👉 Overview Radial Bar Charts -->
-                <VCol cols="6">
-                    <AnalyticsOverviewRadialBarCharts/>
-                </VCol>
-            </VRow>
-        </VCol>
-
-        <!-- 👉 Sales Country -->
-        <VCol
-            cols="12"
-            md="4"
-        >
-            <AnalyticsSalesCountry/>
-        </VCol>
-
-        <!-- 👉 Top Referral Sources -->
-        <VCol
-            cols="12"
-            md="8"
-        >
-            <AnalyticsTopReferralSources/>
-        </VCol>
-
-        <!-- 👉 Weekly Sales -->
-        <VCol
-            cols="12"
-            md="4"
-            sm="6"
-        >
-            <AnalyticsWeeklySales/>
-        </VCol>
-
-        <!-- 👉 Visits by Day -->
-        <VCol
-            cols="12"
-            md="4"
-            sm="6"
-        >
-            <AnalyticsVisitsByDay/>
-        </VCol>
-
-        <!-- 👉 Activity Timeline -->
-        <VCol
-            cols="12"
-            md="8"
-        >
-            <AnalyticsActivityTimeline/>
-        </VCol>
-    </VRow>
+    <!-- 👉 Activity Timeline -->
+    <VCol
+      cols="12"
+      md="8"
+    >
+      <AnalyticsActivityTimeline />
+    </VCol>
+  </VRow>
 </template>
 
 <style lang="scss">

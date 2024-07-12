@@ -4,46 +4,46 @@ const tabItemText = 'Biscuit cheesecake gingerbread oat cake tiramisu. Marzipan 
 </script>
 
 <template>
-    <VTabs
-        v-model="currentTab"
-        grow
-        stacked
+  <VTabs
+    v-model="currentTab"
+    grow
+    stacked
+  >
+    <VTab value="tab-1">
+      <VIcon
+        icon="ri-phone-line"
+        class="mb-2"
+      />
+      <span>Recent</span>
+    </VTab>
+
+    <VTab value="tab-2">
+      <VIcon
+        icon="ri-heart-line"
+        class="mb-2"
+      />
+      <span>Favorites</span>
+    </VTab>
+
+    <VTab value="tab-3">
+      <VIcon
+        icon="ri-account-box-line"
+        class="mb-2"
+      />
+      <span>Nearby</span>
+    </VTab>
+  </VTabs>
+
+  <VWindow
+    v-model="currentTab"
+    class="mt-5"
+  >
+    <VWindowItem
+      v-for="i in 3"
+      :key="i"
+      :value="`tab-${i}`"
     >
-        <VTab value="tab-1">
-            <VIcon
-                icon="ri-phone-line"
-                class="mb-2"
-            />
-            <span>Recent</span>
-        </VTab>
-
-        <VTab value="tab-2">
-            <VIcon
-                icon="ri-heart-line"
-                class="mb-2"
-            />
-            <span>Favorites</span>
-        </VTab>
-
-        <VTab value="tab-3">
-            <VIcon
-                icon="ri-account-box-line"
-                class="mb-2"
-            />
-            <span>Nearby</span>
-        </VTab>
-    </VTabs>
-
-    <VWindow
-        v-model="currentTab"
-        class="mt-5"
-    >
-        <VWindowItem
-            v-for="i in 3"
-            :key="i"
-            :value="`tab-${i}`"
-        >
-            {{ tabItemText }}
-        </VWindowItem>
-    </VWindow>
+      {{ tabItemText }}
+    </VWindowItem>
+  </VWindow>
 </template>

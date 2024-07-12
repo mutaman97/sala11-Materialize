@@ -6,35 +6,35 @@ import CardUpgrade from '@/views/pages/cards/gamification/CardUpgrade.vue'
 </script>
 
 <template>
-    <VRow>
-        <VCol
-            cols="12"
-            md="4"
-        >
-            <CardAward/>
-        </VCol>
+  <VRow>
+    <VCol
+      cols="12"
+      md="4"
+    >
+      <CardAward />
+    </VCol>
 
-        <VCol
-            cols="12"
-            md="8"
-            class="align-self-end"
-        >
-            <CardCongratulationsJohn/>
-        </VCol>
+    <VCol
+      cols="12"
+      md="8"
+      class="align-self-end"
+    >
+      <CardCongratulationsJohn />
+    </VCol>
 
-        <VCol
-            cols="12"
-            md="8"
-            class="align-self-end"
-        >
-            <CardCongratulationsDaisy/>
-        </VCol>
+    <VCol
+      cols="12"
+      md="8"
+      class="align-self-end"
+    >
+      <CardCongratulationsDaisy />
+    </VCol>
 
-        <VCol
-            cols="12"
-            md="4"
-        >
-            <CardUpgrade/>
-        </VCol>
-    </VRow>
+    <VCol
+      cols="12"
+      md="4"
+    >
+      <CardUpgrade />
+    </VCol>
+  </VRow>
 </template>

@@ -9,52 +9,52 @@ const router = useRoute('pages-user-profile-tab')
 const profileTabData = ref()
 
 const fetchAboutData = async () => {
-    if (router.params.tab === 'profile') {
-        const data = await $api('/pages/profile', {query: {tab: router.params.tab}}).catch(err => console.log(err))
+  if (router.params.tab === 'profile') {
+    const data = await $api('/pages/profile', { query: { tab: router.params.tab } }).catch(err => console.log(err))
 
-        profileTabData.value = data
-    }
+    profileTabData.value = data
+  }
 }
 
-watch(router, fetchAboutData, {immediate: true})
+watch(router, fetchAboutData, { immediate: true })
 </script>
 
 <template>
-    <VRow v-if="profileTabData">
-        <VCol
-            md="4"
-            cols="12"
-        >
-            <About :data="profileTabData"/>
+  <VRow v-if="profileTabData">
+    <VCol
+      md="4"
+      cols="12"
+    >
+      <About :data="profileTabData" />
+    </VCol>
+
+    <VCol
+      cols="12"
+      md="8"
+    >
+      <VRow>
+        <VCol cols="12">
+          <ActivityTimeline />
         </VCol>
 
         <VCol
-            cols="12"
-            md="8"
+          cols="12"
+          md="6"
         >
-            <VRow>
-                <VCol cols="12">
-                    <ActivityTimeline/>
-                </VCol>
-
-                <VCol
-                    cols="12"
-                    md="6"
-                >
-                    <Connection :connections-data="profileTabData.connections"/>
-                </VCol>
-
-                <VCol
-                    cols="12"
-                    md="6"
-                >
-                    <Teams :teams-data="profileTabData.teamsTech"/>
-                </VCol>
-
-                <VCol cols="12">
-                    <ProjectList/>
-                </VCol>
-            </VRow>
+          <Connection :connections-data="profileTabData.connections" />
         </VCol>
-    </VRow>
+
+        <VCol
+          cols="12"
+          md="6"
+        >
+          <Teams :teams-data="profileTabData.teamsTech" />
+        </VCol>
+
+        <VCol cols="12">
+          <ProjectList />
+        </VCol>
+      </VRow>
+    </VCol>
+  </VRow>
 </template>

@@ -1,6 +1,6 @@
 <template>
-    <VPagination
-        :length="5"
-        disabled
-    />
+  <VPagination
+    :length="5"
+    disabled
+  />
 </template>

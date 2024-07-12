@@ -1,5 +1,4 @@
-export const basic = {
-    ts: `<script lang="ts" setup>
+export const basic = { ts: `<script lang="ts" setup>
 const radioGroup = ref(1)
 </script>
 
@@ -31,11 +30,9 @@ const radioGroup = ref(1)
     </VRadioGroup>
   </div>
 </template>
-`
-}
+` }
 
-export const colors = {
-    ts: `<script lang="ts" setup>
+export const colors = { ts: `<script lang="ts" setup>
 const selectedRadio = ref('primary')
 const colorsRadio = ['Primary', 'Secondary', 'Success', 'Info', 'Warning', 'Error']
 </script>
@@ -81,11 +78,9 @@ const colorsRadio = [
     />
   </VRadioGroup>
 </template>
-`
-}
+` }
 
-export const density = {
-    ts: `<script lang="ts" setup>
+export const density = { ts: `<script lang="ts" setup>
 const columnRadio = ref('radio-1')
 const inlineRadio = ref('radio-1')
 </script>
@@ -159,11 +154,9 @@ const inlineRadio = ref('radio-1')
     />
   </VRadioGroup>
 </template>
-`
-}
+` }
 
-export const icon = {
-    ts: `<script lang="ts" setup>
+export const icon = { ts: `<script lang="ts" setup>
 const radioGroup = ref(1)
 </script>
 
@@ -199,11 +192,9 @@ const radioGroup = ref(1)
     />
   </VRadioGroup>
 </template>
-`
-}
+` }
 
-export const inline = {
-    ts: `<script lang="ts" setup>
+export const inline = { ts: `<script lang="ts" setup>
 const columnRadio = ref('radio-1')
 const inlineRadio = ref('radio-1')
 </script>
@@ -269,11 +260,9 @@ const inlineRadio = ref('radio-1')
     />
   </VRadioGroup>
 </template>
-`
-}
+` }
 
-export const labelSlot = {
-    ts: `<script lang="ts" setup>
+export const labelSlot = { ts: `<script lang="ts" setup>
 const radios = ref('DuckDuckGo')
 </script>
 
@@ -335,11 +324,9 @@ const radios = ref('DuckDuckGo')
     </VRadio>
   </VRadioGroup>
 </template>
-`
-}
+` }
 
-export const validation = {
-    ts: `<script lang="ts" setup>
+export const validation = { ts: `<script lang="ts" setup>
 const radioGroup = ref(1)
 const rules = [(value: number) => (value !== 3 ? true : 'Do not select the third one!')]
 </script>
@@ -379,6 +366,5 @@ const rules = [value => value !== 3 ? true : 'Do not select the third one!']
     />
   </VRadioGroup>
 </template>
-`
-}
+` }
 

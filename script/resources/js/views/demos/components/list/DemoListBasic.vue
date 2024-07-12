@@ -1,12 +1,12 @@
 <script setup>
 const items = [
-    'Cras justo odio',
-    'Dapibus ac facilisis in',
-    'Morbi leo risus',
-    'Porta ac consectetur ac',
+  'Cras justo odio',
+  'Dapibus ac facilisis in',
+  'Morbi leo risus',
+  'Porta ac consectetur ac',
 ]
 </script>
 
 <template>
-    <VList :items="items"/>
+  <VList :items="items" />
 </template>

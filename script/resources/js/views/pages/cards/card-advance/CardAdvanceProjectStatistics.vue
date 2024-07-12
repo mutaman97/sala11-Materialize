@@ -17,118 +17,118 @@ const financeAppDesign = useGenerateImageVariant(financeAppDesignLight, financeA
 const illustration3d = useGenerateImageVariant(illustration3dLight, illustration3dDark)
 
 const projects = ref([
-    {
-        budget: '$6,500',
-        title: '3D Illustration',
-        subtitle: 'Blender Illustration',
-        img: illustration3d,
-    },
-    {
-        budget: '$4,290',
-        title: 'Finance App Design',
-        subtitle: 'Figma UI Kit',
-        img: financeAppDesign,
-    },
-    {
-        budget: '$44,500',
-        title: '4 Square',
-        subtitle: 'Android Application',
-        img: square4,
-    },
-    {
-        budget: '$12,690',
-        title: 'Delta Web App',
-        subtitle: 'React Dashboard',
-        img: deltaWebApp,
-    },
-    {
-        budget: '$10,850',
-        title: 'eCommerce Website',
-        subtitle: 'Vue + Laravel',
-        img: ecommerceWebsite,
-    },
+  {
+    budget: '$6,500',
+    title: '3D Illustration',
+    subtitle: 'Blender Illustration',
+    img: illustration3d,
+  },
+  {
+    budget: '$4,290',
+    title: 'Finance App Design',
+    subtitle: 'Figma UI Kit',
+    img: financeAppDesign,
+  },
+  {
+    budget: '$44,500',
+    title: '4 Square',
+    subtitle: 'Android Application',
+    img: square4,
+  },
+  {
+    budget: '$12,690',
+    title: 'Delta Web App',
+    subtitle: 'React Dashboard',
+    img: deltaWebApp,
+  },
+  {
+    budget: '$10,850',
+    title: 'eCommerce Website',
+    subtitle: 'Vue + Laravel',
+    img: ecommerceWebsite,
+  },
 ])
 
 const moreList = [
-    {
-        title: 'Last 28 Days',
-        value: 'Last 28 Days',
-    },
-    {
-        title: 'Last Month',
-        value: 'Last Month',
-    },
-    {
-        title: 'Last Year',
-        value: 'Last Year',
-    },
+  {
+    title: 'Last 28 Days',
+    value: 'Last 28 Days',
+  },
+  {
+    title: 'Last Month',
+    value: 'Last Month',
+  },
+  {
+    title: 'Last Year',
+    value: 'Last Year',
+  },
 ]
 </script>
 
 <template>
-    <VCard title="Project Statistics">
-        <template #append>
-            <div class="me-n3 mt-n2">
-                <MoreBtn :menu-list="moreList"/>
-            </div>
-        </template>
+  <VCard title="Project Statistics">
+    <template #append>
+      <div class="me-n3 mt-n2">
+        <MoreBtn :menu-list="moreList" />
+      </div>
+    </template>
 
-        <VCardText class="py-4">
-            <VList class="card-list">
-                <VListItem class="pb-0">
-                    <VListItemTitle class="d-flex justify-space-between font-weight-medium">
+    <VCardText class="py-4">
+      <VList class="card-list">
+        <VListItem class="pb-0">
+          <VListItemTitle class="d-flex justify-space-between font-weight-medium">
             <span class="text-overline text-medium-emphasis">
               NAME
             </span>
-                        <span class="text-overline text-medium-emphasis">BUDGET</span>
-                    </VListItemTitle>
-                </VListItem>
-            </VList>
-        </VCardText>
+            <span class="text-overline text-medium-emphasis">BUDGET</span>
+          </VListItemTitle>
+        </VListItem>
+      </VList>
+    </VCardText>
 
-        <VDivider/>
+    <VDivider />
 
-        <VCardText>
-            <VList class="card-list">
-                <VListItem
-                    v-for="project in projects"
-                    :key="project.title"
-                >
-                    <template #prepend>
-                        <VImg
-                            :src="project.img"
-                            height="auto"
-                            width="auto"
-                            class="me-4"
-                        />
-                    </template>
+    <VCardText>
+      <VList class="card-list">
+        <VListItem
+          v-for="project in projects"
+          :key="project.title"
+        >
+          <template #prepend>
+            <VImg
+              :src="project.img"
+              height="auto"
+              width="auto"
+              class="me-4"
+            />
+          </template>
 
-                    <VListItemTitle class="font-weight-medium text-sm">
-                        {{ project.title }}
-                    </VListItemTitle>
+          <VListItemTitle class="font-weight-medium text-sm">
+            {{ project.title }}
+          </VListItemTitle>
 
-                    <VListItemSubtitle class="text-xs">
-                        {{ project.subtitle }}
-                    </VListItemSubtitle>
+          <VListItemSubtitle class="text-xs">
+            {{ project.subtitle }}
+          </VListItemSubtitle>
 
-                    <template #append>
-                        <VListItemAction>
-                            <VChip
-                                :text="project.budget"
-                                color="primary"
-                                size="small"
-                                class="font-weight-medium"
-                            />
-                        </VListItemAction>
-                    </template>
-                </VListItem>
-            </VList>
-        </VCardText>
-    </VCard>
+          <template #append>
+            <VListItemAction>
+              <VChip
+                :text="project.budget"
+                color="primary"
+                size="small"
+                class="font-weight-medium"
+              />
+            </VListItemAction>
+          </template>
+        </VListItem>
+      </VList>
+    </VCardText>
+  </VCard>
 </template>
 
 <style lang="scss" scoped>
 .card-list {
-    --v-card-list-gap: 1.75rem;
+  --v-card-list-gap: 1.75rem;
 }
 </style>

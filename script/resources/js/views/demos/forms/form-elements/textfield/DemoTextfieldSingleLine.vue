@@ -1,7 +1,7 @@
 <template>
-    <VTextField
-        label="Regular"
-        placeholder="Placeholder Text"
-        single-line
-    />
+  <VTextField
+    label="Regular"
+    placeholder="Placeholder Text"
+    single-line
+  />
 </template>
