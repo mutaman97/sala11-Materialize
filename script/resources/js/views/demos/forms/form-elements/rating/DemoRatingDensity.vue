@@ -1,3 +1,3 @@
 <template>
-  <VRating density="compact" />
+    <VRating density="compact"/>
 </template>

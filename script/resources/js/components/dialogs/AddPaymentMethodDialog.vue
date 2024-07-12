@@ -11,10 +11,10 @@ import visaDark from '@images/icons/payments/img/visa-dark.png'
 import visaLight from '@images/icons/payments/img/visa-light.png'
 
 const props = defineProps({
-  isDialogVisible: {
-    type: Boolean,
-    required: true,
-  },
+    isDialogVisible: {
+        type: Boolean,
+        required: true,
+    },
 })
 
 const emit = defineEmits(['update:isDialogVisible'])
@@ -26,97 +26,97 @@ const jcb = useGenerateImageVariant(jcbLight, jcbDark)
 const dc = useGenerateImageVariant(dcLight, dcDark)
 
 const dialogVisibleUpdate = val => {
-  emit('update:isDialogVisible', val)
+    emit('update:isDialogVisible', val)
 }
 
 const paymentMethodsData = [
-  {
-    title: 'Visa',
-    type: 'Credit Card',
-    img: visa,
-  },
-  {
-    title: 'American Express',
-    type: 'Credit Card',
-    img: americanEx,
-  },
-  {
-    title: 'Mastercard',
-    type: 'Credit Card',
-    img: masterCard,
-  },
-  {
-    title: 'JCB',
-    type: 'Credit Card',
-    img: jcb,
-  },
-  {
-    title: 'Diners Club',
-    type: 'Credit Card',
-    img: dc,
-  },
+    {
+        title: 'Visa',
+        type: 'Credit Card',
+        img: visa,
+    },
+    {
+        title: 'American Express',
+        type: 'Credit Card',
+        img: americanEx,
+    },
+    {
+        title: 'Mastercard',
+        type: 'Credit Card',
+        img: masterCard,
+    },
+    {
+        title: 'JCB',
+        type: 'Credit Card',
+        img: jcb,
+    },
+    {
+        title: 'Diners Club',
+        type: 'Credit Card',
+        img: dc,
+    },
 ]
 </script>
 
 <template>
-  <VDialog
-    :model-value="props.isDialogVisible"
-    max-width="750"
-    @update:model-value="dialogVisibleUpdate"
-  >
-    <VCard class="refer-and-earn-dialog pa-3 pa-sm-11">
-      <!-- 👉 dialog close btn -->
-      <DialogCloseBtn
-        variant="text"
-        size="default"
-        @click="emit('update:isDialogVisible', false)"
-      />
+    <VDialog
+        :model-value="props.isDialogVisible"
+        max-width="750"
+        @update:model-value="dialogVisibleUpdate"
+    >
+        <VCard class="refer-and-earn-dialog pa-3 pa-sm-11">
+            <!-- 👉 dialog close btn -->
+            <DialogCloseBtn
+                variant="text"
+                size="default"
+                @click="emit('update:isDialogVisible', false)"
+            />
 
-      <VCardText class="pa-5">
-        <div class="mb-6">
-          <h4 class="text-h4 text-center mb-2">
-            Add payment methods
-          </h4>
-          <p class="text-sm-body-1 text-center">
-            Supported payment methods
-          </p>
-        </div>
+            <VCardText class="pa-5">
+                <div class="mb-6">
+                    <h4 class="text-h4 text-center mb-2">
+                        Add payment methods
+                    </h4>
+                    <p class="text-sm-body-1 text-center">
+                        Supported payment methods
+                    </p>
+                </div>
 
-        <div
-          v-for="(item, index) in paymentMethodsData"
-          :key="index"
-        >
-          <div class="d-flex justify-space-between align-center py-4 gap-x-4">
-            <div class="d-flex align-center">
-              <VImg
-                :src="item.img.value"
-                height="30"
-                width="50"
-                class="me-4"
-              />
-              <div class="text-body-1 font-weight-medium text-high-emphasis">
-                {{ item.title }}
-              </div>
-            </div>
-            <div class="d-none d-sm-block text-body-1">
-              {{ item.type }}
-            </div>
-          </div>
-          <VDivider v-show="index !== paymentMethodsData.length - 1" />
-        </div>
-      </VCardText>
-    </VCard>
-  </VDialog>
+                <div
+                    v-for="(item, index) in paymentMethodsData"
+                    :key="index"
+                >
+                    <div class="d-flex justify-space-between align-center py-4 gap-x-4">
+                        <div class="d-flex align-center">
+                            <VImg
+                                :src="item.img.value"
+                                height="30"
+                                width="50"
+                                class="me-4"
+                            />
+                            <div class="text-body-1 font-weight-medium text-high-emphasis">
+                                {{ item.title }}
+                            </div>
+                        </div>
+                        <div class="d-none d-sm-block text-body-1">
+                            {{ item.type }}
+                        </div>
+                    </div>
+                    <VDivider v-show="index !== paymentMethodsData.length - 1"/>
+                </div>
+            </VCardText>
+        </VCard>
+    </VDialog>
 </template>
 
 <style lang="scss">
 .refer-link-input {
-  .v-field--appended {
-    padding-inline-end: 0;
-  }
+    .v-field--appended {
+        padding-inline-end: 0;
+    }
 
-  .v-field__append-inner {
-    padding-block-start: 0.125rem;
-  }
+    .v-field__append-inner {
+        padding-block-start: 0.125rem;
+    }
 }
 </style>

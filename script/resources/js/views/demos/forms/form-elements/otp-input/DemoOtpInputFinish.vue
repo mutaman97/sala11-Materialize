@@ -7,35 +7,35 @@ const text = ref('')
 const expectedOtp = ref('133707')
 
 const onFinish = rsp => {
-  loading.value = true
-  setTimeout(() => {
-    loading.value = false
-    snackbarColor.value = rsp === expectedOtp.value ? 'success' : 'warning'
-    text.value = `Processed OTP with "${ rsp }" (${ snackbarColor.value })`
-    snackbar.value = true
-  }, 3000)
+    loading.value = true
+    setTimeout(() => {
+        loading.value = false
+        snackbarColor.value = rsp === expectedOtp.value ? 'success' : 'warning'
+        text.value = `Processed OTP with "${rsp}" (${snackbarColor.value})`
+        snackbar.value = true
+    }, 3000)
 }
 </script>
 
 <template>
-  <div>
-    <VOtpInput
-      v-model="otp"
-      :loading="loading"
-      @finish="onFinish"
-    />
-
     <div>
-      Expected value: <span class="font-weight-bold">{{ expectedOtp }}</span>
-    </div>
+        <VOtpInput
+            v-model="otp"
+            :loading="loading"
+            @finish="onFinish"
+        />
 
-    <VSnackbar
-      v-model="snackbar"
-      :color="snackbarColor"
-      :timeout="2000"
-      location="top"
-    >
-      {{ text }}
-    </VSnackbar>
-  </div>
+        <div>
+            Expected value: <span class="font-weight-bold">{{ expectedOtp }}</span>
+        </div>
+
+        <VSnackbar
+            v-model="snackbar"
+            :color="snackbarColor"
+            :timeout="2000"
+            location="top"
+        >
+            {{ text }}
+        </VSnackbar>
+    </div>
 </template>

@@ -1,4 +1,5 @@
-export const autoplay = { ts: `<script setup lang="ts">
+export const autoplay = {
+    ts: `<script setup lang="ts">
 import { register } from 'swiper/element/bundle'
 import swiper10 from '@images/banner/banner-10.jpg'
 import swiper11 from '@images/banner/banner-11.jpg'
@@ -76,9 +77,11 @@ register()
     </swiper-slide>
   </swiper-container>
 </template>
-` }
+`
+}
 
-export const basic = { ts: `<script setup lang="ts">
+export const basic = {
+    ts: `<script setup lang="ts">
 import { register } from 'swiper/element/bundle'
 
 import swiper1 from '@images/banner/banner-1.jpg'
@@ -133,9 +136,11 @@ register()
     </swiper-slide>
   </swiper-container>
 </template>
-` }
+`
+}
 
-export const centeredSlidesOption1 = { ts: `<script setup lang="ts">
+export const centeredSlidesOption1 = {
+    ts: `<script setup lang="ts">
 import { register } from 'swiper/element/bundle'
 
 register()
@@ -303,9 +308,11 @@ swiper-slide {
   }
 }
 </style>
-` }
+`
+}
 
-export const centeredSlidesOption2 = { ts: `<script setup lang="ts">
+export const centeredSlidesOption2 = {
+    ts: `<script setup lang="ts">
 import { register } from 'swiper/element/bundle'
 
 register()
@@ -435,9 +442,11 @@ swiper-slide {
   }
 }
 </style>
-` }
+`
+}
 
-export const coverflowEffect = { ts: `<script setup lang="ts">
+export const coverflowEffect = {
+    ts: `<script setup lang="ts">
 import { register } from 'swiper/element/bundle'
 import swiper31 from '@images/banner/banner-31.jpg'
 import swiper32 from '@images/banner/banner-32.jpg'
@@ -549,9 +558,11 @@ swiper-slide {
   inline-size: 300px;
 }
 </style>
-` }
+`
+}
 
-export const cubeEffect = { ts: `<script setup lang="ts">
+export const cubeEffect = {
+    ts: `<script setup lang="ts">
 import { register } from 'swiper/element/bundle'
 import swiper21 from '@images/banner/banner-21.jpg'
 import swiper23 from '@images/banner/banner-23.jpg'
@@ -649,9 +660,11 @@ swiper-container {
   inline-size: 250px;
 }
 </style>
-` }
+`
+}
 
-export const fade = { ts: `<script setup lang="ts">
+export const fade = {
+    ts: `<script setup lang="ts">
 import { register } from 'swiper/element/bundle'
 import swiper16 from '@images/banner/banner-16.jpg'
 import swiper17 from '@images/banner/banner-17.jpg'
@@ -717,9 +730,11 @@ register()
     </swiper-slide>
   </swiper-container>
 </template>
-` }
+`
+}
 
-export const gallery = { ts: `<script setup lang="ts">
+export const gallery = {
+    ts: `<script setup lang="ts">
 import { register } from 'swiper/element/bundle'
 
 import swiper11 from '@images/banner/banner-11.jpg'
@@ -896,9 +911,11 @@ swiper-container {
   }
 }
 </style>
-` }
+`
+}
 
-export const grid = { ts: `<script setup lang="ts">
+export const grid = {
+    ts: `<script setup lang="ts">
 import { register } from 'swiper/element/bundle'
 import swiper26 from '@images/banner/banner-26.jpg'
 import swiper28 from '@images/banner/banner-28.jpg'
@@ -990,9 +1007,11 @@ register()
     </swiper-slide>
   </swiper-container>
 </template>
-` }
+`
+}
 
-export const lazyLoading = { ts: `<script setup lang="ts">
+export const lazyLoading = {
+    ts: `<script setup lang="ts">
 import { register } from 'swiper/element/bundle'
 import swiper20 from '@images/banner/banner-20.jpg'
 import swiper4 from '@images/banner/banner-4.jpg'
@@ -1070,9 +1089,11 @@ register()
     </swiper-slide>
   </swiper-container>
 </template>
-` }
+`
+}
 
-export const multipleSlidesPerView = { ts: `<script setup lang="ts">
+export const multipleSlidesPerView = {
+    ts: `<script setup lang="ts">
 import { register } from 'swiper/element/bundle'
 import swiper31 from '@images/banner/banner-31.jpg'
 import swiper32 from '@images/banner/banner-32.jpg'
@@ -1136,9 +1157,11 @@ register()
     </swiper-slide>
   </swiper-container>
 </template>
-` }
+`
+}
 
-export const navigation = { ts: `<script setup lang="ts">
+export const navigation = {
+    ts: `<script setup lang="ts">
 import { register } from 'swiper/element/bundle'
 
 import swiper14 from '@images/banner/banner-14.jpg'
@@ -1199,9 +1222,11 @@ register()
     </swiper-slide>
   </swiper-container>
 </template>
-` }
+`
+}
 
-export const pagination = { ts: `<script setup lang="ts">
+export const pagination = {
+    ts: `<script setup lang="ts">
 import { register } from 'swiper/element/bundle'
 import swiper8 from '@images/banner/banner-8.jpg'
 import swiper9 from '@images/banner/banner-9.jpg'
@@ -1262,9 +1287,11 @@ register()
     </swiper-slide>
   </swiper-container>
 </template>
-` }
+`
+}
 
-export const progress = { ts: `<script setup lang="ts">
+export const progress = {
+    ts: `<script setup lang="ts">
 import { register } from 'swiper/element/bundle'
 import swiper5 from '@images/banner/banner-5.jpg'
 import swiper8 from '@images/banner/banner-8.jpg'
@@ -1327,9 +1354,11 @@ register()
     </swiper-slide>
   </swiper-container>
 </template>
-` }
+`
+}
 
-export const responsiveBreakpoints = { ts: `<script setup lang="ts">
+export const responsiveBreakpoints = {
+    ts: `<script setup lang="ts">
 import { register } from 'swiper/element/bundle'
 import swiper31 from '@images/banner/banner-31.jpg'
 import swiper32 from '@images/banner/banner-32.jpg'
@@ -1445,9 +1474,11 @@ register()
     </swiper-slide>
   </swiper-container>
 </template>
-` }
+`
+}
 
-export const virtualSlides = { ts: `<script setup lang="ts">
+export const virtualSlides = {
+    ts: `<script setup lang="ts">
 import { register } from 'swiper/element/bundle'
 
 register()
@@ -1699,5 +1730,6 @@ const appendSlide = () => {
   }
 }
 </style>
-` }
+`
+}
 

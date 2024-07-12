@@ -1,4 +1,5 @@
-export const basic = { ts: `<script setup lang="ts">
+export const basic = {
+    ts: `<script setup lang="ts">
 const sliderValues = ref([10, 60])
 </script>
 
@@ -15,9 +16,11 @@ const sliderValues = ref([
 <template>
   <VRangeSlider v-model="sliderValues" />
 </template>
-` }
+`
+}
 
-export const color = { ts: `<script lang="ts" setup>
+export const color = {
+    ts: `<script lang="ts" setup>
 const sliderValues = ref([10, 60])
 </script>
 
@@ -42,9 +45,11 @@ const sliderValues = ref([
     track-color="secondary"
   />
 </template>
-` }
+`
+}
 
-export const disabled = { ts: `<script lang="ts" setup>
+export const disabled = {
+    ts: `<script lang="ts" setup>
 const slidersValues = ref([30, 60])
 </script>
 
@@ -69,9 +74,11 @@ const slidersValues = ref([
     label="Disabled"
   />
 </template>
-` }
+`
+}
 
-export const step = { ts: `<script lang="ts" setup>
+export const step = {
+    ts: `<script lang="ts" setup>
 const sliderValues = ref([20, 40])
 </script>
 
@@ -94,9 +101,11 @@ const sliderValues = ref([
     step="10"
   />
 </template>
-` }
+`
+}
 
-export const thumbLabel = { ts: `<script lang="ts" setup>
+export const thumbLabel = {
+    ts: `<script lang="ts" setup>
 const seasons = ['Winter', 'Spring', 'Summer', 'Fall']
 const icons = ['ri-snowy-line', 'ri-leaf-line', 'ri-fire-line', 'ri-drop-line']
 const sliderValues = ref([1, 2])
@@ -155,9 +164,11 @@ const sliderValues = ref([
     </template>
   </VRangeSlider>
 </template>
-` }
+`
+}
 
-export const vertical = { ts: `<script lang="ts" setup>
+export const vertical = {
+    ts: `<script lang="ts" setup>
 const sliderValues = ref([20, 40])
 </script>
 
@@ -180,5 +191,6 @@ const sliderValues = ref([
     direction="vertical"
   />
 </template>
-` }
+`
+}
 

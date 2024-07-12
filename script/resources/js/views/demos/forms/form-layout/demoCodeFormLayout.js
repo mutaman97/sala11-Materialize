@@ -1,4 +1,5 @@
-export const collapsible = { ts: `<script lang="ts" setup>
+export const collapsible = {
+    ts: `<script lang="ts" setup>
 const stateList = [
   'Alabama',
   'Alaska',
@@ -716,9 +717,11 @@ const paymentMethods = [
   }
 }
 </style>
-` }
+`
+}
 
-export const formHint = { ts: `<script lang="ts" setup>
+export const formHint = {
+    ts: `<script lang="ts" setup>
 const username = ref('')
 const email = ref('')
 const password = ref<string>()
@@ -893,9 +896,11 @@ const values = ref([])
     </VRow>
   </VForm>
 </template>
-` }
+`
+}
 
-export const formSticky = { ts: `<script setup lang="ts">
+export const formSticky = {
+    ts: `<script setup lang="ts">
 import type { CustomInputContent } from '@core/types'
 
 const radioContent: CustomInputContent[] = [
@@ -1651,9 +1656,11 @@ const formData = ref({
   }
 }
 </style>
-` }
+`
+}
 
-export const formValidation = { ts: `<script lang="ts" setup>
+export const formValidation = {
+    ts: `<script lang="ts" setup>
 import type { VForm } from 'vuetify/components/VForm'
 
 const name = ref('')
@@ -1830,9 +1837,11 @@ const form = ref()
     </VRow>
   </VForm>
 </template>
-` }
+`
+}
 
-export const formWithTabs = { ts: `<script lang="ts" setup>
+export const formWithTabs = {
+    ts: `<script lang="ts" setup>
 const tab = ref('personal-info')
 const firstName = ref('')
 const lastName = ref('')
@@ -2368,9 +2377,11 @@ const isCPasswordVisible = ref(false)
     </VCardText>
   </VCard>
 </template>
-` }
+`
+}
 
-export const horizontalForm = { ts: `<script lang="ts" setup>
+export const horizontalForm = {
+    ts: `<script lang="ts" setup>
 const firstName = ref('')
 const email = ref('')
 const mobile = ref<number>()
@@ -2670,9 +2681,11 @@ const checkbox = ref(false)
     </VRow>
   </VForm>
 </template>
-` }
+`
+}
 
-export const horizontalFormWithIcons = { ts: `<script lang="ts" setup>
+export const horizontalFormWithIcons = {
+    ts: `<script lang="ts" setup>
 const firstName = ref('')
 const email = ref('')
 const mobile = ref<number>()
@@ -2980,9 +2993,11 @@ const checkbox = ref(false)
     </VRow>
   </VForm>
 </template>
-` }
+`
+}
 
-export const multipleColumn = { ts: `<script lang="ts" setup>
+export const multipleColumn = {
+    ts: `<script lang="ts" setup>
 const firstName = ref('')
 const lastName = ref('')
 const city = ref('')
@@ -3206,9 +3221,11 @@ const checkbox = ref(false)
     </VRow>
   </VForm>
 </template>
-` }
+`
+}
 
-export const verticalForm = { ts: `<script lang="ts" setup>
+export const verticalForm = {
+    ts: `<script lang="ts" setup>
 const firstName = ref('')
 const email = ref('')
 const mobile = ref('')
@@ -3354,9 +3371,11 @@ const checkbox = ref(false)
     </VRow>
   </VForm>
 </template>
-` }
+`
+}
 
-export const verticalFormWithIcons = { ts: `<script lang="ts" setup>
+export const verticalFormWithIcons = {
+    ts: `<script lang="ts" setup>
 const firstName = ref('')
 const email = ref('')
 const mobile = ref('')
@@ -3508,5 +3527,6 @@ const checkbox = ref(false)
     </VRow>
   </VForm>
 </template>
-` }
+`
+}
 

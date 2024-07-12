@@ -8,81 +8,81 @@ import avatar6 from '@images/avatars/avatar-6.png'
 </script>
 
 <template>
-  <div class="v-avatar-group demo-avatar-group">
-    <VAvatar>
-      <VImg :src="avatar1" />
-      <VTooltip
-        activator="parent"
-        location="top"
-      >
-        John Doe
-      </VTooltip>
-    </VAvatar>
+    <div class="v-avatar-group demo-avatar-group">
+        <VAvatar>
+            <VImg :src="avatar1"/>
+            <VTooltip
+                activator="parent"
+                location="top"
+            >
+                John Doe
+            </VTooltip>
+        </VAvatar>
 
-    <VAvatar>
-      <VImg :src="avatar2" />
-      <VTooltip
-        activator="parent"
-        location="top"
-      >
-        Jennie Obrien
-      </VTooltip>
-    </VAvatar>
+        <VAvatar>
+            <VImg :src="avatar2"/>
+            <VTooltip
+                activator="parent"
+                location="top"
+            >
+                Jennie Obrien
+            </VTooltip>
+        </VAvatar>
 
-    <VAvatar>
-      <VImg :src="avatar3" />
-      <VTooltip
-        activator="parent"
-        location="top"
-      >
-        Peter Harper
-      </VTooltip>
-    </VAvatar>
+        <VAvatar>
+            <VImg :src="avatar3"/>
+            <VTooltip
+                activator="parent"
+                location="top"
+            >
+                Peter Harper
+            </VTooltip>
+        </VAvatar>
 
-    <VAvatar>
-      <VImg :src="avatar4" />
-      <VTooltip
-        activator="parent"
-        location="top"
-      >
-        Vivian Padilla
-      </VTooltip>
-    </VAvatar>
+        <VAvatar>
+            <VImg :src="avatar4"/>
+            <VTooltip
+                activator="parent"
+                location="top"
+            >
+                Vivian Padilla
+            </VTooltip>
+        </VAvatar>
 
-    <VAvatar>
-      <VImg :src="avatar5" />
-      <VTooltip
-        activator="parent"
-        location="top"
-      >
-        Scott Wells
-      </VTooltip>
-    </VAvatar>
+        <VAvatar>
+            <VImg :src="avatar5"/>
+            <VTooltip
+                activator="parent"
+                location="top"
+            >
+                Scott Wells
+            </VTooltip>
+        </VAvatar>
 
-    <VAvatar>
-      <VImg :src="avatar6" />
-      <VTooltip
-        activator="parent"
-        location="top"
-      >
-        Angel Bishop
-      </VTooltip>
-    </VAvatar>
+        <VAvatar>
+            <VImg :src="avatar6"/>
+            <VTooltip
+                activator="parent"
+                location="top"
+            >
+                Angel Bishop
+            </VTooltip>
+        </VAvatar>
 
-    <VAvatar :color="$vuetify.theme.current.dark ? '#383B55' : '#F0EFF0'">
-      +3
-    </VAvatar>
-  </div>
+        <VAvatar :color="$vuetify.theme.current.dark ? '#383B55' : '#F0EFF0'">
+            +3
+        </VAvatar>
+    </div>
 </template>
 
 <style lang="scss">
-.demo-avatar-group{
-  &.v-avatar-group {
-    .v-avatar{
-      &:last-child{
-        border: none;
-      }
+.demo-avatar-group {
+    &.v-avatar-group {
+        .v-avatar {
+            &:last-child {
+                border: none;
+            }
+        }
     }
-  }
 }
 </style>

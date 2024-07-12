@@ -1,4 +1,5 @@
-export const avatarStatus = { ts: `<script setup lang="ts">
+export const avatarStatus = {
+    ts: `<script setup lang="ts">
 import avatar1 from '@images/avatars/avatar-1.png'
 </script>
 
@@ -90,9 +91,11 @@ import avatar1 from '@images/avatars/avatar-1.png'
     </VBadge>
   </div>
 </template>
-` }
+`
+}
 
-export const color = { ts: `<template>
+export const color = {
+    ts: `<template>
   <div class="demo-space-x">
     <VBadge
       dot
@@ -218,9 +221,11 @@ export const color = { ts: `<template>
     </VBadge>
   </div>
 </template>
-` }
+`
+}
 
-export const dynamicNotifications = { ts: `<script lang="ts" setup>
+export const dynamicNotifications = {
+    ts: `<script lang="ts" setup>
 const notifications = ref<number>()
 </script>
 
@@ -284,9 +289,11 @@ const notifications = ref()
     </div>
   </div>
 </template>
-` }
+`
+}
 
-export const icon = { ts: `<script setup lang="ts">
+export const icon = {
+    ts: `<script setup lang="ts">
 import avatar1 from '@images/avatars/avatar-1.png'
 </script>
 
@@ -336,9 +343,11 @@ import avatar1 from '@images/avatars/avatar-1.png'
     </VBadge>
   </div>
 </template>
-` }
+`
+}
 
-export const maximumValue = { ts: `<script setup lang="ts">
+export const maximumValue = {
+    ts: `<script setup lang="ts">
 import avatar1 from '@images/avatars/avatar-1.png'
 </script>
 
@@ -424,9 +433,11 @@ import avatar1 from '@images/avatars/avatar-1.png'
     </VBadge>
   </div>
 </template>
-` }
+`
+}
 
-export const position = { ts: `<script setup lang="ts">
+export const position = {
+    ts: `<script setup lang="ts">
 import avatar1 from '@images/avatars/avatar-1.png'
 </script>
 
@@ -520,9 +531,11 @@ import avatar1 from '@images/avatars/avatar-1.png'
     </VBadge>
   </div>
 </template>
-` }
+`
+}
 
-export const showOnHover = { ts: `<script lang="ts" setup>
+export const showOnHover = {
+    ts: `<script lang="ts" setup>
 const tRefInstagramBadge = ref()
 const tRefTwitterBadge = ref()
 const tRefWhatsappBadge = ref()
@@ -619,9 +632,11 @@ const showWhatsappBadgeOnHover = useElementHover(tRefWhatsappBadge)
     </VBadge>
   </div>
 </template>
-` }
+`
+}
 
-export const style = { ts: `<script setup lang="ts">
+export const style = {
+    ts: `<script setup lang="ts">
 import avatar1 from '@images/avatars/avatar-1.png'
 </script>
 
@@ -733,9 +748,11 @@ import avatar1 from '@images/avatars/avatar-1.png'
     </VBadge>
   </div>
 </template>
-` }
+`
+}
 
-export const tabs = { ts: `<script setup lang="ts">
+export const tabs = {
+    ts: `<script setup lang="ts">
 const tabs = [
   {
     badge: '3',
@@ -807,9 +824,11 @@ const tabs = [
     </VTab>
   </VTabs>
 </template>
-` }
+`
+}
 
-export const tonal = { ts: `<script setup lang="ts">
+export const tonal = {
+    ts: `<script setup lang="ts">
 import avatar1 from '@images/avatars/avatar-1.png'
 </script>
 
@@ -891,5 +910,6 @@ import avatar1 from '@images/avatars/avatar-1.png'
     </VBadge>
   </div>
 </template>
-` }
+`
+}
 

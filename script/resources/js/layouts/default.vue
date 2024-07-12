@@ -48,7 +48,7 @@ const configStore = useConfigStore()
                     <slot/>
                 </template>
             </Component>
-<!--            <BuyNow/>-->
+            <!--            <BuyNow/>-->
             <ScrollToTop/>
         </VApp>
     </VLocaleProvider>

@@ -6,21 +6,21 @@ import avatar4 from '@images/avatars/avatar-4.png'
 </script>
 
 <template>
-  <div class="demo-space-x">
-    <VChip :prepend-avatar="avatar1">
-      <span>Chip</span>
-    </VChip>
+    <div class="demo-space-x">
+        <VChip :prepend-avatar="avatar1">
+            <span>Chip</span>
+        </VChip>
 
-    <VChip :prepend-avatar="avatar2">
-      <span>Darcy Nooser</span>
-    </VChip>
+        <VChip :prepend-avatar="avatar2">
+            <span>Darcy Nooser</span>
+        </VChip>
 
-    <VChip :prepend-avatar="avatar3">
-      <span>Felicia Risker</span>
-    </VChip>
+        <VChip :prepend-avatar="avatar3">
+            <span>Felicia Risker</span>
+        </VChip>
 
-    <VChip :prepend-avatar="avatar4">
-      <span>Minnie Mostly</span>
-    </VChip>
-  </div>
+        <VChip :prepend-avatar="avatar4">
+            <span>Minnie Mostly</span>
+        </VChip>
+    </div>
 </template>

@@ -1,3 +1,3 @@
 <template>
-  <VRating clearable />
+    <VRating clearable/>
 </template>

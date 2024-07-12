@@ -9,47 +9,47 @@ import LogisticsVehicleOverview from '@/views/apps/logistics/LogisticsVehicleOve
 </script>
 
 <template>
-  <VRow class="match-height">
-    <VCol cols="12">
-      <LogisticsCardStatistics />
-    </VCol>
-    <VCol
-      cols="12"
-      md="6"
-    >
-      <LogisticsVehicleOverview />
-    </VCol>
+    <VRow class="match-height">
+        <VCol cols="12">
+            <LogisticsCardStatistics/>
+        </VCol>
+        <VCol
+            cols="12"
+            md="6"
+        >
+            <LogisticsVehicleOverview/>
+        </VCol>
 
-    <VCol
-      cols="12"
-      md="6"
-    >
-      <LogisticsShipmentStatistics />
-    </VCol>
+        <VCol
+            cols="12"
+            md="6"
+        >
+            <LogisticsShipmentStatistics/>
+        </VCol>
 
-    <VCol
-      cols="12"
-      md="4"
-    >
-      <LogisticsDeliveryPerformance />
-    </VCol>
+        <VCol
+            cols="12"
+            md="4"
+        >
+            <LogisticsDeliveryPerformance/>
+        </VCol>
 
-    <VCol
-      cols="12"
-      md="4"
-    >
-      <LogisticsDeliveryExpectations />
-    </VCol>
+        <VCol
+            cols="12"
+            md="4"
+        >
+            <LogisticsDeliveryExpectations/>
+        </VCol>
 
-    <VCol
-      cols="12"
-      md="4"
-    >
-      <LogisticsOrderByCountries />
-    </VCol>
+        <VCol
+            cols="12"
+            md="4"
+        >
+            <LogisticsOrderByCountries/>
+        </VCol>
 
-    <VCol cols="12">
-      <LogisticsOverviewTable />
-    </VCol>
-  </VRow>
+        <VCol cols="12">
+            <LogisticsOverviewTable/>
+        </VCol>
+    </VRow>
 </template>

@@ -10,19 +10,19 @@ const basicEditorContent = ref(`
 </script>
 
 <template>
-  <div>
-    <TiptapEditor
-      v-model="basicEditorContent"
-      class="border rounded"
-    />
-  </div>
+    <div>
+        <TiptapEditor
+            v-model="basicEditorContent"
+            class="border rounded"
+        />
+    </div>
 </template>
 
 <style lang="scss">
 .ProseMirror {
-  block-size: 200px;
-  outline: none;
-  overflow-y: auto;
-  padding-inline: 0.5rem;
+    block-size: 200px;
+    outline: none;
+    overflow-y: auto;
+    padding-inline: 0.5rem;
 }
 </style>

@@ -11,146 +11,146 @@ const isSnackbarCenteredVisible = ref(false)
 </script>
 
 <template>
-  <div class="demo-space-x">
-    <!-- top  -->
-    <VBtn
-      icon
-      variant="text"
-      @click="isSnackbarTopVisible = true"
-    >
-      <VIcon icon="ri-arrow-up-line" />
-    </VBtn>
+    <div class="demo-space-x">
+        <!-- top  -->
+        <VBtn
+            icon
+            variant="text"
+            @click="isSnackbarTopVisible = true"
+        >
+            <VIcon icon="ri-arrow-up-line"/>
+        </VBtn>
 
-    <VSnackbar
-      v-model="isSnackbarTopVisible"
-      location="top"
-    >
-      I'm a top snackbar.
-    </VSnackbar>
+        <VSnackbar
+            v-model="isSnackbarTopVisible"
+            location="top"
+        >
+            I'm a top snackbar.
+        </VSnackbar>
 
-    <!-- top end -->
-    <VBtn
-      icon
-      variant="text"
-      @click="isSnackbarTopEndVisible = true"
-    >
-      <VIcon icon="ri-arrow-right-up-line" />
-    </VBtn>
+        <!-- top end -->
+        <VBtn
+            icon
+            variant="text"
+            @click="isSnackbarTopEndVisible = true"
+        >
+            <VIcon icon="ri-arrow-right-up-line"/>
+        </VBtn>
 
-    <VSnackbar
-      v-model="isSnackbarTopEndVisible"
-      location="top end"
-    >
-      I'm a top right snackbar.
-    </VSnackbar>
+        <VSnackbar
+            v-model="isSnackbarTopEndVisible"
+            location="top end"
+        >
+            I'm a top right snackbar.
+        </VSnackbar>
 
-    <!-- center end -->
-    <VBtn
-      icon
-      variant="text"
-      @click="isSnackbarEndVisible = true"
-    >
-      <VIcon icon="ri-arrow-right-line" />
-    </VBtn>
+        <!-- center end -->
+        <VBtn
+            icon
+            variant="text"
+            @click="isSnackbarEndVisible = true"
+        >
+            <VIcon icon="ri-arrow-right-line"/>
+        </VBtn>
 
-    <VSnackbar
-      v-model="isSnackbarEndVisible"
-      location="end center"
-    >
-      I'm a center end snackbar.
-    </VSnackbar>
+        <VSnackbar
+            v-model="isSnackbarEndVisible"
+            location="end center"
+        >
+            I'm a center end snackbar.
+        </VSnackbar>
 
-    <!-- bottom end -->
-    <VBtn
-      icon
-      variant="text"
-      @click="isSnackbarBottomEndVisible = true"
-    >
-      <VIcon icon="ri-arrow-right-down-line" />
-    </VBtn>
+        <!-- bottom end -->
+        <VBtn
+            icon
+            variant="text"
+            @click="isSnackbarBottomEndVisible = true"
+        >
+            <VIcon icon="ri-arrow-right-down-line"/>
+        </VBtn>
 
-    <VSnackbar
-      v-model="isSnackbarBottomEndVisible"
-      location="bottom end"
-    >
-      I'm a bottom end snackbar.
-    </VSnackbar>
+        <VSnackbar
+            v-model="isSnackbarBottomEndVisible"
+            location="bottom end"
+        >
+            I'm a bottom end snackbar.
+        </VSnackbar>
 
-    <!-- bottom -->
-    <VBtn
-      icon
-      variant="text"
-      @click="isSnackbarBottomVisible = true"
-    >
-      <VIcon icon="ri-arrow-down-line" />
-    </VBtn>
+        <!-- bottom -->
+        <VBtn
+            icon
+            variant="text"
+            @click="isSnackbarBottomVisible = true"
+        >
+            <VIcon icon="ri-arrow-down-line"/>
+        </VBtn>
 
-    <VSnackbar v-model="isSnackbarBottomVisible">
-      I'm a bottom snackbar.
-    </VSnackbar>
+        <VSnackbar v-model="isSnackbarBottomVisible">
+            I'm a bottom snackbar.
+        </VSnackbar>
 
-    <!-- bottom start -->
-    <VBtn
-      icon
-      variant="text"
-      @click="isSnackbarBottomStartVisible = true"
-    >
-      <VIcon icon="ri-arrow-left-down-line" />
-    </VBtn>
+        <!-- bottom start -->
+        <VBtn
+            icon
+            variant="text"
+            @click="isSnackbarBottomStartVisible = true"
+        >
+            <VIcon icon="ri-arrow-left-down-line"/>
+        </VBtn>
 
-    <VSnackbar
-      v-model="isSnackbarBottomStartVisible"
-      location="bottom start"
-    >
-      I'm a bottom start snackbar.
-    </VSnackbar>
+        <VSnackbar
+            v-model="isSnackbarBottomStartVisible"
+            location="bottom start"
+        >
+            I'm a bottom start snackbar.
+        </VSnackbar>
 
-    <!-- center start -->
-    <VBtn
-      icon
-      variant="text"
-      @click="isSnackbarStartVisible = true"
-    >
-      <VIcon icon="ri-arrow-left-line" />
-    </VBtn>
+        <!-- center start -->
+        <VBtn
+            icon
+            variant="text"
+            @click="isSnackbarStartVisible = true"
+        >
+            <VIcon icon="ri-arrow-left-line"/>
+        </VBtn>
 
-    <VSnackbar
-      v-model="isSnackbarStartVisible"
-      location="start center"
-    >
-      I'm a center start snackbar.
-    </VSnackbar>
+        <VSnackbar
+            v-model="isSnackbarStartVisible"
+            location="start center"
+        >
+            I'm a center start snackbar.
+        </VSnackbar>
 
-    <!-- top start -->
-    <VBtn
-      icon
-      variant="text"
-      @click="isSnackbarTopStartVisible = true"
-    >
-      <VIcon icon="ri-arrow-left-up-line" />
-    </VBtn>
+        <!-- top start -->
+        <VBtn
+            icon
+            variant="text"
+            @click="isSnackbarTopStartVisible = true"
+        >
+            <VIcon icon="ri-arrow-left-up-line"/>
+        </VBtn>
 
-    <VSnackbar
-      v-model="isSnackbarTopStartVisible"
-      location="top start"
-    >
-      I'm a top start snackbar.
-    </VSnackbar>
+        <VSnackbar
+            v-model="isSnackbarTopStartVisible"
+            location="top start"
+        >
+            I'm a top start snackbar.
+        </VSnackbar>
 
-    <!-- center -->
-    <VBtn
-      icon
-      variant="text"
-      @click="isSnackbarCenteredVisible = true"
-    >
-      <VIcon icon="ri-drag-move-fill" />
-    </VBtn>
+        <!-- center -->
+        <VBtn
+            icon
+            variant="text"
+            @click="isSnackbarCenteredVisible = true"
+        >
+            <VIcon icon="ri-drag-move-fill"/>
+        </VBtn>
 
-    <VSnackbar
-      v-model="isSnackbarCenteredVisible"
-      location="center"
-    >
-      I'm a center snackbar.
-    </VSnackbar>
-  </div>
+        <VSnackbar
+            v-model="isSnackbarCenteredVisible"
+            location="center"
+        >
+            I'm a center snackbar.
+        </VSnackbar>
+    </div>
 </template>

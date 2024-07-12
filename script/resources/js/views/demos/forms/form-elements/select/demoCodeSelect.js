@@ -1,4 +1,5 @@
-export const basic = { ts: `<script lang="ts" setup>
+export const basic = {
+    ts: `<script lang="ts" setup>
 const items = ['Foo', 'Bar', 'Fizz', 'Buzz']
 </script>
 
@@ -27,9 +28,11 @@ const items = [
     eager
   />
 </template>
-` }
+`
+}
 
-export const chips = { ts: `<script lang="ts" setup>
+export const chips = {
+    ts: `<script lang="ts" setup>
 const items = ['foo', 'bar', 'fizz', 'buzz']
 const selected = ref(['foo', 'bar', 'fizz', 'buzz'])
 </script>
@@ -70,9 +73,11 @@ const selected = ref([
     multiple
   />
 </template>
-` }
+`
+}
 
-export const customTextAndValue = { ts: `<script lang="ts" setup>
+export const customTextAndValue = {
+    ts: `<script lang="ts" setup>
 const selectedOption = ref({ state: 'Florida', abbr: 'FL' })
 
 const items = [
@@ -142,9 +147,11 @@ const items = [
     placeholder="Select State"
   />
 </template>
-` }
+`
+}
 
-export const density = { ts: `<script lang="ts" setup>
+export const density = {
+    ts: `<script lang="ts" setup>
 const items = ['Foo', 'Bar', 'Fizz', 'Buzz']
 </script>
 
@@ -173,9 +180,11 @@ const items = [
     placeholder="Select Item"
   />
 </template>
-` }
+`
+}
 
-export const icons = { ts: `<script lang="ts" setup>
+export const icons = {
+    ts: `<script lang="ts" setup>
 const selectedOption1 = ref('Florida')
 const selectedOption2 = ref('Texas')
 
@@ -273,9 +282,11 @@ const states = [
     </VCol>
   </VRow>
 </template>
-` }
+`
+}
 
-export const menuProps = { ts: `<script lang="ts" setup>
+export const menuProps = {
+    ts: `<script lang="ts" setup>
 const items = ['Foo', 'Bar', 'Fizz', 'Buzz']
 </script>
 
@@ -304,9 +315,11 @@ const items = [
     placeholder="Select Item"
   />
 </template>
-` }
+`
+}
 
-export const multiple = { ts: `<script lang="ts" setup>
+export const multiple = {
+    ts: `<script lang="ts" setup>
 const selectedOptions = ref(['Alabama'])
 
 const states = [
@@ -370,9 +383,11 @@ const states = [
     placeholder="Select State"
   />
 </template>
-` }
+`
+}
 
-export const selectionSlot = { ts: `<script lang="ts" setup>
+export const selectionSlot = {
+    ts: `<script lang="ts" setup>
 import avatar1 from '@images/avatars/avatar-1.png'
 import avatar2 from '@images/avatars/avatar-2.png'
 import avatar3 from '@images/avatars/avatar-3.png'
@@ -475,9 +490,11 @@ const value = ref(['Sandra Adams'])
     </template>
   </VSelect>
 </template>
-` }
+`
+}
 
-export const variant = { ts: `<script lang="ts" setup>
+export const variant = {
+    ts: `<script lang="ts" setup>
 const items = ['Foo', 'Bar', 'Fizz', 'Buzz']
 </script>
 
@@ -612,5 +629,6 @@ const items = [
     </VCol>
   </VRow>
 </template>
-` }
+`
+}
 

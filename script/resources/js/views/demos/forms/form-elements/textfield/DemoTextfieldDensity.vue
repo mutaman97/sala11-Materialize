@@ -1,7 +1,7 @@
 <template>
-  <VTextField
-    label="Compact"
-    density="compact"
-    placeholder="Placeholder Text"
-  />
+    <VTextField
+        label="Compact"
+        density="compact"
+        placeholder="Placeholder Text"
+    />
 </template>

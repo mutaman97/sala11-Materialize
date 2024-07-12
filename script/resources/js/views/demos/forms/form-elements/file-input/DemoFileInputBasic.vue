@@ -1,3 +1,3 @@
 <template>
-  <VFileInput label="File input" />
+    <VFileInput label="File input"/>
 </template>

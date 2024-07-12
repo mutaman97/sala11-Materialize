@@ -3,22 +3,22 @@ const isTooltipVisible = ref(false)
 </script>
 
 <template>
-  <div class="demo-space-x">
-    <VBtn @click="isTooltipVisible = !isTooltipVisible">
-      toggle tooltip
-    </VBtn>
+    <div class="demo-space-x">
+        <VBtn @click="isTooltipVisible = !isTooltipVisible">
+            toggle tooltip
+        </VBtn>
 
-    <VTooltip
-      :model-value="isTooltipVisible"
-      location="top"
-    >
-      <template #activator="{ props }">
-        <VIcon
-          v-bind="props"
-          icon="ri-instagram-line"
-        />
-      </template>
-      <span>Programmatic tooltip</span>
-    </VTooltip>
-  </div>
+        <VTooltip
+            :model-value="isTooltipVisible"
+            location="top"
+        >
+            <template #activator="{ props }">
+                <VIcon
+                    v-bind="props"
+                    icon="ri-instagram-line"
+                />
+            </template>
+            <span>Programmatic tooltip</span>
+        </VTooltip>
+    </div>
 </template>

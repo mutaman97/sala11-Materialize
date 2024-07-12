@@ -1,6 +1,6 @@
 <template>
-  <VRating
-    readonly
-    :model-value="4"
-  />
+    <VRating
+        readonly
+        :model-value="4"
+    />
 </template>

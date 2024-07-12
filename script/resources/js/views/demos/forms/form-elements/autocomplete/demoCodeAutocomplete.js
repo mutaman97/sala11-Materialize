@@ -1,4 +1,5 @@
-export const asyncItems = { ts: `<script setup lang="ts">
+export const asyncItems = {
+    ts: `<script setup lang="ts">
 const loading = ref(false)
 const search = ref()
 const select = ref(null)
@@ -190,9 +191,11 @@ watch(search, query => {
     :menu-props="{ maxHeight: '200px' }"
   />
 </template>
-` }
+`
+}
 
-export const basic = { ts: `<script setup lang="ts">
+export const basic = {
+    ts: `<script setup lang="ts">
 const items = ['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']
 </script>
 
@@ -221,9 +224,11 @@ const items = [
     placeholder="Select State"
   />
 </template>
-` }
+`
+}
 
-export const chips = { ts: `<script setup lang="ts">
+export const chips = {
+    ts: `<script setup lang="ts">
 const items = ['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']
 </script>
 
@@ -256,9 +261,11 @@ const items = [
     multiple
   />
 </template>
-` }
+`
+}
 
-export const clearable = { ts: `<script setup lang="ts">
+export const clearable = {
+    ts: `<script setup lang="ts">
 const items = ['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']
 </script>
 
@@ -291,9 +298,11 @@ const items = [
     clearable
   />
 </template>
-` }
+`
+}
 
-export const customFilter = { ts: `<script setup lang="ts">
+export const customFilter = {
+    ts: `<script setup lang="ts">
 const states = [
   { name: 'Florida', abbr: 'FL', id: 1 },
   { name: 'Georgia', abbr: 'GA', id: 2 },
@@ -369,9 +378,11 @@ function customFilter(itemTitle, queryText, item) {
     placeholder="Select State"
   />
 </template>
-` }
+`
+}
 
-export const density = { ts: `<script setup lang="ts">
+export const density = {
+    ts: `<script setup lang="ts">
 const select = ref('Florida')
 const items = ['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']
 </script>
@@ -407,9 +418,11 @@ const items = [
     :items="items"
   />
 </template>
-` }
+`
+}
 
-export const multiple = { ts: `<script setup lang="ts">
+export const multiple = {
+    ts: `<script setup lang="ts">
 const items = ['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']
 </script>
 
@@ -440,9 +453,11 @@ const items = [
     multiple
   />
 </template>
-` }
+`
+}
 
-export const slots = { ts: `<script setup lang="ts">
+export const slots = {
+    ts: `<script setup lang="ts">
 import avatar1 from '@images/avatars/avatar-1.png'
 import avatar2 from '@images/avatars/avatar-2.png'
 import avatar3 from '@images/avatars/avatar-3.png'
@@ -585,9 +600,11 @@ const people = [
     </template>
   </VAutocomplete>
 </template>
-` }
+`
+}
 
-export const stateSelector = { ts: `<script setup lang="ts">
+export const stateSelector = {
+    ts: `<script setup lang="ts">
 const isEditing = ref(false)
 const selectedState = ref(null)
 
@@ -769,9 +786,11 @@ const states = [
     </template>
   </VAutocomplete>
 </template>
-` }
+`
+}
 
-export const validation = { ts: `<script setup lang="ts">
+export const validation = {
+    ts: `<script setup lang="ts">
 const items = ['foo', 'bar', 'fizz', 'buzz']
 const values = ref(['foo'])
 const nameRules = [(v: string) => !!v.length || 'Select at least one option.']
@@ -807,9 +826,11 @@ const nameRules = [v => !!v.length || 'Select at least one option.']
     multiple
   />
 </template>
-` }
+`
+}
 
-export const variant = { ts: `<script setup lang="ts">
+export const variant = {
+    ts: `<script setup lang="ts">
 const items = ['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']
 </script>
 
@@ -960,5 +981,6 @@ const items = [
     </VCol>
   </VRow>
 </template>
-` }
+`
+}
 

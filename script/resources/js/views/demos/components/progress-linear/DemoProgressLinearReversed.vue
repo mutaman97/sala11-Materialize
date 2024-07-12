@@ -1,6 +1,6 @@
 <template>
-  <VProgressLinear
-    indeterminate
-    reverse
-  />
+    <VProgressLinear
+        indeterminate
+        reverse
+    />
 </template>

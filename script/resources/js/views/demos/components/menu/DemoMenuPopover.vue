@@ -5,37 +5,37 @@ const menu = ref(false)
 </script>
 
 <template>
-  <VMenu
-    v-model="menu"
-    location="top"
-  >
-    <template #activator="{ props }">
-      <VBtn v-bind="props">
-        Menu as Popover
-      </VBtn>
-    </template>
+    <VMenu
+        v-model="menu"
+        location="top"
+    >
+        <template #activator="{ props }">
+            <VBtn v-bind="props">
+                Menu as Popover
+            </VBtn>
+        </template>
 
-    <VCard max-width="300">
-      <VList>
-        <VListItem
-          :prepend-avatar="avatar1"
-          title="John Leider"
-          subtitle="Founder of Vuetify"
-        />
-      </VList>
+        <VCard max-width="300">
+            <VList>
+                <VListItem
+                    :prepend-avatar="avatar1"
+                    title="John Leider"
+                    subtitle="Founder of Vuetify"
+                />
+            </VList>
 
-      <VDivider />
+            <VDivider/>
 
-      <VCardText>
-        Gingerbread bear claw cake. Soufflé candy sesame snaps chocolate ice cream cake.
-        Dessert candy canes oat cake pudding cupcake. Bear claw sweet wafer bonbon dragée toffee.
-      </VCardText>
+            <VCardText>
+                Gingerbread bear claw cake. Soufflé candy sesame snaps chocolate ice cream cake.
+                Dessert candy canes oat cake pudding cupcake. Bear claw sweet wafer bonbon dragée toffee.
+            </VCardText>
 
-      <VCardActions>
-        <VBtn icon="ri-heart-line" />
-        <VBtn icon="ri-bookmark-line" />
-        <VBtn icon="ri-thumb-down-line" />
-      </VCardActions>
-    </VCard>
-  </VMenu>
+            <VCardActions>
+                <VBtn icon="ri-heart-line"/>
+                <VBtn icon="ri-bookmark-line"/>
+                <VBtn icon="ri-thumb-down-line"/>
+            </VCardActions>
+        </VCard>
+    </VMenu>
 </template>

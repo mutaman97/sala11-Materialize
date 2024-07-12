@@ -1,3 +1,3 @@
 <template>
-  <VRating />
+    <VRating/>
 </template>

@@ -1,3 +1,3 @@
 <template>
-  <VProgressLinear indeterminate />
+    <VProgressLinear indeterminate/>
 </template>

@@ -1,12 +1,15 @@
-export const basic = { ts: `<template>
+export const basic = {
+    ts: `<template>
   <VOtpInput />
 </template>
 `, js: `<template>
   <VOtpInput />
 </template>
-` }
+`
+}
 
-export const finish = { ts: `<script setup lang="ts">
+export const finish = {
+    ts: `<script setup lang="ts">
 const loading = ref(false)
 const snackbar = ref(false)
 const snackbarColor = ref('default')
@@ -89,9 +92,11 @@ const onFinish = rsp => {
     </VSnackbar>
   </div>
 </template>
-` }
+`
+}
 
-export const hidden = { ts: `<script setup lang="ts">
+export const hidden = {
+    ts: `<script setup lang="ts">
 const otp = ref('')
 </script>
 
@@ -115,5 +120,6 @@ const otp = ref('')
     length="5"
   />
 </template>
-` }
+`
+}
 

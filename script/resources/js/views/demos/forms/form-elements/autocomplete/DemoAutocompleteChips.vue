@@ -1,20 +1,20 @@
 <script setup>
 const items = [
-  'California',
-  'Colorado',
-  'Florida',
-  'Georgia',
-  'Texas',
-  'Wyoming',
+    'California',
+    'Colorado',
+    'Florida',
+    'Georgia',
+    'Texas',
+    'Wyoming',
 ]
 </script>
 
 <template>
-  <VAutocomplete
-    label="States"
-    :items="items"
-    placeholder="Select State"
-    chips
-    multiple
-  />
+    <VAutocomplete
+        label="States"
+        :items="items"
+        placeholder="Select State"
+        chips
+        multiple
+    />
 </template>

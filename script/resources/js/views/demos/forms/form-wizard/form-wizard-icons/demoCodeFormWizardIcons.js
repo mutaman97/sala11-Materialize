@@ -1,4 +1,5 @@
-export const basic = { ts: `<script setup lang="ts">
+export const basic = {
+    ts: `<script setup lang="ts">
 import customWizardAccount from '@images/svg/wizard-account.svg'
 import customWizardAddress from '@images/svg/wizard-address.svg'
 import customWizardPersonal from '@images/svg/wizard-personal.svg'
@@ -856,9 +857,11 @@ const onSubmit = () => {
     </VCardText>
   </VCard>
 </template>
-` }
+`
+}
 
-export const validation = { ts: `<script setup lang="ts">
+export const validation = {
+    ts: `<script setup lang="ts">
 import { VForm } from 'vuetify/components/VForm'
 import customWizardAccount from '@images/svg/wizard-account.svg'
 import customWizardAddress from '@images/svg/wizard-address.svg'
@@ -2084,9 +2087,11 @@ const validateSocialLinkForm = () => {
     </VCardText>
   </VCard>
 </template>
-` }
+`
+}
 
-export const vertical = { ts: `<script setup lang="ts">
+export const vertical = {
+    ts: `<script setup lang="ts">
 const numberedSteps = [
   {
     title: 'Account Details',
@@ -2673,5 +2678,6 @@ const onSubmit = () => {
     </VRow>
   </VCard>
 </template>
-` }
+`
+}
 

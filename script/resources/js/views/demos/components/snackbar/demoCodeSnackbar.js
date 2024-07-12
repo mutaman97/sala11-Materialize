@@ -1,4 +1,5 @@
-export const basic = { ts: `<script lang="ts" setup>
+export const basic = {
+    ts: `<script lang="ts" setup>
 const isSnackbarVisible = ref(false)
 </script>
 
@@ -26,9 +27,11 @@ const isSnackbarVisible = ref(false)
     Hello, I'm a snackbar
   </VSnackbar>
 </template>
-` }
+`
+}
 
-export const multiLine = { ts: `<script lang="ts" setup>
+export const multiLine = {
+    ts: `<script lang="ts" setup>
 const isSnackbarVisible = ref(false)
 </script>
 
@@ -80,9 +83,11 @@ const isSnackbarVisible = ref(false)
     </template>
   </VSnackbar>
 </template>
-` }
+`
+}
 
-export const position = { ts: `<script lang="ts" setup>
+export const position = {
+    ts: `<script lang="ts" setup>
 const isSnackbarTopStartVisible = ref(false)
 const isSnackbarTopVisible = ref(false)
 const isSnackbarTopEndVisible = ref(false)
@@ -394,9 +399,11 @@ const isSnackbarCenteredVisible = ref(false)
     </VSnackbar>
   </div>
 </template>
-` }
+`
+}
 
-export const timeout = { ts: `<script lang="ts" setup>
+export const timeout = {
+    ts: `<script lang="ts" setup>
 const isSnackbarVisible = ref(false)
 </script>
 
@@ -430,9 +437,11 @@ const isSnackbarVisible = ref(false)
     My timeout is set to 2000.
   </VSnackbar>
 </template>
-` }
+`
+}
 
-export const transition = { ts: `<script lang="ts" setup>
+export const transition = {
+    ts: `<script lang="ts" setup>
 const isSnackbarFadeVisible = ref(false)
 const isSnackbarScaleVisible = ref(false)
 const isSnackbarScrollReverseVisible = ref(false)
@@ -528,9 +537,11 @@ const isSnackbarScrollReverseVisible = ref(false)
     </VSnackbar>
   </div>
 </template>
-` }
+`
+}
 
-export const variants = { ts: `<script lang="ts" setup>
+export const variants = {
+    ts: `<script lang="ts" setup>
 const isDefaultSnackbarVisible = ref(false)
 const isTonalSnackbarVisible = ref(false)
 const isTextSnackbarVisible = ref(false)
@@ -694,9 +705,11 @@ const isFlatSnackbarVisible = ref(false)
     </VSnackbar>
   </div>
 </template>
-` }
+`
+}
 
-export const vertical = { ts: `<script lang="ts" setup>
+export const vertical = {
+    ts: `<script lang="ts" setup>
 const isSnackbarVisible = ref(false)
 </script>
 
@@ -760,9 +773,11 @@ const isSnackbarVisible = ref(false)
     </template>
   </VSnackbar>
 </template>
-` }
+`
+}
 
-export const withAction = { ts: `<script lang="ts" setup>
+export const withAction = {
+    ts: `<script lang="ts" setup>
 const isSnackbarVisibility = ref(false)
 </script>
 
@@ -808,5 +823,6 @@ const isSnackbarVisibility = ref(false)
     </template>
   </VSnackbar>
 </template>
-` }
+`
+}
 

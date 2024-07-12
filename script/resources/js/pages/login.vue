@@ -1,26 +1,26 @@
 <script setup>
-import { VForm } from 'vuetify/components/VForm'
+import {VForm} from 'vuetify/components/VForm'
 import AuthProvider from '@/views/pages/authentication/AuthProvider.vue'
-import { themeConfig } from '@themeConfig'
+import {themeConfig} from '@themeConfig'
 import authV2LoginIllustrationBorderedDark from '@images/pages/auth-v2-login-illustration-bordered-dark.png'
 import authV2LoginIllustrationBorderedLight from '@images/pages/auth-v2-login-illustration-bordered-light.png'
 import authV2LoginIllustrationDark from '@images/pages/auth-v2-login-illustration-dark.png'
 import authV2LoginIllustrationLight from '@images/pages/auth-v2-login-illustration-light.png'
 import authV2LoginMaskDark from '@images/pages/auth-v2-login-mask-dark.png'
 import authV2LoginMaskLight from '@images/pages/auth-v2-login-mask-light.png'
-import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
+import {VNodeRenderer} from '@layouts/components/VNodeRenderer'
 
-import { reactive } from 'vue'
-import { router } from '@inertiajs/vue3'
+import {reactive} from 'vue'
+import {router} from '@inertiajs/vue3'
 
 const authThemeImg = useGenerateImageVariant(authV2LoginIllustrationLight, authV2LoginIllustrationDark, authV2LoginIllustrationBorderedLight, authV2LoginIllustrationBorderedDark, true)
 const authThemeMask = useGenerateImageVariant(authV2LoginMaskLight, authV2LoginMaskDark)
 
 definePage({
-  meta: {
-    layout: 'default',
-    unauthenticatedOnly: true,
-  },
+    meta: {
+        layout: 'default',
+        unauthenticatedOnly: true,
+    },
 })
 
 const isPasswordVisible = ref(false)
@@ -29,8 +29,8 @@ const isPasswordVisible = ref(false)
 const ability = useAbility()
 
 const errors = ref({
-  email: undefined,
-  password: undefined,
+    email: undefined,
+    password: undefined,
 })
 
 const refVForm = ref()
@@ -41,8 +41,8 @@ const refVForm = ref()
 // })
 
 const form = reactive({
-  email: 'merchant@gmail.com',
-  password: '@O999o19o12',
+    email: 'merchant@gmail.com',
+    password: '@O999o19o12',
 })
 
 const rememberMe = ref(false)
@@ -75,177 +75,177 @@ const rememberMe = ref(false)
 // }
 
 const onSubmit = () => {
-  refVForm.value?.validate().then(({ valid: isValid }) => {
-    if (isValid)
-      submit()
-  })
+    refVForm.value?.validate().then(({valid: isValid}) => {
+        if (isValid)
+            submit()
+    })
 }
 
-const submit= () => {
-  try {
-  router.post('/login', form);
-  } catch (err) {
-    console.error(err)
-  }
+const submit = () => {
+    try {
+        router.post('/login', form);
+    } catch (err) {
+        console.error(err)
+    }
 }
 </script>
 
 <template>
-  <RouterLink to="/">
-    <div class="auth-logo app-logo">
-      <VNodeRenderer :nodes="themeConfig.app.logo" />
-      <h1 class="app-logo-title">
-        {{ themeConfig.app.title }}
-      </h1>
-    </div>
-  </RouterLink>
+    <RouterLink to="/">
+        <div class="auth-logo app-logo">
+            <VNodeRenderer :nodes="themeConfig.app.logo"/>
+            <h1 class="app-logo-title">
+                {{ themeConfig.app.title }}
+            </h1>
+        </div>
+    </RouterLink>
 
-  <VRow
-    no-gutters
-    class="auth-wrapper"
-  >
-    <VCol
-      md="8"
-      class="d-none d-md-flex align-center justify-center position-relative"
+    <VRow
+        no-gutters
+        class="auth-wrapper"
     >
-      <div class="d-flex align-center justify-center pa-10">
-        <img
-          :src="authThemeImg"
-          class="auth-illustration w-100"
-          alt="auth-illustration"
+        <VCol
+            md="8"
+            class="d-none d-md-flex align-center justify-center position-relative"
         >
-      </div>
-      <VImg
-        :src="authThemeMask"
-        class="d-none d-md-flex auth-footer-mask"
-        alt="auth-mask"
-      />
-    </VCol>
-
-    <VCol
-      cols="12"
-      md="4"
-      class="auth-card-v2 d-flex align-center justify-center"
-      style="background-color: rgb(var(--v-theme-surface));"
-    >
-      <VCard
-        flat
-        :max-width="500"
-        class="mt-12 mt-sm-0 pa-5 pa-lg-7"
-      >
-        <VCardText>
-          <h4 class="text-h4 mb-1">
-            Welcome to <span class="text-capitalize">{{ themeConfig.app.title }}!</span> 👋🏻
-          </h4>
-          <p class="mb-0">
-            Please sign-in to your account and start the adventure
-          </p>
-        </VCardText>
-        <VCardText>
-          <VAlert
-            color="primary"
-            variant="tonal"
-          >
-            <p class="text-caption mb-2 text-primary">
-              Admin Email: <strong>admin@admin.com</strong> / Pass: <strong>@O999o19o12</strong>
-            </p>
-            <p class="text-caption mb-0 text-primary">
-              Client Email: <strong>merchant@gmail.com</strong> / Pass: <strong>@O999o19o12</strong>
-            </p>
-          </VAlert>
-        </VCardText>
-
-        <VCardText>
-          <VForm
-            ref="refVForm"
-            @submit.prevent="onSubmit"
-          >
-            <VRow>
-              <!-- email -->
-              <VCol cols="12">
-                <VTextField
-                  v-model="form.email"
-                  label="Email"
-                  placeholder="johndoe@email.com"
-                  type="email"
-                  autofocus
-                  :rules="[requiredValidator, emailValidator]"
-                  :error-messages="errors.email"
-                />
-              </VCol>
-
-              <!-- password -->
-              <VCol cols="12">
-                <VTextField
-                  v-model="form.password"
-                  label="Password"
-                  placeholder="············"
-                  :rules="[requiredValidator]"
-                  :type="isPasswordVisible ? 'text' : 'password'"
-                  :error-messages="errors.password"
-                  :append-inner-icon="isPasswordVisible ? 'ri-eye-off-line' : 'ri-eye-line'"
-                  @click:append-inner="isPasswordVisible = !isPasswordVisible"
-                />
-
-                <div class="d-flex align-center flex-wrap justify-space-between my-6 gap-x-2">
-                  <VCheckbox
-                    v-model="rememberMe"
-                    label="Remember me"
-                  />
-                  <RouterLink
-                    class="text-primary"
-                    :to="{ name: 'forgot-password' }"
-                  >
-                    Forgot Password?
-                  </RouterLink>
-                </div>
-
-                <VBtn
-                  block
-                  type="submit"
+            <div class="d-flex align-center justify-center pa-10">
+                <img
+                    :src="authThemeImg"
+                    class="auth-illustration w-100"
+                    alt="auth-illustration"
                 >
-                  Login
-                </VBtn>
-              </VCol>
+            </div>
+            <VImg
+                :src="authThemeMask"
+                class="d-none d-md-flex auth-footer-mask"
+                alt="auth-mask"
+            />
+        </VCol>
 
-              <!-- create account -->
-              <VCol
-                cols="12"
-                class="text-body-1 text-center"
-              >
+        <VCol
+            cols="12"
+            md="4"
+            class="auth-card-v2 d-flex align-center justify-center"
+            style="background-color: rgb(var(--v-theme-surface));"
+        >
+            <VCard
+                flat
+                :max-width="500"
+                class="mt-12 mt-sm-0 pa-5 pa-lg-7"
+            >
+                <VCardText>
+                    <h4 class="text-h4 mb-1">
+                        Welcome to <span class="text-capitalize">{{ themeConfig.app.title }}!</span> 👋🏻
+                    </h4>
+                    <p class="mb-0">
+                        Please sign-in to your account and start the adventure
+                    </p>
+                </VCardText>
+                <VCardText>
+                    <VAlert
+                        color="primary"
+                        variant="tonal"
+                    >
+                        <p class="text-caption mb-2 text-primary">
+                            Admin Email: <strong>admin@admin.com</strong> / Pass: <strong>@O999o19o12</strong>
+                        </p>
+                        <p class="text-caption mb-0 text-primary">
+                            Client Email: <strong>merchant@gmail.com</strong> / Pass: <strong>@O999o19o12</strong>
+                        </p>
+                    </VAlert>
+                </VCardText>
+
+                <VCardText>
+                    <VForm
+                        ref="refVForm"
+                        @submit.prevent="onSubmit"
+                    >
+                        <VRow>
+                            <!-- email -->
+                            <VCol cols="12">
+                                <VTextField
+                                    v-model="form.email"
+                                    label="Email"
+                                    placeholder="johndoe@email.com"
+                                    type="email"
+                                    autofocus
+                                    :rules="[requiredValidator, emailValidator]"
+                                    :error-messages="errors.email"
+                                />
+                            </VCol>
+
+                            <!-- password -->
+                            <VCol cols="12">
+                                <VTextField
+                                    v-model="form.password"
+                                    label="Password"
+                                    placeholder="············"
+                                    :rules="[requiredValidator]"
+                                    :type="isPasswordVisible ? 'text' : 'password'"
+                                    :error-messages="errors.password"
+                                    :append-inner-icon="isPasswordVisible ? 'ri-eye-off-line' : 'ri-eye-line'"
+                                    @click:append-inner="isPasswordVisible = !isPasswordVisible"
+                                />
+
+                                <div class="d-flex align-center flex-wrap justify-space-between my-6 gap-x-2">
+                                    <VCheckbox
+                                        v-model="rememberMe"
+                                        label="Remember me"
+                                    />
+                                    <RouterLink
+                                        class="text-primary"
+                                        :to="{ name: 'forgot-password' }"
+                                    >
+                                        Forgot Password?
+                                    </RouterLink>
+                                </div>
+
+                                <VBtn
+                                    block
+                                    type="submit"
+                                >
+                                    Login
+                                </VBtn>
+                            </VCol>
+
+                            <!-- create account -->
+                            <VCol
+                                cols="12"
+                                class="text-body-1 text-center"
+                            >
                 <span class="d-inline-block">
                   New on our platform?
                 </span>
-                <RouterLink
-                  class="text-primary ms-1 d-inline-block text-body-1"
-                  :to="{ name: 'register' }"
-                >
-                  Create an account
-                </RouterLink>
-              </VCol>
+                                <RouterLink
+                                    class="text-primary ms-1 d-inline-block text-body-1"
+                                    :to="{ name: 'register' }"
+                                >
+                                    Create an account
+                                </RouterLink>
+                            </VCol>
 
-              <VCol
-                cols="12"
-                class="d-flex align-center"
-              >
-                <VDivider />
-                <span class="mx-4 text-high-emphasis">or</span>
-                <VDivider />
-              </VCol>
+                            <VCol
+                                cols="12"
+                                class="d-flex align-center"
+                            >
+                                <VDivider/>
+                                <span class="mx-4 text-high-emphasis">or</span>
+                                <VDivider/>
+                            </VCol>
 
-              <!-- auth providers -->
-              <VCol
-                cols="12"
-                class="text-center"
-              >
-                <AuthProvider />
-              </VCol>
-            </VRow>
-          </VForm>
-        </VCardText>
-      </VCard>
-    </VCol>
-  </VRow>
+                            <!-- auth providers -->
+                            <VCol
+                                cols="12"
+                                class="text-center"
+                            >
+                                <AuthProvider/>
+                            </VCol>
+                        </VRow>
+                    </VForm>
+                </VCardText>
+            </VCard>
+        </VCol>
+    </VRow>
 </template>
 
 <style lang="scss">

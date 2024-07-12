@@ -1,7 +1,7 @@
 <script setup>
 import navItems from '@/navigation/vertical'
-import { useConfigStore } from '@core/stores/config'
-import { themeConfig } from '@themeConfig'
+import {useConfigStore} from '@core/stores/config'
+import {themeConfig} from '@themeConfig'
 
 // Components
 // import Footer from '@/layouts/components/Footer.vue'
@@ -13,21 +13,21 @@ import UserProfile from '@/layouts/components/UserProfile.vue'
 import NavBarI18n from '@core/components/I18n.vue'
 
 // @layouts plugin
-import { VerticalNavLayout } from '@layouts'
+import {VerticalNavLayout} from '@layouts'
 
 // SECTION: Loading Indicator
 const isFallbackStateActive = ref(false)
 const refLoadingIndicator = ref(null)
 
 watch([
-  isFallbackStateActive,
-  refLoadingIndicator,
+    isFallbackStateActive,
+    refLoadingIndicator,
 ], () => {
-  if (isFallbackStateActive.value && refLoadingIndicator.value)
-    refLoadingIndicator.value.fallbackHandle()
-  if (!isFallbackStateActive.value && refLoadingIndicator.value)
-    refLoadingIndicator.value.resolveHandle()
-}, { immediate: true })
+    if (isFallbackStateActive.value && refLoadingIndicator.value)
+        refLoadingIndicator.value.fallbackHandle()
+    if (!isFallbackStateActive.value && refLoadingIndicator.value)
+        refLoadingIndicator.value.resolveHandle()
+}, {immediate: true})
 
 // !SECTION
 const configStore = useConfigStore()
@@ -36,84 +36,92 @@ const configStore = useConfigStore()
 const verticalNavHeaderActionAnimationName = ref(null)
 
 watch([
-  () => configStore.isVerticalNavCollapsed,
-  () => configStore.isAppRTL,
+    () => configStore.isVerticalNavCollapsed,
+    () => configStore.isAppRTL,
 ], val => {
-  if (configStore.isAppRTL)
-    verticalNavHeaderActionAnimationName.value = val[0] ? 'rotate-back-180' : 'rotate-180'
-  else
-    verticalNavHeaderActionAnimationName.value = val[0] ? 'rotate-180' : 'rotate-back-180'
-}, { immediate: true })
+    if (configStore.isAppRTL)
+        verticalNavHeaderActionAnimationName.value = val[0] ? 'rotate-back-180' : 'rotate-180'
+    else
+        verticalNavHeaderActionAnimationName.value = val[0] ? 'rotate-180' : 'rotate-back-180'
+}, {immediate: true})
 </script>
 
 <template>
-  <VerticalNavLayout :nav-items="navItems">
-    <!-- 👉 navbar -->
-    <template #navbar="{ toggleVerticalOverlayNavActive }">
-      <div class="d-flex h-100 align-center">
-        <IconBtn
-          id="vertical-nav-toggle-btn"
-          class="ms-n2 d-lg-none"
-          @click="toggleVerticalOverlayNavActive(true)"
+    <VerticalNavLayout :nav-items="navItems">
+        <!-- 👉 navbar -->
+        <template #navbar="{ toggleVerticalOverlayNavActive }">
+            <div class="d-flex h-100 align-center">
+                <IconBtn
+                    id="vertical-nav-toggle-btn"
+                    class="ms-n2 d-lg-none"
+                    @click="toggleVerticalOverlayNavActive(true)"
+                >
+                    <VIcon icon="ri-menu-line"/>
+                </IconBtn>
+
+                <NavSearchBar class="ms-lg-n2"/>
+
+                <VSpacer/>
+
+                <NavBarI18n
+                    v-if="themeConfig.app.i18n.enable && themeConfig.app.i18n.langConfig?.length"
+                    :languages="themeConfig.app.i18n.langConfig"
+                />
+                <NavbarThemeSwitcher/>
+                <NavbarShortcuts/>
+                <NavBarNotifications class="me-2"/>
+                <UserProfile/>
+            </div>
+        </template>
+
+        <AppLoadingIndicator ref="refLoadingIndicator"/>
+
+        <!-- 👉 Pages -->
+        <Suspense
+            :timeout="0"
+            @fallback="isFallbackStateActive = true"
+            @resolve="isFallbackStateActive = false"
         >
-          <VIcon icon="ri-menu-line" />
-        </IconBtn>
+            <slot/>
+        </Suspense>
 
-        <NavSearchBar class="ms-lg-n2" />
+        <!-- 👉 Footer -->
+        <!--    <template #footer>-->
+        <!--      <Footer />-->
+        <!--    </template>-->
 
-        <VSpacer />
-
-        <NavBarI18n
-          v-if="themeConfig.app.i18n.enable && themeConfig.app.i18n.langConfig?.length"
-          :languages="themeConfig.app.i18n.langConfig"
-        />
-        <NavbarThemeSwitcher />
-        <NavbarShortcuts />
-        <NavBarNotifications class="me-2" />
-        <UserProfile />
-      </div>
-    </template>
-
-    <AppLoadingIndicator ref="refLoadingIndicator" />
-
-    <!-- 👉 Pages -->
-    <Suspense
-      :timeout="0"
-      @fallback="isFallbackStateActive = true"
-      @resolve="isFallbackStateActive = false"
-    >
-      <slot />
-    </Suspense>
-
-    <!-- 👉 Footer -->
-<!--    <template #footer>-->
-<!--      <Footer />-->
-<!--    </template>-->
-
-    <!-- 👉 Customizer -->
-    <TheCustomizer />
-  </VerticalNavLayout>
+        <!-- 👉 Customizer -->
+        <TheCustomizer/>
+    </VerticalNavLayout>
 </template>
 
 <style lang="scss">
 @keyframes rotate-180 {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(180deg); }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(180deg);
+    }
 }
 
 @keyframes rotate-back-180 {
-  from { transform: rotate(180deg); }
-  to { transform: rotate(0deg); }
+    from {
+        transform: rotate(180deg);
+    }
+    to {
+        transform: rotate(0deg);
+    }
 }
 
 .layout-vertical-nav {
-  .nav-header {
-    .header-action {
-      animation-duration: 0.35s;
-      animation-fill-mode: forwards;
-      animation-name: v-bind(verticalNavHeaderActionAnimationName);
-      transform: rotate(0deg);
+    .nav-header {
+        .header-action {
+            animation-duration: 0.35s;
+            animation-fill-mode: forwards;
+            animation-name: v-bind(verticalNavHeaderActionAnimationName);
+            transform: rotate(0deg);
+        }
     }
-  }
 }
 </style>
