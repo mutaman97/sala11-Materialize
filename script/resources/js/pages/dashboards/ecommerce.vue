@@ -12,12 +12,7 @@ import EcommerceVisitsByDay from '@/views/dashboards/ecommerce/EcommerceVisitsBy
 import EcommerceWeeklySalesBg from '@/views/dashboards/ecommerce/EcommerceWeeklySalesBg.vue'
 import illustration1 from '@images/cards/illustration-1.png'
 import illustration2 from '@images/cards/illustration-2.png'
-
-// definePage({ meta: { layout: 'blank' } })
-
 import Layout from '@/layouts/default.vue'
-
-defineOptions({layout: Layout})
 
 const statisticsWithImages = [
     {
@@ -39,6 +34,9 @@ const statisticsWithImages = [
         color: 'success',
     },
 ]
+
+defineOptions({layout: Layout})
+
 </script>
 
 <template>

@@ -12,6 +12,7 @@ import CrmProjectTimeline from '@/views/dashboards/crm/CrmProjectTimeline.vue'
 import CrmSocialNetworkVisits from '@/views/dashboards/crm/CrmSocialNetworkVisits.vue'
 import CrmUserList from '@/views/dashboards/crm/CrmUserList.vue'
 import CrmWeeklyOverview from '@/views/dashboards/crm/CrmWeeklyOverview.vue'
+import Layout from '@/layouts/default.vue'
 
 const statisticsVertical = [
   {
@@ -31,6 +32,9 @@ const statisticsVertical = [
     subtitle: 'Last Six months',
   },
 ]
+
+defineOptions({layout: Layout})
+
 </script>
 
 <template>

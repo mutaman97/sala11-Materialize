@@ -11,12 +11,7 @@ import AnalyticsTotalRevenueBarCharts from '@/views/dashboards/analytics/Analyti
 import AnalyticsTotalTransactions from '@/views/dashboards/analytics/AnalyticsTotalTransactions.vue'
 import AnalyticsVisitsByDay from '@/views/dashboards/analytics/AnalyticsVisitsByDay.vue'
 import AnalyticsWeeklySales from '@/views/dashboards/analytics/AnalyticsWeeklySales.vue'
-
-// definePage({ meta: { layout: 'blank' } })
-
 import Layout from '@/layouts/blank.vue'
-
-defineOptions({ layout: Layout })
 
 const statisticsVertical = [
   {
@@ -44,6 +39,9 @@ const statisticsVertical = [
     subtitle: 'Last One Year',
   },
 ]
+
+defineOptions({ layout: Layout })
+
 </script>
 
 <template>

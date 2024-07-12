@@ -27,7 +27,7 @@ class DashboardController extends Controller
         $order_method=$order_method->value ?? '';
 
         if (Feature::active('vue-homepage')) {
-            return Inertia::render('dashboards/ecommerce', [
+            return Inertia::render('dashboards/crm', [
                 'info' => "info",
             ]);
         }
