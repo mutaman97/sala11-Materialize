@@ -77,17 +77,13 @@ watch([
     <AppLoadingIndicator ref="refLoadingIndicator" />
 
     <!-- 👉 Pages -->
-<!--    <RouterView v-slot="{ Component }">-->
-      <Suspense
-        :timeout="0"
-        @fallback="isFallbackStateActive = true"
-        @resolve="isFallbackStateActive = false"
-      >
-<!--        <Component :is="Component" />-->
-        <slot></slot>
-      </Suspense>
-<!--    </RouterView>-->
-
+    <Suspense
+      :timeout="0"
+      @fallback="isFallbackStateActive = true"
+      @resolve="isFallbackStateActive = false"
+    >
+      <slot />
+    </Suspense>
 
     <!-- 👉 Footer -->
     <template #footer>
