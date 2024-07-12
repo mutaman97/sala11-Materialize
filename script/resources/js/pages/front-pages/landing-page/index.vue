@@ -11,13 +11,11 @@ import OurTeam from '@/views/front-pages/landing-page/our-team.vue'
 import PricingPlans from '@/views/front-pages/landing-page/pricing-plans.vue'
 import ProductStats from '@/views/front-pages/landing-page/product-stats.vue'
 import { useConfigStore } from '@core/stores/config'
+import Layout from '@/layouts/blank.vue'
 
 const store = useConfigStore()
 
 store.skin = 'default'
-// definePage({ meta: { layout: 'blank' } })
-
-import Layout from '@/layouts/blank.vue'
 
 defineOptions({ layout: Layout })
 
