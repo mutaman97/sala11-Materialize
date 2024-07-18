@@ -8,6 +8,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Auth;
 use Cart;
+use Illuminate\Support\Facades\Cookie;
 use Inertia\Inertia;
 use Laravel\Pennant\Feature;
 
@@ -40,7 +41,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest')->except('logout', 'getUserData');
     }
 
     public function showLoginForm()
@@ -83,6 +84,43 @@ class LoginController extends Controller
             Cart::instance('wishlist')->restore($user->email);
             logger($user);
         }
+
+//        $userData = $user->toArray();
+//
+//        $userOutData = collect($userData)->except(['password', 'abilityRules'])->toArray();
+//        dd(base64_encode(json_encode($userOutData)));
+//
+//        $userAbilityRules = $this->getUserAbilityRules($user);
+//        Cookie::queue('userAbilityRules', base64_encode($userAbilityRules), 60 * 24 * 7);
+//        Cookie::queue('userData', base64_encode($userOutData), 60 * 24 * 7);
+//
+    }
+
+    protected function getUserAbilityRules($user): array
+    {
+        return [
+            [
+                'action' => 'manage',
+                'subject' => 'all',
+            ],
+        ];
+    }
+
+    public function getUserData(Request $request)
+    {
+        $user = $request->user();
+        $userData = collect($user->toArray())->only(['id','fullName', 'username','avatar','email', 'role'])->toArray();
+        $userAbilityRules = [
+            [
+                'action' => 'manage',
+                'subject' => 'all',
+            ],
+        ];
+
+        return response()->json([
+            'userData' => $userData,
+            'userAbilityRules' => $userAbilityRules,
+        ]);
     }
 
     // Override the authenticated method to apply the restore.cart middleware

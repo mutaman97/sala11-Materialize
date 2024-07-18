@@ -35,6 +35,10 @@ foreach (config('tenancy.central_domains') as $domain) {
     Route::domain($domain)->group(function () {
         Auth::routes(['verify' => true]); // Include the 'verify' option to enable email verification routes
 
+        Route::controller(App\Http\Controllers\Auth\LoginController::class)
+            ->group(function () {
+        Route::get('user-data', 'getUserData');
+            });
         Route::controller(App\Http\Controllers\WelcomeController::class)
             ->group(function () {
                 Route::get('/', 'index')->name('welcome');

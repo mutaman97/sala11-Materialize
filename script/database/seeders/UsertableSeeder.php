@@ -21,14 +21,22 @@ class UsertableSeeder extends Seeder
         $super = User::create([
     		'role_id' => 1,
     		'name' => 'Admin',
+            'username' => 'admin',
+            'fullName' => 'Super Admin',
+            'avatar' => 'https://demos.pixinvent.com/materialize-vuejs-admin-template/demo-1/images/avatars/avatar-1.png',
     		'email' => 'admin@admin.com',
+            'role' => 'admin',
     		'password' => Hash::make('@O999o19o12'),
 		]);
 
         User::create([
     		'role_id' => 2,
     		'name' => 'Merchant',
+            'username' => 'merchant',
+            'fullName' => 'Super Merchant',
+            'avatar' => 'https://demos.pixinvent.com/materialize-vuejs-admin-template/demo-1/images/avatars/avatar-1.png',
     		'email' => 'merchant@gmail.com',
+            'role' => 'admin',
     		'password' => Hash::make('@O999o19o12')
 		]);
 

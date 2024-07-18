@@ -30,18 +30,48 @@ declare module '@tiptap/core' {
          * @default {}
          */
         parseOptions?: ParseOptions,
+        /**
+         * Options for `setContent`.
+         */
+        options?: {
+          /**
+           * Whether to throw an error if the content is invalid.
+           */
+           errorOnInvalidContent?: boolean
+        },
       ) => ReturnType
     }
   }
 }
 
-export const setContent: RawCommands['setContent'] = (content, emitUpdate = false, parseOptions = {}) => ({ tr, editor, dispatch }) => {
+export const setContent: RawCommands['setContent'] = (content, emitUpdate = false, parseOptions = {}, options = {}) => ({
+  editor, tr, dispatch, commands,
+}) => {
   const { doc } = tr
-  const document = createDocument(content, editor.schema, parseOptions)
 
-  if (dispatch) {
-    tr.replaceWith(0, doc.content.size, document).setMeta('preventUpdate', !emitUpdate)
+  // This is to keep backward compatibility with the previous behavior
+  // TODO remove this in the next major version
+  if (parseOptions.preserveWhitespace !== 'full') {
+    const document = createDocument(content, editor.schema, parseOptions, {
+      errorOnInvalidContent: options.errorOnInvalidContent ?? editor.options.enableContentCheck,
+    })
+
+    if (dispatch) {
+      tr.replaceWith(0, doc.content.size, document).setMeta('preventUpdate', !emitUpdate)
+    }
+    return true
   }
 
-  return true
+  if (dispatch) {
+    tr.setMeta('preventUpdate', !emitUpdate)
+  }
+
+  return commands.insertContentAt(
+    { from: 0, to: doc.content.size },
+    content,
+    {
+      parseOptions,
+      errorOnInvalidContent: options.errorOnInvalidContent ?? editor.options.enableContentCheck,
+    },
+  )
 }
