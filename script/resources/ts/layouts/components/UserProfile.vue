@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
-
-const router = useRouter()
+import { router} from '@inertiajs/vue3'
+// const router = useRouter()
 const ability = useAbility()
 
 // TODO: Get type from backend
@@ -15,7 +15,9 @@ const logout = async () => {
   userData.value = null
 
   // Redirect to login page
-  await router.push('/login')
+  // await router.push('/login')
+
+  await router.post('/logout')
 
   // ℹ️ We had to remove abilities in then block because if we don't nav menu items mutation is visible while redirecting user to login page
   // Remove "userAbilities" from cookie

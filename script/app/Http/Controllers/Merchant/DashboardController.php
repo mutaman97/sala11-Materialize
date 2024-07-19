@@ -19,7 +19,7 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response|\Inertia\Response
      */
-    public function index(): \Illuminate\Http\Response|\Inertia\Response
+    public function index()
     {
         $orders = Order::where([['user_id', Auth::id()],['price','>',0]])->with('plan','orderlog')->latest()->take(5)->get();
         $total_active_stores=Tenant::where([['user_id',Auth::id()],['will_expire','>',now()],['status',1]])->count();

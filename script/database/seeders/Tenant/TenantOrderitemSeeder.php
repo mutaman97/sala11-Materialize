@@ -17,7 +17,7 @@ class TenantOrderitemSeeder extends Seeder
     public function run()
     {
 
-        $terms = Term::where('type', 'product')->get();
+        $terms = Term::where('type', 'product')->with('price')->get();
         $termMap = $terms->pluck('id')->toArray();
 
         // Get orders
