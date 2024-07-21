@@ -29,6 +29,8 @@ export default [
         icon: { icon: 'ri-truck-line' },
       },
     ],
+    badgeContent: '5',
+    badgeClass: 'bg-error',
   },
 
 ]

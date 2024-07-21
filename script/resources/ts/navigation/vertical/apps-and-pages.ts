@@ -20,14 +20,14 @@ export default [
         title: 'Order',
         children: [
           { title: 'List', to: 'apps-ecommerce-order-list' },
-          { title: 'Details', to: { name: 'apps-ecommerce-order-details-id', params: { id: '9042' } } },
+          { title: 'Details', to: { name: 'login', params: { id: '9042' } } },
         ],
       },
       {
         title: 'Customer',
         children: [
           { title: 'List', to: 'apps-ecommerce-customer-list' },
-          { title: 'Details', to: { name: 'apps-ecommerce-customer-details-id', params: { id: 478426 } } },
+          { title: 'Details', to: { name: 'login', params: { id: 478426 } } },
         ],
       },
       {
@@ -86,8 +86,8 @@ export default [
     icon: { icon: 'ri-bill-line' },
     children: [
       { title: 'List', to: 'apps-invoice-list' },
-      { title: 'Preview', to: { name: 'apps-invoice-preview-id', params: { id: '5036' } } },
-      { title: 'Edit', to: { name: 'apps-invoice-edit-id', params: { id: '5036' } } },
+      { title: 'Preview', to: { name: 'login', params: { id: '5036' } } },
+      { title: 'Edit', to: { name: 'login', params: { id: '5036' } } },
       { title: 'Add', to: 'apps-invoice-add' },
     ],
   },
@@ -96,7 +96,7 @@ export default [
     icon: { icon: 'ri-user-line' },
     children: [
       { title: 'List', to: 'apps-user-list' },
-      { title: 'View', to: { name: 'apps-user-view-id', params: { id: 21 } } },
+      { title: 'View', to: { name: 'login', params: { id: 21 } } },
     ],
   },
   {
@@ -111,8 +111,8 @@ export default [
     title: 'Pages',
     icon: { icon: 'ri-layout-left-line' },
     children: [
-      { title: 'User Profile', to: { name: 'pages-user-profile-tab', params: { tab: 'profile' } } },
-      { title: 'Account Settings', to: { name: 'pages-account-settings-tab', params: { tab: 'account' } } },
+      { title: 'User Profile', to: { name: 'login', params: { tab: 'profile' } } },
+      { title: 'Account Settings', to: { name: 'login', params: { tab: 'account' } } },
       { title: 'Pricing', to: 'pages-pricing' },
       { title: 'FAQ', to: 'pages-faq' },
       {
@@ -179,9 +179,9 @@ export default [
     title: 'Wizard Examples',
     icon: { icon: 'ri-git-commit-line' },
     children: [
-      { title: 'Checkout', to: { name: 'wizard-examples-checkout' } },
-      { title: 'Property Listing', to: { name: 'wizard-examples-property-listing' } },
-      { title: 'Create Deal', to: { name: 'wizard-examples-create-deal' } },
+      { title: 'Checkout', to: { name: 'login' } },
+      { title: 'Property Listing', to: { name: 'login' } },
+      { title: 'Create Deal', to: { name: 'login' } },
     ],
   },
   {

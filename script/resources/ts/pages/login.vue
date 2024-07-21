@@ -189,20 +189,14 @@ const submit = async () => {
           const rawUserData = userData._rawValue || userData; // Adjust based on actual structure
           const rawUserAbilityRules = userAbilityRules._rawValue || userAbilityRules;
 
-          console.log(rawUserAbilityRules);
-          console.log(rawUserData);
-
           useCookie('userAbilityRules').value = rawUserAbilityRules
           ability.update(rawUserAbilityRules)
 
           useCookie('userData').value = rawUserData
-          console.log('Login successful');
         })
         .catch((error) => {
           console.error('Error fetching user data:', error);
         });
-
-      console.log('Login successful');
     },
     onError: (error) => {
       form.errors = error

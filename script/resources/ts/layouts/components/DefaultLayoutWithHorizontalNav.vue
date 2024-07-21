@@ -11,8 +11,10 @@ import NavbarShortcuts from '@/layouts/components/NavbarShortcuts.vue'
 import NavbarThemeSwitcher from '@/layouts/components/NavbarThemeSwitcher.vue'
 import UserProfile from '@/layouts/components/UserProfile.vue'
 import NavBarI18n from '@core/components/I18n.vue'
-import { HorizontalNavLayout } from '@layouts'
 import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
+
+// @layouts plugin
+import { HorizontalNavLayout } from '@layouts'
 
 // SECTION: Loading Indicator
 const isFallbackStateActive = ref(false)
@@ -61,15 +63,7 @@ watch([isFallbackStateActive, refLoadingIndicator], () => {
     <AppLoadingIndicator ref="refLoadingIndicator" />
 
     <!-- 👉 Pages -->
-    <RouterView v-slot="{ Component }">
-      <Suspense
-        :timeout="0"
-        @fallback="isFallbackStateActive = true"
-        @resolve="isFallbackStateActive = false"
-      >
-        <Component :is="Component" />
-      </Suspense>
-    </RouterView>
+    <slot />
 
     <!-- 👉 Footer -->
     <template #footer>

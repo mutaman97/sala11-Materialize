@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import navItems from '@/navigation/vertical'
 import { useConfigStore } from '@core/stores/config'
 import { themeConfig } from '@themeConfig'
 
@@ -14,6 +13,7 @@ import NavBarI18n from '@core/components/I18n.vue'
 
 // @layouts plugin
 import { VerticalNavLayout } from '@layouts'
+import {usePage} from "@inertiajs/vue3";
 
 // SECTION: Loading Indicator
 const isFallbackStateActive = ref(false)
@@ -43,6 +43,59 @@ watch([
   else
     verticalNavHeaderActionAnimationName.value = val[0] ? 'rotate-180' : 'rotate-back-180'
 }, { immediate: true })
+
+// Use Inertia.js to get the current page
+const page = usePage()
+
+
+// Determine the navigation items based on the current URL
+const navItems = ref([])
+
+const determineNavItems = async () => {
+  let navigationModule
+  if (page.url.startsWith('/partner')) {
+    navigationModule = await import('@/navigation/vertical')
+  } else if (page.url.startsWith('/seller')) {
+    navigationModule = await import('@/navigation/vertical')
+  } else {
+    navigationModule = await import('@/navigation/vertical')
+  }
+  navItems.value = navigationModule.default
+
+  // Prepend the stores object to the navItems
+  navItems.value.unshift(stores)
+}
+//
+// import { computed } from 'vue'
+//
+// const user = computed(() => page.props.auth.user)
+// console.log(user)
+
+
+// Fetch the stores data from Inertia page props
+const storesData = page.props.stores
+
+// Create store objects from the data
+const createStoreChildren = (data) => ({
+  title: data.id,
+  to: data.uid,
+})
+
+// Convert the array of data to an array of store child objects
+const storeChildren = storesData.map(createStoreChildren)
+
+// Define the reactive array of store objects
+const stores = reactive(
+  {
+    title: 'My Stores',
+    icon: { icon: 'ri-store-2-line' },
+    children: storeChildren,
+  },
+)
+
+determineNavItems()
+console.log(navItems)
+
 </script>
 
 <template>

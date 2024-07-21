@@ -4,6 +4,7 @@ import { can } from '@layouts/plugins/casl'
 import { useLayoutConfigStore } from '@layouts/stores/config'
 import type { NavLink } from '@layouts/types'
 import { getComputedNavLinkToProp, getDynamicI18nProps, isNavLinkActive } from '@layouts/utils'
+import { Link } from '@inertiajs/inertia-vue3'
 
 defineProps<{
   item: NavLink
@@ -20,7 +21,7 @@ const hideTitleAndBadge = configStore.isVerticalNavMini()
     :class="{ disabled: item.disable }"
   >
     <Component
-      :is="item.to ? 'RouterLink' : 'a'"
+      :is="item.to ? 'Link' : 'a'"
       v-bind="getComputedNavLinkToProp(item)"
       :class="{ 'router-link-active router-link-exact-active': isNavLinkActive(item, $router) }"
     >

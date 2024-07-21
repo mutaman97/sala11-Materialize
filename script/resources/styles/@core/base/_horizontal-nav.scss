@@ -179,6 +179,11 @@
       @extend %horizontal-nav-item-title;
     }
 
+    // Nav item badge
+    .nav-item-badge {
+      @extend %horizontal-nav-item-badge;
+    }
+
     &.show-content {
       > .popper-content {
         @extend %horizontal-nav-popper-content-visible;

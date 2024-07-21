@@ -27,7 +27,20 @@ class DashboardController extends Controller
         $order_method=$order_method->value ?? '';
 
         if (Feature::active('vue-homepage')) {
-            return Inertia::render('dashboards/crm', [
+            $sharedData = [
+                'auth.user' => function () {
+                    return Auth::user() ? Auth::user()->only('id', 'name', 'email') : null;
+                },
+                'stores' => function () {
+//                    return Tenant::where('user_id',Auth::id())->with('orderwithplan')->get();
+//                    return Tenant::where('user_id', Auth::id())->pluck('id');
+                      return Tenant::where('user_id', Auth::id())->select('id', 'uid')->get();
+
+                }
+            ];
+
+            Inertia::share($sharedData);
+            return Inertia::render('dashboards/merchant/dashboard', [
                 'info' => "info",
             ]);
         }

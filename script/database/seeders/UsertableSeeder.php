@@ -40,6 +40,17 @@ class UsertableSeeder extends Seeder
     		'password' => Hash::make('@O999o19o12')
 		]);
 
+        User::create([
+            'role_id' => 2,
+            'name' => 'Merchant2',
+            'username' => 'merchant2',
+            'fullName' => 'Super Merchant',
+            'avatar' => 'https://demos.pixinvent.com/materialize-vuejs-admin-template/demo-1/images/avatars/avatar-1.png',
+            'email' => 'merchant2@gmail.com',
+            'role' => 'admin',
+            'password' => Hash::make('@O999o19o12')
+        ]);
+
 
 
     	$roleSuperAdmin = Role::create(['name' => 'superadmin']);

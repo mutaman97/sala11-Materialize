@@ -14,9 +14,6 @@ interface Props {
   isSubItem?: boolean
 }
 
-defineOptions({
-  name: 'HorizontalNavGroup',
-})
 
 const props = withDefaults(defineProps<Props>(), {
   childrenAtEnd: false,
@@ -68,6 +65,16 @@ watch(() => route.path, () => {
         class="nav-item-title"
       >
         {{ item.title }}
+      </Component>
+      <!-- 👉 Badge -->
+      <Component
+        :is="layoutConfig.app.i18n.enable ? 'i18n-t' : 'span'"
+        v-bind="getDynamicI18nProps(item.badgeContent, 'span')"
+        v-if="item.badgeContent"
+        class="nav-item-badge"
+        :class="item.badgeClass"
+      >
+        {{ item.badgeContent }}
       </Component>
       <Component
         v-bind="layoutConfig.icons.chevronDown"

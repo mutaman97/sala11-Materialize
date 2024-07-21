@@ -46,12 +46,15 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
-        if (Feature::active('vue-homepage')) {
-            return Inertia::render('login', [
-                'info' => "info",
-            ]);
-        }
-        return view('auth.login');
+//        if (Feature::active('vue-homepage')) {
+//            return Inertia::render('login', [
+//                'info' => "info",
+//            ]);
+//        }
+//        return view('auth.login');
+        return Inertia::render('login', [
+            'info' => "info",
+        ]);
     }
 
     public function redirectTo()
@@ -151,6 +154,17 @@ class LoginController extends Controller
     protected function decayMinutes()
     {
         return 10; // Set the lockout time to 5 minutes
+    }
+
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login');
     }
 
     // public function login(Request $request)

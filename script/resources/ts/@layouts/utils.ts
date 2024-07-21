@@ -11,20 +11,42 @@ export const openGroups = ref<string[]>([])
  // @param {Object, String} item navigation routeName or route Object provided in navigation data
  */
 
+// export const getComputedNavLinkToProp = computed(() => (link: NavLink) => {
+//   const props: NavLinkProps = {
+//     target: link.target,
+//     rel: link.rel,
+//   }
+//
+//   // If route is string => it assumes string is route name => Create route object from route name
+//   // If route is not string => It assumes it's route object => returns passed route object
+//   if (link.to)
+//     props.to = typeof link.to === 'string' ? { name: link.to } : link.to
+//   else props.href = link.href
+//
+//   return props
+// })
+
 export const getComputedNavLinkToProp = computed(() => (link: NavLink) => {
+  // This function returns props for the Link component
   const props: NavLinkProps = {
     target: link.target,
     rel: link.rel,
+  };
+
+  // If the `to` prop is a route object or a string, convert it to `href` for Inertia Link
+  if (link.to) {
+    // If `link.to` is an object, extract the necessary information to create `href`
+    if (typeof link.to === 'object' && link.to.name) {
+      // Convert route object to string URL
+      props.href = route(link.to.name, link.to.params || {}); // Use the Ziggy `route` helper if available
+    } else if (typeof link.to === 'string') {
+      props.href = link.to; // Directly assign the string route
+    }
+  } else {
+    props.href = link.href; // Fallback to href if `link.to` is not defined
   }
-
-  // If route is string => it assumes string is route name => Create route object from route name
-  // If route is not string => It assumes it's route object => returns passed route object
-  if (link.to)
-    props.to = typeof link.to === 'string' ? { name: link.to } : link.to
-  else props.href = link.href
-
-  return props
-})
+  return props;
+});
 
 /**
  * Return route name for navigation link
