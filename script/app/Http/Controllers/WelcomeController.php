@@ -63,7 +63,7 @@ class WelcomeController extends Controller
         SEOTools::twitter()->setSite('@salaplatform' ?? null);
         SEOTools::jsonLd()->addImage(asset('uploads/logo.png'));
 
-        if (Feature::active('vue-homepage')) {
+//        if (Feature::active('vue-homepage')) {
             return Inertia::render('front-pages/landing-page/index', [
                 'info' => $info,
                 'services' => $services,
@@ -73,9 +73,9 @@ class WelcomeController extends Controller
                 'demos' => $demos,
                 'testimonials' => $testimonials
             ]);
-        }
+//        }
 
-        return view('welcome',compact('info','services','plans','plans365','blogs','demos','testimonials'));
+//        return view('welcome',compact('info','services','plans','plans365','blogs','demos','testimonials'));
     }
 
     public function subscribe(Request $request)

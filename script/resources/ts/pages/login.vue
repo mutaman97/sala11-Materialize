@@ -12,9 +12,8 @@ import authV2LoginMaskDark from '@images/pages/auth-v2-login-mask-dark.png'
 import authV2LoginMaskLight from '@images/pages/auth-v2-login-mask-light.png'
 import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
 import { Head, Link, useForm } from '@inertiajs/vue3'
-
+import {usePage} from "@inertiajs/vue3";
 import { ref } from 'vue'
-import { router } from '@inertiajs/vue3'
 
 const authThemeImg = useGenerateImageVariant(
   authV2LoginIllustrationLight,
@@ -26,18 +25,20 @@ const authThemeImg = useGenerateImageVariant(
 
 const authThemeMask = useGenerateImageVariant(authV2LoginMaskLight, authV2LoginMaskDark)
 
-definePage({
-  meta: {
-    layout: 'blank',
-    unauthenticatedOnly: true,
-  },
-})
+// definePage({
+//   meta: {
+//     layout: 'blank',
+//     unauthenticatedOnly: true,
+//   },
+// })
+
+import Layout from '@/layouts/blank.vue'
+
+defineOptions({ layout: Layout })
 
 const isPasswordVisible = ref(false)
 
 const ability = useAbility()
-
-import axios from 'axios';
 
 interface UserAbilityRule {
   action: string;
@@ -53,16 +54,6 @@ interface UserData {
   role: string;
 }
 
-// Hardcode initial ability rules
-// const initialAbilityRules = [
-//   {
-//     action: 'manage',
-//     subject: 'all',
-//   },
-// ];
-//
-// ability.update(initialAbilityRules); // Set initial ability rules
-
 const refVForm = ref<VForm>()
 
 const form = useForm({
@@ -75,106 +66,7 @@ const rememberMe = ref(false)
 const userData = ref<UserData | null>(null);
 const userAbilityRules = ref<UserAbilityRule[]>([]);
 
-// const submit = async () => {
-//   try {
-//     // Perform the login request using Inertia form.post
-//     await form.post('/login', {
-//       onFinish: () => {
-//         form.reset('password'); // Reset the password field after submission
-//       },
-//       onSuccess: async () => {
-//         try {
-//           // Fetch user data after successful login
-//           const userDataResponse = await axios.get('/user-data'); // Adjust this URL if needed
-//           const { userData, userAbilityRules } = userDataResponse.data;
-//
-//           // Use raw data if `_rawValue` is present
-//           const rawUserData = userData._rawValue || userData;
-//           const rawUserAbilityRules = userAbilityRules._rawValue || userAbilityRules;
-//
-//           // Update cookies and application state
-//           useCookie('userAbilityRules').value = rawUserAbilityRules;
-//           useCookie('userData').value = rawUserData;
-//           useCookie('accessToken').value = form.data.accessToken; // Ensure accessToken is included in form response
-//
-//           // Update ability with fetched rules
-//           ability.update(rawUserAbilityRules);
-//
-//           console.log('Login successful');
-//
-//           // Redirect to `to` query if it exists or redirect to index route
-//           // await nextTick(() => {
-//           //   router.replace(route.query.to ? String(route.query.to) : '/');
-//           // });
-//         } catch (error) {
-//           console.error('Error fetching user data:', error);
-//           // Handle error response
-//           if (error.response && error.response.data && error.response.data.errors) {
-//             errors.value = error.response.data.errors;
-//           }
-//         }
-//       },
-//       onError: (error) => {
-//         console.error('Error during login:', error);
-//         // Handle form submission errors
-//         if (error.response && error.response.data && error.response.data.errors) {
-//           errors.value = error.response.data.errors;
-//         }
-//       },
-//     });
-//   } catch (error) {
-//     console.error('Unexpected error during login:', error);
-//     // Handle unexpected errors
-//     errors.value = { global: 'An unexpected error occurred. Please try again later.' };
-//   }
-// };
-
-const fetchUserData = () => {
-  return axios.get('/user-data'); // Adjust this URL to match your actual endpoint
-};
-
-// const submit = async () => {
-//   try {
-//     // Perform the login request
-//     const loginResponse = await axios.post('/login', {
-//       email: form.email,
-//       password: form.password,
-//     });
-//
-//     // Extract accessToken from the login response
-//     const { accessToken } = loginResponse.data;
-//
-//     // Fetch user data after successful login
-//     const userDataResponse = await axios.get('/user-data'); // Adjust this URL if needed
-//     const { userData, userAbilityRules } = userDataResponse.data;
-//
-//     // Use raw data if `_rawValue` is present
-//     const rawUserData = userData._rawValue || userData;
-//     const rawUserAbilityRules = userAbilityRules._rawValue || userAbilityRules;
-//
-//     // Update cookies and application state
-//     useCookie('userAbilityRules').value = rawUserAbilityRules;
-//     useCookie('userData').value = rawUserData;
-//     useCookie('accessToken').value = accessToken;
-//
-//     // Update ability with fetched rules
-//     ability.update(rawUserAbilityRules);
-//
-//     console.log('Login successful');
-//
-//     // Redirect to `to` query if it exists or redirect to index route
-//     // await nextTick(() => {
-//     //   router.replace(route.query.to ? String(route.query.to) : '/');
-//     // });
-//   } catch (error) {
-//     console.error('Error during login or fetching user data:', error);
-//     // Handle error response
-//     if (error.response && error.response.data && error.response.data.errors) {
-//       errors.value = error.response.data.errors;
-//     }
-//   }
-// };
-
+const page = usePage()
 
 const submit = async () => {
   form.post('/login', {
@@ -182,21 +74,21 @@ const submit = async () => {
       form.reset('password')
     },
     onSuccess: () => {
-      fetchUserData()
-        .then((response) => {
-          const { userData, userAbilityRules } = response.data;
-          // Access the raw content if it contains metadata
-          const rawUserData = userData._rawValue || userData; // Adjust based on actual structure
-          const rawUserAbilityRules = userAbilityRules._rawValue || userAbilityRules;
+      try {
+        const userData = page.props.sharedData.userData
+        const userAbilityRules = page.props.sharedData.userAbilityRules
+        const activeStore = page.props.sharedData.stores[0].id
 
-          useCookie('userAbilityRules').value = rawUserAbilityRules
-          ability.update(rawUserAbilityRules)
 
-          useCookie('userData').value = rawUserData
-        })
-        .catch((error) => {
-          console.error('Error fetching user data:', error);
-        });
+        // Directly set cookies with the fetched data
+        useCookie('userAbilityRules').value = userAbilityRules
+        ability.update(userAbilityRules)
+        useCookie('userData').value = userData
+        useCookie('activeStore').value = activeStore
+
+      } catch (error) {
+        console.error('Error setting cookies:', error)
+      }
     },
     onError: (error) => {
       form.errors = error

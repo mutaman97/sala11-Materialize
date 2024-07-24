@@ -61,7 +61,9 @@ export const resolveNavLinkRouteName = (link: NavLink, router: Router) => {
   if (typeof link.to === 'string')
     return link.to
 
-  return router.resolve(link.to).name
+  // return router.resolve(link.to).name
+  // Assuming link.to is an object with name and params
+  return link.to.name
 }
 
 /**

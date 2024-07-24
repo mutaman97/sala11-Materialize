@@ -19,27 +19,43 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response|\Inertia\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $storeId = $request->input('store_id'); // Get the selected store ID from the request
+        $stores=Tenant::where('user_id',Auth::id())->get();
+        // If no `store_id` is provided, default to the first store
+        if (!$storeId && $stores->isNotEmpty()) {
+            $storeId = $stores->first()->id;
+        }
+
         $orders = Order::where([['user_id', Auth::id()],['price','>',0]])->with('plan','orderlog')->latest()->take(5)->get();
         $total_active_stores=Tenant::where([['user_id',Auth::id()],['will_expire','>',now()],['status',1]])->count();
         $order_method=Option::where('key','order_method')->first();
         $order_method=$order_method->value ?? '';
 
         if (Feature::active('vue-homepage')) {
-            $sharedData = [
-                'auth.user' => function () {
-                    return Auth::user() ? Auth::user()->only('id', 'name', 'email') : null;
-                },
-                'stores' => function () {
-//                    return Tenant::where('user_id',Auth::id())->with('orderwithplan')->get();
-//                    return Tenant::where('user_id', Auth::id())->pluck('id');
-                      return Tenant::where('user_id', Auth::id())->select('id', 'uid')->get();
+//            $userData = collect(Auth::user()->toArray())->only(['id','fullName', 'username','avatar','email', 'role'])->toArray();
+            $userData = Auth::user()->only(['id','fullName', 'username','avatar','email', 'role']);
 
+            // Add the tenants data to the user data array
+            $userData['stores'] = $stores;
+
+            $userAbilityRules = [
+                [
+                    'action' => 'manage',
+                    'subject' => 'all',
+                ],
+            ];
+
+            $sharedData = [
+                'userData' => $userData,
+                'userAbilityRules' => $userAbilityRules,
+                'stores' => function () {
+                      return Tenant::where('user_id', Auth::id())->select('id', 'uid')->get();
                 }
             ];
 
-            Inertia::share($sharedData);
+            Inertia::share('sharedData', $sharedData);
             return Inertia::render('dashboards/merchant/dashboard', [
                 'info' => "info",
             ]);

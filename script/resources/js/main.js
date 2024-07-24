@@ -2,6 +2,7 @@
 import '@core-scss/template/index.scss'
 import '@styles/styles.scss'
 import './bootstrap';
+import Layout from '@/layouts/default.vue'
 
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
@@ -14,7 +15,15 @@ const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
-    resolve: (name) => resolvePageComponent(`../ts/pages/${name}.vue`, import.meta.glob('../ts/pages/**/*.vue')),
+    // resolve: (name) => resolvePageComponent(`../ts/pages/${name}.vue`, import.meta.glob('../ts/pages/**/*.vue')),
+
+    resolve: (name) => {
+        const pages = import.meta.glob('../ts/pages/**/*.vue', { eager: true });
+        let page = pages[`../ts/pages/${name}.vue`];
+        page.default.layout = page.default.layout || Layout;
+        return page;
+    },
+
     setup({ el, App, props, plugin }) {
         const app = createApp({ render: () => h(App, props) });
 

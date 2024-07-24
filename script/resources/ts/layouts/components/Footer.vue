@@ -12,30 +12,30 @@
         class="mx-1"
       />
       By <a
-        href="https://pixinvent.com"
+        href="https://mutaman.elhadi.tech"
         target="_blank"
         rel="noopener noreferrer"
         class="text-primary ms-1"
-      >Pixinvent</a>
+      >Mutaman Elhadi</a>
     </div>
     <!-- 👉 Footer: right content -->
     <span class="d-md-flex gap-x-4 text-primary d-none">
-      <a
-        href="https://themeforest.net/licenses/standard"
-        target="noopener noreferrer"
-      >License</a>
-      <a
-        href="https://1.envato.market/pixinvent_portfolio"
-        target="noopener noreferrer"
-      >More Themes</a>
-      <a
-        href="https://demos.pixinvent.com/materialize-vuejs-admin-template/documentation/guide/laravel-integration/folder-structure.html"
-        target="noopener noreferrer"
-      >Documentation</a>
-      <a
-        href="https://pixinvent.ticksy.com/"
-        target="noopener noreferrer"
-      >Support</a>
+<!--      <a-->
+<!--        href="#"-->
+<!--        target="noopener noreferrer"-->
+<!--      >License</a>-->
+<!--      <a-->
+<!--        href="#"-->
+<!--        target="noopener noreferrer"-->
+<!--      >Projects</a>-->
+<!--      <a-->
+<!--        href="#"-->
+<!--        target="noopener noreferrer"-->
+<!--      >Documentation</a>-->
+<!--      <a-->
+<!--        href="#"-->
+<!--        target="noopener noreferrer"-->
+<!--      >Support</a>-->
     </span>
   </div>
 </template>

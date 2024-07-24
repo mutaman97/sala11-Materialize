@@ -47,7 +47,6 @@ watch([
 // Use Inertia.js to get the current page
 const page = usePage()
 
-
 // Determine the navigation items based on the current URL
 const navItems = ref([])
 
@@ -61,41 +60,9 @@ const determineNavItems = async () => {
     navigationModule = await import('@/navigation/vertical')
   }
   navItems.value = navigationModule.default
-
-  // Prepend the stores object to the navItems
-  navItems.value.unshift(stores)
 }
-//
-// import { computed } from 'vue'
-//
-// const user = computed(() => page.props.auth.user)
-// console.log(user)
-
-
-// Fetch the stores data from Inertia page props
-const storesData = page.props.stores
-
-// Create store objects from the data
-const createStoreChildren = (data) => ({
-  title: data.id,
-  to: data.uid,
-})
-
-// Convert the array of data to an array of store child objects
-const storeChildren = storesData.map(createStoreChildren)
-
-// Define the reactive array of store objects
-const stores = reactive(
-  {
-    title: 'My Stores',
-    icon: { icon: 'ri-store-2-line' },
-    children: storeChildren,
-  },
-)
 
 determineNavItems()
-console.log(navItems)
-
 </script>
 
 <template>

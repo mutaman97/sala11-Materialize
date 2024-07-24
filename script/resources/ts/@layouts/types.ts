@@ -105,6 +105,11 @@ export interface I18nLanguage {
   isRTL: boolean
 }
 
+export interface Stores {
+  label: string
+  id: string
+}
+
 // avatar | text | icon
 // Thanks: https://stackoverflow.com/a/60617060/10796681
 export type Notification = {

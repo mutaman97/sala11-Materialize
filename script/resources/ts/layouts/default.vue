@@ -53,7 +53,7 @@ const configStore = useConfigStore()
                 </Component>
             </Suspense>
 
-            <!--            <BuyNow/>-->
+            <BuyNow/>
             <ScrollToTop/>
         </VApp>
     </VLocaleProvider>

@@ -17,10 +17,6 @@ import CardCongratulationsDaisy from '@/views/pages/cards/gamification/CardCongr
 import CardCongratulationsJohn from '@/views/pages/cards/gamification/CardCongratulationsJohn.vue'
 import CardUpgrade from '@/views/pages/cards/gamification/CardUpgrade.vue'
 
-import Layout from '@/layouts/default.vue'
-
-defineOptions({ layout: Layout })
-
 const statisticsWithImages = [
   {
     title: 'Ratings',
