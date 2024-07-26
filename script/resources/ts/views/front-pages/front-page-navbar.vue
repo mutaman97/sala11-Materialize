@@ -108,9 +108,9 @@ const isPageActive = computed(() => menuItems.some(item => item.navItems.some(li
       <div>
         <div class="d-flex flex-column gap-y-4 pa-4">
           <RouterLink
-            v-for="(item, index) in ['Home', 'Features', 'Team', 'FAQ', 'Contact us']"
+            v-for="(item, index) in ['Home', 'Features', 'Team', 'FAQ', 'Contact us', 'Pricing Plan']"
             :key="index"
-            :to="{ name: 'front-pages-landing-page', hash: `#${item.toLowerCase().replace(' ', '-')}` }"
+            :to="{ name: 'root', hash: `#${item.toLowerCase().replace(' ', '-')}` }"
             class="font-weight-medium"
             :class="[props.activeId?.toLocaleLowerCase().replace('-', ' ') === item.toLocaleLowerCase() ? 'active-link' : 'text-high-emphasis']"
           >
@@ -166,13 +166,13 @@ const isPageActive = computed(() => menuItems.some(item => item.navItems.some(li
               </ul>
             </div>
           </div>
-          <RouterLink
-            to="/"
-            target="_blank"
-            class="text-body-1 font-weight-medium nav-link px-0"
-          >
-            Admin
-          </RouterLink>
+<!--          <RouterLink-->
+<!--            to="/"-->
+<!--            target="_blank"-->
+<!--            class="text-body-1 font-weight-medium nav-link px-0"-->
+<!--          >-->
+<!--            Admin-->
+<!--          </RouterLink>-->
         </div>
       </div>
       <!-- Navigation drawer close icon -->
@@ -230,9 +230,9 @@ const isPageActive = computed(() => menuItems.some(item => item.navItems.some(li
           class="text-base align-center gap-x-2"
         >
           <RouterLink
-            v-for="(item, index) in ['Home', 'Features', 'Team', 'FAQ', 'Contact us']"
+            v-for="(item, index) in ['Home', 'Features', 'Team', 'FAQ', 'Contact us', 'Pricing Plan']"
             :key="index"
-            :to="{ name: 'front-pages-landing-page', hash: `#${item.toLowerCase().replace(' ', '-')}` }"
+            :to="{ name: 'root', hash: `#${item.toLowerCase().replace(' ', '-')}` }"
             class="nav-link font-weight-medium"
             :class="[props.activeId?.toLocaleLowerCase().replace('-', ' ') === item.toLocaleLowerCase() ? 'active-link' : '']"
           >
@@ -318,13 +318,13 @@ const isPageActive = computed(() => menuItems.some(item => item.navItems.some(li
             </VMenu>
           </span>
 
-          <RouterLink
-            to="/"
-            target="_blank"
-            class="nav-link font-weight-medium"
-          >
-            Admin
-          </RouterLink>
+<!--          <RouterLink-->
+<!--            to="/"-->
+<!--            target="_blank"-->
+<!--            class="nav-link font-weight-medium"-->
+<!--          >-->
+<!--            Admin-->
+<!--          </RouterLink>-->
         </div>
       </div>
 

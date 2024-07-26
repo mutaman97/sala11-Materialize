@@ -64,7 +64,7 @@ class WelcomeController extends Controller
         SEOTools::jsonLd()->addImage(asset('uploads/logo.png'));
 
 //        if (Feature::active('vue-homepage')) {
-            return Inertia::render('front-pages/landing-page/index', [
+            return Inertia::render('index', [
                 'info' => $info,
                 'services' => $services,
                 'plans' => $plans,

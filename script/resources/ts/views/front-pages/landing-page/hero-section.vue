@@ -8,9 +8,12 @@ import heroDashboardImgDark from '@images/front-pages/landing-page/hero-dashboar
 import heroDashboardImgLight from '@images/front-pages/landing-page/hero-dashboard-light.png'
 import heroElementsImgDark from '@images/front-pages/landing-page/hero-elements-dark.png'
 import heroElementsImgLight from '@images/front-pages/landing-page/hero-elements-light.png'
+import {ref} from "vue";
+// import CreateStoreDialog from "@/components/dialogs/CreateStoreDialog.vue";
 
 const theme = useTheme()
 const isDark = ref(theme.name)
+const isCreateStoreVisible = ref(false)
 
 const heroBgUrl = computed(() => {
   if (isDark.value === 'dark')
@@ -60,12 +63,21 @@ const translateMouse = computed(() => (speed: number) => {
               The live customer has everything your marketing needs
             </p>
           </div>
+<!--          <VBtn-->
+<!--            :to="{ name: 'root', hash: `#pricing-plan` }"-->
+<!--            size="large"-->
+<!--            :active="false"-->
+<!--          >-->
+<!--            Create Your Store-->
+<!--          </VBtn>-->
+
           <VBtn
-            :to="{ name: 'front-pages-landing-page', hash: `#pricing-plan` }"
-            size="large"
+            @click="isCreateStoreVisible = !isCreateStoreVisible"
             :active="false"
+            size="large"
+            prepend-icon="ri-store-2-line"
           >
-            Get Early Access
+            Create Your Store
           </VBtn>
         </div>
 
@@ -99,6 +111,7 @@ const translateMouse = computed(() => (speed: number) => {
         </div>
       </VContainer>
     </div>
+    <CreateStoreDialog v-model:is-dialog-visible="isCreateStoreVisible" />
   </section>
 </template>
 
