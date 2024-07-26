@@ -5,11 +5,11 @@ script/vendor/
 script/node_modules/
 script/node_modules
 
-script/.phpunit.cache
-/public/build
-/public/hot
-/public/storage
-/storage/*.key
+/script/.phpunit.cache
+/script/public/build
+/script/public/hot
+/script/public/storage
+/script/storage/*.key
 /script/.env
 /script/.env.backup
 /script/.env.production
@@ -27,7 +27,7 @@ script/.phpunit.cache
 script/resources/ts/plugins/iconify/icons.css
 
 # Ignore MSW script
-script/public/mockServiceWorker.js
+/script/public/mockServiceWorker.js
 
 # Env files
 .env*
