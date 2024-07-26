@@ -1,10 +1,37 @@
 .env
 .DS_Store
-vendor
-/vendor
-vendor/
-node_modules/
-/node_modules
+script/vendor
+script/vendor/
+script/node_modules/
+script/node_modules
+
+script/.phpunit.cache
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+/script/.env
+/script/.env.backup
+/script/.env.production
+/script/.phpunit.result.cache
+/script/Homestead.json
+/script/Homestead.yaml
+/script/auth.json
+/script/npm-debug.log
+/script/yarn-error.log
+
+/script/cypress/videos/
+/script/cypress/screenshots/
+
+# iconify dist files
+script/resources/ts/plugins/iconify/icons.css
+
+# Ignore MSW script
+script/public/mockServiceWorker.js
+
+# Env files
+.env*
+!.env.example
 
 
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
