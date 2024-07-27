@@ -9,7 +9,6 @@ import heroDashboardImgLight from '@images/front-pages/landing-page/hero-dashboa
 import heroElementsImgDark from '@images/front-pages/landing-page/hero-elements-dark.png'
 import heroElementsImgLight from '@images/front-pages/landing-page/hero-elements-light.png'
 import {ref} from "vue";
-// import CreateStoreDialog from "@/components/dialogs/CreateStoreDialog.vue";
 
 const theme = useTheme()
 const isDark = ref(theme.name)
@@ -71,14 +70,15 @@ const translateMouse = computed(() => (speed: number) => {
 <!--            Create Your Store-->
 <!--          </VBtn>-->
 
+          <Link :href="route('register')">
           <VBtn
-            @click="isCreateStoreVisible = !isCreateStoreVisible"
             :active="false"
             size="large"
             prepend-icon="ri-store-2-line"
           >
             Create Your Store
           </VBtn>
+          </Link>
         </div>
 
         <div class="position-relative hero-animation-img">
@@ -111,7 +111,6 @@ const translateMouse = computed(() => (speed: number) => {
         </div>
       </VContainer>
     </div>
-    <CreateStoreDialog v-model:is-dialog-visible="isCreateStoreVisible" />
   </section>
 </template>
 

@@ -13,7 +13,11 @@ use Artesaos\SEOTools\Facades\JsonLd;
 use Artesaos\SEOTools\Facades\JsonLdMulti;
 use Artesaos\SEOTools\Facades\SEOTools;
 
-use Illuminate\Auth\Events\Registered; // Import the Registered event
+use Illuminate\Auth\Events\Registered;
+use Inertia\Inertia;
+use Laravel\Pennant\Feature;
+
+// Import the Registered event
 
 class RegisterController extends Controller
 {
@@ -44,6 +48,15 @@ class RegisterController extends Controller
         SEOTools::twitter()->setTitle('Register');
         SEOTools::twitter()->setSite($seo->twitter_site_title ?? null);
         SEOTools::jsonLd()->addImage(asset('uploads/logo.png'));
+
+//        if (Feature::active('vue-homepage')) {
+//            return Inertia::render('register-multi-steps', [
+//                'info' => "info",
+//            ]);
+//        }
+        return Inertia::render('create-store', [
+            'info' => "info",
+        ]);
 
         return view('register',compact('email'));
     }
