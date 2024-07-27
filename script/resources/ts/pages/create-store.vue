@@ -3,6 +3,7 @@ import type { CustomInputContent } from '@core/types'
 import registerMultiStepsIllustration from '@images/pages/register-multi-step-illustration.png'
 import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
 import { themeConfig } from '@themeConfig'
+import { useForm } from "laravel-precognition-vue-inertia";
 
 const currentStep = ref(0)
 const isPasswordVisible = ref(false)
@@ -56,7 +57,7 @@ const items = [
   },
 ]
 
-const form = ref({
+const form = useForm('post', '/user/store', {
   username: '',
   email: '',
   password: '',
@@ -77,10 +78,7 @@ const form = ref({
   cvv: '',
 })
 
-const onSubmit = () => {
-  // eslint-disable-next-line no-alert
-  alert('Submitted..!!')
-}
+const onSubmit = () => form.submit();
 </script>
 
 <template>
@@ -131,7 +129,7 @@ const onSubmit = () => {
           class="disable-tab-transition"
           style="max-inline-size: 685px;"
         >
-          <VForm>
+          <VForm @submit.prevent="onSubmit">
             <VWindowItem>
               <h4 class="text-h4 mb-1">
                 Account Information
@@ -158,7 +156,7 @@ const onSubmit = () => {
                 >
                   <VTextField
                     v-model="form.email"
-                    :rules="emailValidator"
+                    @change="form.validate('email')"
                     label="Email"
                     placeholder="johndoe@email.com"
                   />
@@ -404,6 +402,7 @@ const onSubmit = () => {
 
           <VBtn
             v-if="items.length - 1 === currentStep"
+            :disabled="form.processing"
             color="success"
             append-icon="ri-check-line"
             @click="onSubmit"

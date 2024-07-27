@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Number;
 use Inertia\Inertia;
+use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 
 
 /*
@@ -77,7 +78,7 @@ foreach (config('tenancy.central_domains') as $domain) {
                 Route::get('user/login', 'login')->name('user.login')
                     ->middleware('guest');
                 Route::post('user/store', 'store')->name('user.store')
-                    ->middleware('guest');
+                    ->middleware([HandlePrecognitiveRequests::class]);
             });
 
         // **---------------------------------------CRON JOB ROUTES START---------------------------------------** //

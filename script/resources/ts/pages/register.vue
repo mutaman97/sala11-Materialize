@@ -9,6 +9,8 @@ import authV2RegisterIllustrationDark from '@images/pages/auth-v2-register-illus
 import authV2RegisterIllustrationLight from '@images/pages/auth-v2-register-illustration-light.png'
 import authV2RegisterMaskDark from '@images/pages/auth-v2-register-mask-dark.png'
 import authV2RegisterMaskLight from '@images/pages/auth-v2-register-mask-light.png'
+import { useForm } from "laravel-precognition-vue-inertia";
+import { ref } from 'vue'
 
 const authThemeMask = useGenerateImageVariant(authV2RegisterMaskLight, authV2RegisterMaskDark)
 
@@ -19,21 +21,43 @@ const authThemeImg = useGenerateImageVariant(
   authV2RegisterIllustrationBorderedDark,
   true)
 
-definePage({
-  meta: {
-    layout: 'blank',
-    unauthenticatedOnly: true,
-  },
-})
+// definePage({
+//   meta: {
+//     layout: 'blank',
+//     unauthenticatedOnly: true,
+//   },
+// })
 
-const form = ref({
-  username: '',
+import Layout from '@/layouts/blank.vue'
+
+defineOptions({ layout: Layout })
+
+const form = useForm('post', '/user/store', {
+  first_name:'',
+  last_name: '',
   email: '',
+  phone_number: '',
   password: '',
-  privacyPolicies: false,
 })
 
 const isPasswordVisible = ref(false)
+
+// const onSubmit = () => form.submit();
+
+// State for form submission error
+const errors = ref<{ [key: string]: string[] }>({});
+
+const onSubmit = async () => {
+  try {
+    await form.submit();
+  } catch (e) {
+    // Handle errors returned by the backend
+    if (e.response && e.response.data && e.response.data.errors) {
+      errors.value = e.response.data.errors;
+    }
+  }
+}
+
 </script>
 
 <template>
@@ -90,94 +114,69 @@ const isPasswordVisible = ref(false)
         </VCardText>
 
         <VCardText>
-          <VForm @submit.prevent="() => {}">
+          <VForm @submit.prevent="onSubmit">
             <VRow>
-              <!-- Username -->
+              <!-- Other fields here -->
+
               <VCol cols="12">
                 <VTextField
-                  v-model="form.username"
-                  autofocus
-                  label="Username"
-                  placeholder="Johndoe"
+                    v-model="form.first_name"
+                    @change="form.validate('first_name')"
+                    label="First Name"
+                    placeholder="Johndoe"
+                    :error-messages="form.errors.first_name"
                 />
               </VCol>
 
-              <!-- email -->
               <VCol cols="12">
                 <VTextField
-                  v-model="form.email"
-                  label="Email"
-                  type="email"
-                  placeholder="johndoe@email.com"
+                    v-model="form.last_name"
+                    @change="form.validate('last_name')"
+                    label="Last Name"
+                    placeholder="Johndoe"
+                    :error-messages="form.errors.last_name"
                 />
               </VCol>
 
-              <!-- password -->
               <VCol cols="12">
                 <VTextField
-                  v-model="form.password"
-                  label="Password"
-                  placeholder="············"
-                  :type="isPasswordVisible ? 'text' : 'password'"
-                  :append-inner-icon="isPasswordVisible ? 'ri-eye-off-line' : 'ri-eye-line'"
-                  @click:append-inner="isPasswordVisible = !isPasswordVisible"
+                    v-model="form.email"
+                    @change="form.validate('email')"
+                    label="Email"
+                    type="email"
+                    placeholder="johndoe@email.com"
+                    :error-messages="form.errors.email"
                 />
-
-                <div class="d-flex align-center my-6">
-                  <VCheckbox
-                    id="privacy-policy"
-                    v-model="form.privacyPolicies"
-                    inline
-                  />
-                  <VLabel
-                    for="privacy-policy"
-                    style="opacity: 1;"
-                  >
-                    <span class="me-1 text-high-emphasis">I agree to</span>
-                    <a
-                      href="javascript:void(0)"
-                      class="text-primary"
-                    >privacy policy & terms</a>
-                  </VLabel>
-                </div>
-
-                <VBtn
-                  block
-                  type="submit"
-                >
-                  Sign up
-                </VBtn>
-              </VCol>
-
-              <!-- create account -->
-              <VCol cols="12">
-                <div class="text-center text-base">
-                  <span class="d-inline-block">Already have an account?</span> <RouterLink
-                    class="text-primary d-inline-block"
-                    :to="{ name: 'login' }"
-                  >
-                    Sign in instead
-                  </RouterLink>
-                </div>
               </VCol>
 
               <VCol cols="12">
-                <div class="d-flex align-center">
-                  <VDivider />
-                  <span class="mx-4 text-high-emphasis">or</span>
-                  <VDivider />
-                </div>
+                <VTextField
+                    v-model="form.phone_number"
+                    @change="form.validate('phone_number')"
+                    label="Phone Number"
+                    placeholder="1234567890"
+                    :error-messages="form.errors.phone_number"
+                />
               </VCol>
 
-              <!-- auth providers -->
-              <VCol
-                cols="12"
-                class="text-center"
-              >
-                <AuthProvider />
+              <VCol cols="12">
+                <VTextField
+                    v-model="form.password"
+                    @change="form.validate('password')"
+                    label="Password"
+                    :type="isPasswordVisible ? 'text' : 'password'"
+                    :append-inner-icon="isPasswordVisible ? 'ri-eye-off-line' : 'ri-eye-line'"
+                    @click:append-inner="isPasswordVisible = !isPasswordVisible"
+                    :error-messages="form.errors.password"
+                />
+              </VCol>
+
+              <VCol cols="12">
+                <VBtn block type="submit">Sign up</VBtn>
               </VCol>
             </VRow>
           </VForm>
+
         </VCardText>
       </VCard>
     </VCol>

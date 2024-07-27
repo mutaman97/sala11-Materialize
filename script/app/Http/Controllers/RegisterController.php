@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateStoreRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Hash;
@@ -54,7 +55,7 @@ class RegisterController extends Controller
 //                'info' => "info",
 //            ]);
 //        }
-        return Inertia::render('create-store', [
+        return Inertia::render('register', [
             'info' => "info",
         ]);
 
@@ -84,35 +85,35 @@ class RegisterController extends Controller
         return view('login');
     }
 
-    public function store(Request $request)
+    public function store(CreateStoreRequest $reques)
     {
-        $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'phone_number' => 'required|string|min:10|max:10|unique:users,phone',
-            // 'phone' => 'required|phone:SD',
-            'password' => 'required|confirmed'
-        ]);
-
-        // Added By Mutaman for contact page google recaptcha
-        if(env('NOCAPTCHA_SITEKEY') != null)
-        {
-            $messages = [
-                    'g-recaptcha-response.required' => __('You must check the reCAPTCHA'),
-                    'g-recaptcha-response.captcha' => __('Captcha error! try again later or contact site admin'),
-                ];
-
-                $validator = \Validator::make($request->all(), [
-                    'g-recaptcha-response' => 'required|captcha'
-                ], $messages);
-
-                if ($validator->fails())
-                {
-                    return redirect()->back()->withErrors($validator)->withInput();
-                }
-        }
-        //  End added
+//        $request->validate([
+//            'first_name' => 'required',
+//            'last_name' => 'required',
+//            'email' => 'required|email|unique:users,email',
+//            'phone_number' => 'required|string|min:10|max:10|unique:users,phone',
+//            // 'phone' => 'required|phone:SD',
+//            'password' => 'required|confirmed'
+//        ]);
+//
+//        // Added By Mutaman for contact page google recaptcha
+//        if(env('NOCAPTCHA_SITEKEY') != null)
+//        {
+//            $messages = [
+//                    'g-recaptcha-response.required' => __('You must check the reCAPTCHA'),
+//                    'g-recaptcha-response.captcha' => __('Captcha error! try again later or contact site admin'),
+//                ];
+//
+//                $validator = \Validator::make($request->all(), [
+//                    'g-recaptcha-response' => 'required|captcha'
+//                ], $messages);
+//
+//                if ($validator->fails())
+//                {
+//                    return redirect()->back()->withErrors($validator)->withInput();
+//                }
+//        }
+//        //  End added
 
         $user = new User();
         $user->role_id = 2;
@@ -132,4 +133,6 @@ class RegisterController extends Controller
         // logger($user);
         // return to_route('login');
     }
+
+
 }
