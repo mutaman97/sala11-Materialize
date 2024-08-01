@@ -2,6 +2,7 @@
 import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
 import { themeConfig } from '@themeConfig'
 
+import LoadingDialog from '@/pages/pages/dialog-examples/CreateStoreLoader.vue'; // Import the loading dialog component
 import AuthProvider from '@/views/pages/authentication/AuthProvider.vue'
 import authV2RegisterIllustrationBorderedDark from '@images/pages/auth-v2-register-illustration-bordered-dark.png'
 import authV2RegisterIllustrationBorderedLight from '@images/pages/auth-v2-register-illustration-bordered-light.png'
@@ -10,7 +11,6 @@ import authV2RegisterIllustrationLight from '@images/pages/auth-v2-register-illu
 import authV2RegisterMaskDark from '@images/pages/auth-v2-register-mask-dark.png'
 import authV2RegisterMaskLight from '@images/pages/auth-v2-register-mask-light.png'
 import { useForm } from "laravel-precognition-vue-inertia";
-import { ref } from 'vue'
 
 const authThemeMask = useGenerateImageVariant(authV2RegisterMaskLight, authV2RegisterMaskDark)
 
@@ -21,42 +21,68 @@ const authThemeImg = useGenerateImageVariant(
   authV2RegisterIllustrationBorderedDark,
   true)
 
-// definePage({
-//   meta: {
-//     layout: 'blank',
-//     unauthenticatedOnly: true,
-//   },
-// })
 
 import Layout from '@/layouts/blank.vue'
 
 defineOptions({ layout: Layout })
 
 const form = useForm('post', '/user/store', {
+  store_name:'',
   first_name:'',
   last_name: '',
   email: '',
   phone_number: '',
   password: '',
+  password_confirmation: '',
 })
 
 const isPasswordVisible = ref(false)
 
 // const onSubmit = () => form.submit();
 
-// State for form submission error
-const errors = ref<{ [key: string]: string[] }>({});
+
+const isSubmitting = ref(false);
+const showLoadingDialog = ref(false);
+const commandMessage = ref(''); // Holds the message to be shown in the dialog
+
 
 const onSubmit = async () => {
   try {
-    await form.submit();
-  } catch (e) {
-    // Handle errors returned by the backend
-    if (e.response && e.response.data && e.response.data.errors) {
-      errors.value = e.response.data.errors;
-    }
+    showLoadingDialog.value = true;
+    isSubmitting.value = true;
+
+    await form.post('/user/store', {
+      onStart: () => {
+        commandMessage.value = 'Initializing store...'; // Set initial message
+
+        setTimeout(() => {
+          commandMessage.value = 'Wait a moment, Your store is almost finished!';
+        }, 2000);
+
+        setTimeout(() => {
+          commandMessage.value = 'Your Store is ready to go!';
+        }, 3000); // 2000 milliseconds = 2 seconds
+      },
+      onSuccess: () => {
+        // Hide the loading dialog on successful submission
+        showLoadingDialog.value = false;
+        isSubmitting.value = false;
+        // You can add additional success handling here, like redirecting the user
+      },
+      onError: (errors) => {
+        // Handle validation errors here
+        console.error('Validation errors:', errors);
+        showLoadingDialog.value = false; // Hide the dialog on error
+        isSubmitting.value = false;
+      }
+    });
+  } catch (error) {
+    // Handle any error that occurred during form submission
+    console.error('Submission error:', error);
+    showLoadingDialog.value = false; // Hide the dialog on error
+    isSubmitting.value = false;
   }
-}
+};
 
 </script>
 
@@ -114,9 +140,18 @@ const onSubmit = async () => {
         </VCardText>
 
         <VCardText>
-          <VForm @submit.prevent="onSubmit">
+          <VForm @submit.prevent="onSubmit" :loading="isSubmitting">
             <VRow>
               <!-- Other fields here -->
+              <VCol cols="12">
+                <VTextField
+                    v-model="form.store_name"
+                    @change="form.validate('store_name')"
+                    label="Store Name"
+                    placeholder="store"
+                    :error-messages="form.errors.store_name"
+                />
+              </VCol>
 
               <VCol cols="12">
                 <VTextField
@@ -171,6 +206,19 @@ const onSubmit = async () => {
                 />
               </VCol>
 
+              <!-- Password Confirmation Field -->
+              <VCol cols="12">
+                <VTextField
+                    v-model="form.password_confirmation"
+                    @change="form.validate('password_confirmation')"
+                    label="Confirm Password"
+                    :type="isPasswordVisible ? 'text' : 'password'"
+                    :append-inner-icon="isPasswordVisible ? 'ri-eye-off-line' : 'ri-eye-line'"
+                    @click:append-inner="isPasswordVisible = !isPasswordVisible"
+                    :error-messages="form.errors.password_confirmation"
+                />
+              </VCol>
+
               <VCol cols="12">
                 <VBtn block type="submit">Sign up</VBtn>
               </VCol>
@@ -181,6 +229,9 @@ const onSubmit = async () => {
       </VCard>
     </VCol>
   </VRow>
+
+  <!-- Loading Dialog -->
+  <LoadingDialog :value="showLoadingDialog" :command="commandMessage"/>
 </template>
 
 <style lang="scss">

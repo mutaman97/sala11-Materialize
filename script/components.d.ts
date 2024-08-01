@@ -30,6 +30,7 @@ declare module 'vue' {
     ConfirmDialog: typeof import('./resources/ts/components/dialogs/ConfirmDialog.vue')['default']
     CreateAppDialog: typeof import('./resources/ts/components/dialogs/CreateAppDialog.vue')['default']
     CreateStoreDialog: typeof import('./resources/ts/components/dialogs/CreateStoreDialog.vue')['default']
+    CreateStoreLoader: typeof import('./resources/ts/views/demos/components/dialog/CreateStoreLoader.vue')['default']
     CustomCheckboxes: typeof import('./resources/ts/@core/components/app-form-elements/CustomCheckboxes.vue')['default']
     CustomCheckboxesWithIcon: typeof import('./resources/ts/@core/components/app-form-elements/CustomCheckboxesWithIcon.vue')['default']
     CustomCheckboxesWithImage: typeof import('./resources/ts/@core/components/app-form-elements/CustomCheckboxesWithImage.vue')['default']

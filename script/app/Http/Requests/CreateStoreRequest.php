@@ -23,6 +23,7 @@ class CreateStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'store_name' => ['required', Rule::unique('tenants', 'id')],
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => ['required', 'email', Rule::unique('users', 'email')],

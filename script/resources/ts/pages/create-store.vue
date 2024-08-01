@@ -1,84 +1,211 @@
 <script setup lang="ts">
-import type { CustomInputContent } from '@core/types'
 import registerMultiStepsIllustration from '@images/pages/register-multi-step-illustration.png'
 import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
 import { themeConfig } from '@themeConfig'
-import { useForm } from "laravel-precognition-vue-inertia";
-
-const currentStep = ref(0)
-const isPasswordVisible = ref(false)
-const isConfirmPasswordVisible = ref(false)
-
-// definePage({
-//   meta: {
-//     layout: 'blank',
-//   },
-// })
-
+import { useForm } from "laravel-precognition-vue-inertia"
 import Layout from '@/layouts/blank.vue'
+import LoadingDialog from '@/pages/pages/dialog-examples/CreateStoreLoader.vue'
+import { ref } from "vue"
+import { router} from '@inertiajs/vue3'
+import {VForm} from "vuetify/components/VForm"
+
+import illustrationJohn from '@images/pages/illustration-john.png'
 
 defineOptions({ layout: Layout })
 
-
-const radioContent: CustomInputContent[] = [
-  {
-    title: 'Basic',
-    desc: 'A simple start for Startups and Students.',
-    value: '0',
-  },
-  {
-    title: 'Standard',
-    desc: 'For small to medium businesses.',
-    value: '99',
-  },
-  {
-    title: 'Enterprise',
-    desc: 'Solution for enterprise & organizations.',
-    value: '499',
-  },
-]
+const currentStep = ref(0)
+const isCurrentStepValid = ref(true);
+const isPasswordVisible = ref(false)
+const isConfirmPasswordVisible = ref(false)
+const isSubmitting = ref(false);
+const showLoadingDialog = ref(false);
+const commandMessage = ref(''); // Holds the message to be shown in the dialog
 
 const items = [
   {
-    title: 'Account',
-    subtitle: 'Account Details',
+    title: 'Store',
+    subtitle: 'Store Details',
   },
   {
     title: 'Personal',
     subtitle: 'Enter Information',
   },
   {
-    title: 'Billing',
-    subtitle: 'Payment Details',
-  },
-  {
-    title: 'Billing2',
-    subtitle: 'Payment Details2',
+    title: 'Submit',
+    subtitle: 'Create Store',
   },
 ]
 
-const form = useForm('post', '/user/store', {
-  username: '',
+const refStoreForm = ref<VForm>()
+const refAccountForm = ref<VForm>()
+const refSubmitForm = ref<VForm>()
+
+const form = useForm('post', route('user.store'), {
+  store_name:'',
+  first_name:'',
+  last_name: '',
   email: '',
+  phone_number: '',
   password: '',
-  confirmPassword: '',
-  link: '',
-  firstName: '',
-  lastName: '',
-  mobile: '',
-  pincode: '',
-  address: '',
-  landmark: '',
-  city: '',
-  state: null,
-  selectedPlan: '0',
-  cardNumber: '',
-  cardName: '',
-  expiryDate: '',
-  cvv: '',
+  password_confirmation: '',
 })
 
-const onSubmit = () => form.submit();
+const storeForm = useForm('post', route('user.store'), {
+  store_name:'',
+});
+
+const accountForm = ref({
+  first_name:'',
+  last_name: '',
+  email: '',
+  phone_number: '',
+  password: '',
+  password_confirmation: '',
+});
+
+const validateStoreForm = () => {
+  refStoreForm.value?.validate().then(valid => {
+    if (valid.valid && storeForm.valid('store_name')) {
+      currentStep.value++
+      isCurrentStepValid.value = true
+    }
+    else { isCurrentStepValid.value = false }
+  })
+}
+
+const validateAccountForm = () => {
+  refAccountForm.value?.validate().then(valid => {
+    if (valid.valid) {
+      currentStep.value++
+      isCurrentStepValid.value = true
+    }
+    else { isCurrentStepValid.value = false }
+  })
+}
+
+
+const validateSubmitForm = async () => {
+  const valid = await refSubmitForm.value?.validate();
+
+  if (valid) {
+    const combinedData = {
+      ...storeForm.data(),
+      ...accountForm.value,
+    };
+
+    showLoadingDialog.value = true;
+    isSubmitting.value = true;
+
+    commandMessage.value = 'Initializing store...'; // Set initial message
+
+    setTimeout(() => {
+      commandMessage.value = 'Wait a moment, Your store is almost finished!';
+    }, 1500);
+
+    setTimeout(() => {
+      commandMessage.value = 'Your Store is ready to go!';
+    }, 2500); // 2000 milliseconds = 2 seconds
+
+    router.post(route('user.store'), combinedData, {
+      onStart: () => {
+        // Handle start
+      },
+      onSuccess: () => {
+        // Handle success
+        showLoadingDialog.value = false;
+        isSubmitting.value = false;
+        commandMessage.value = 'Store created successfully!';
+        // You can add additional success handling here, like redirecting the user
+      },
+      onError: (errors) => {
+        // Handle error
+        console.error('Validation errors:', errors);
+        showLoadingDialog.value = false;
+        isSubmitting.value = false;
+        commandMessage.value = 'There was an error creating the store.';
+      },
+      onFinish: () => {
+        // Handle finish
+      },
+    });
+  }
+};
+
+const onSubmit = async () => {
+  try {
+    showLoadingDialog.value = true;
+    isSubmitting.value = true;
+
+    await form.post(route('user.store'), {
+      onStart: () => {
+        commandMessage.value = 'Initializing store...'; // Set initial message
+
+        setTimeout(() => {
+          commandMessage.value = 'Wait a moment, Your store is almost finished!';
+        }, 1500);
+
+        setTimeout(() => {
+          commandMessage.value = 'Your Store is ready to go!';
+        }, 2500); // 2000 milliseconds = 2 seconds
+      },
+      onSuccess: () => {
+        // Hide the loading dialog on successful submission
+        showLoadingDialog.value = false;
+        isSubmitting.value = false;
+        // You can add additional success handling here, like redirecting the user
+      },
+      onError: (errors) => {
+        // Handle validation errors here
+        console.error('Validation errors:', errors);
+        showLoadingDialog.value = false; // Hide the dialog on error
+        isSubmitting.value = false;
+      }
+    });
+  } catch (error) {
+    // Handle any error that occurred during form submission
+    console.error('Submission error:', error);
+    showLoadingDialog.value = false; // Hide the dialog on error
+    isSubmitting.value = false;
+  }
+};
+
+
+// const categories = [
+//   {
+//     icon: 'ri-bar-chart-box-line',
+//     color: 'info',
+//     title: 'CRM Application',
+//     subtitle: 'Scales with any business',
+//     slug: 'crm-application',
+//   },
+//   {
+//     icon: 'ri-shopping-cart-line',
+//     color: 'success',
+//     title: 'Ecommerce Platforms',
+//     subtitle: 'Grow Your Business With App',
+//     slug: 'ecommerce-application',
+//   },
+//   {
+//     icon: 'ri-video-upload-line',
+//     color: 'error',
+//     title: 'Online Learning platform',
+//     subtitle: 'Start learning today',
+//     slug: 'online-learning-application',
+//   },
+// ]
+
+
+// const createAppData = ref({
+//   category: 'crm-application',
+//   framework: 'vue-framework',
+//   database: 'firebase-database',
+//   cardNumber: null,
+//   cardName: '',
+//   cardExpiry: '',
+//   cardCvv: '',
+//   isSave: false,
+// })
+
 </script>
 
 <template>
@@ -92,45 +219,130 @@ const onSubmit = () => form.submit();
   </Link>
 
   <VRow
-    no-gutters
-    class="auth-wrapper"
+      no-gutters
+      class="auth-wrapper"
   >
     <VCol
-      md="4"
-      class="d-none d-md-flex align-center"
+        md="4"
+        class="d-none d-md-flex align-center"
     >
       <!-- here your illustration -->
       <VImg
-        :src="registerMultiStepsIllustration"
-        class="auth-illustration"
-        height="560px"
+          :src="registerMultiStepsIllustration"
+          class="auth-illustration"
+          height="560px"
       />
     </VCol>
 
     <VCol
-      cols="12"
-      md="8"
-      class="auth-card-v2 d-flex align-center justify-center pa-10"
-      style="background-color: rgb(var(--v-theme-surface));"
+        cols="12"
+        md="8"
+        class="auth-card-v2 d-flex align-center justify-center pa-10"
+        style="background-color: rgb(var(--v-theme-surface));"
     >
       <VCard
-        flat
-        class="mt-12"
+          flat
+          class="mt-12"
       >
         <AppStepper
-          v-model:current-step="currentStep"
-          :items="items"
-          :direction="$vuetify.display.smAndUp ? 'horizontal' : 'vertical'"
-          class="mb-12"
+            v-model:current-step="currentStep"
+            :items="items"
+            :direction="$vuetify.display.smAndUp ? 'horizontal' : 'vertical'"
+            class="mb-12"
         />
 
         <VWindow
-          v-model="currentStep"
-          class="disable-tab-transition"
-          style="max-inline-size: 685px;"
+            v-model="currentStep"
+            class="disable-tab-transition"
+            style="max-inline-size: 685px;"
         >
-          <VForm @submit.prevent="onSubmit">
             <VWindowItem>
+              <VForm ref="refStoreForm" @submit.prevent="validateStoreForm">
+              <h4 class="text-h4 mb-1">
+                Store Information
+              </h4>
+              <p class="text-body-1 mb-5">
+                Enter Your Store Name
+              </p>
+              <VTextField
+                  v-model="storeForm.store_name"
+                  label="Store Name"
+                  placeholder="MyStore"
+                  @input="storeForm.validate('store_name')"
+                  :rules="[requiredValidator, alphaDashValidator]"
+                  :error-messages="storeForm.errors.store_name"
+              />
+<!--              <h5 class="text-h5 mb-4 mt-6">-->
+<!--                Category-->
+<!--              </h5>-->
+<!--              <VRadioGroup v-model="createAppData.category">-->
+<!--                <VList class="card-list">-->
+<!--                  <VListItem-->
+<!--                      v-for="category in categories"-->
+<!--                      :key="category.title"-->
+<!--                      @click="createAppData.category = category.slug"-->
+<!--                  >-->
+<!--                    <template #prepend>-->
+<!--                      <VAvatar-->
+<!--                          size="46"-->
+<!--                          rounded-->
+<!--                          variant="tonal"-->
+<!--                          :color="category.color"-->
+<!--                          class="me-1"-->
+<!--                      >-->
+<!--                        <VIcon-->
+<!--                            :icon="category.icon"-->
+<!--                            size="30"-->
+<!--                        />-->
+<!--                      </VAvatar>-->
+<!--                    </template>-->
+
+<!--                    <VListItemTitle class="font-weight-medium mb-1">-->
+<!--                      {{ category.title }}-->
+<!--                    </VListItemTitle>-->
+<!--                    <VListItemSubtitle class="text-body-2 me-2">-->
+<!--                      {{ category.subtitle }}-->
+<!--                    </VListItemSubtitle>-->
+
+<!--                    <template #append>-->
+<!--                      <VRadio :value="category.slug" />-->
+<!--                    </template>-->
+<!--                  </VListItem>-->
+<!--                </VList>-->
+<!--              </VRadioGroup>-->
+
+                <VCol cols="12">
+                  <div class="d-flex flex-wrap gap-4 justify-sm-space-between justify-center mt-8">
+                    <VBtn
+                        color="secondary"
+                        variant="outlined"
+                        disabled
+                    >
+                      <VIcon
+                          icon="ri-arrow-left-line"
+                          start
+                          class="flip-in-rtl"
+                      />
+                      Previous
+                    </VBtn>
+
+                    <VBtn type="submit">
+                      Next
+                      <VIcon
+                          icon="ri-arrow-right-line"
+                          end
+                          class="flip-in-rtl"
+                      />
+                    </VBtn>
+                  </div>
+                </VCol>
+
+
+              </VForm>
+            </VWindowItem>
+
+            <VWindowItem>
+              <VForm ref="refAccountForm" @submit.prevent="validateAccountForm">
               <h4 class="text-h4 mb-1">
                 Account Information
               </h4>
@@ -140,292 +352,157 @@ const onSubmit = () => form.submit();
 
               <VRow>
                 <VCol
-                  cols="12"
-                  md="6"
+                    cols="12"
+                    md="6"
                 >
                   <VTextField
-                    v-model="form.username"
-                    label="Username"
-                    placeholder="John Doe"
+                      v-model="accountForm.first_name"
+                      label="First Name"
+                      placeholder="John"
                   />
                 </VCol>
 
                 <VCol
-                  cols="12"
-                  md="6"
+                    cols="12"
+                    md="6"
                 >
                   <VTextField
-                    v-model="form.email"
-                    @change="form.validate('email')"
-                    label="Email"
-                    placeholder="johndoe@email.com"
+                      v-model="accountForm.last_name"
+                      label="Last Name"
+                      placeholder="Doe"
                   />
                 </VCol>
 
                 <VCol
-                  cols="12"
-                  md="6"
+                    cols="12"
+                    md="6"
                 >
                   <VTextField
-                    v-model="form.password"
-                    label="Password"
-                    placeholder="Enter Password"
-                    :type="isPasswordVisible ? 'text' : 'password'"
-                    :append-inner-icon="isPasswordVisible ? 'ri-eye-off-line' : 'ri-eye-line'"
-                    @click:append-inner="isPasswordVisible = !isPasswordVisible"
+                      v-model="accountForm.phone_number"
+                      type="number"
+                      label="Mobile"
+                      placeholder="98 7654 3210"
                   />
                 </VCol>
 
                 <VCol
-                  cols="12"
-                  md="6"
+                    cols="12"
+                    md="6"
                 >
                   <VTextField
-                    v-model="form.confirmPassword"
-                    label="Confirm Password"
-                    placeholder="Enter Confirm Password"
-                    :type="isConfirmPasswordVisible ? 'text' : 'password'"
-                    :append-inner-icon="isConfirmPasswordVisible ? 'ri-eye-off-line' : 'ri-eye-line'"
-                    @click:append-inner="isConfirmPasswordVisible = !isConfirmPasswordVisible"
+                      v-model="accountForm.email"
+                      label="Email"
+                      placeholder="johndoe@email.com"
+                  />
+                </VCol>
+
+                <VCol
+                    cols="12"
+                    md="6"
+                >
+                  <VTextField
+                      v-model="accountForm.password"
+                      label="Password"
+                      placeholder="Enter Password"
+                      :type="isPasswordVisible ? 'text' : 'password'"
+                      :append-inner-icon="isPasswordVisible ? 'ri-eye-off-line' : 'ri-eye-line'"
+                      @click:append-inner="isPasswordVisible = !isPasswordVisible"
+                  />
+                </VCol>
+
+                <VCol
+                    cols="12"
+                    md="6"
+                >
+                  <VTextField
+                      v-model="accountForm.password_confirmation"
+                      label="Confirm Password"
+                      placeholder="Enter Confirm Password"
+                      :type="isConfirmPasswordVisible ? 'text' : 'password'"
+                      :append-inner-icon="isConfirmPasswordVisible ? 'ri-eye-off-line' : 'ri-eye-line'"
+                      @click:append-inner="isConfirmPasswordVisible = !isConfirmPasswordVisible"
                   />
                 </VCol>
 
                 <VCol cols="12">
-                  <VTextField
-                    v-model="form.link"
-                    label="Profile Link"
-                    placeholder="johndoe/profile"
-                    type="url"
-                  />
-                </VCol>
-              </VRow>
-            </VWindowItem>
+                  <div class="d-flex flex-wrap gap-4 justify-sm-space-between justify-center mt-8">
+                    <VBtn
+                        color="secondary"
+                        variant="tonal"
+                        @click="currentStep--"
+                    >
+                      <VIcon
+                          icon="ri-arrow-left-line"
+                          start
+                          class="flip-in-rtl"
+                      />
+                      Previous
+                    </VBtn>
 
-            <VWindowItem>
-              <h4 class="text-h4 mb-1">
-                Personal Information
-              </h4>
-              <p class="text-body-1 mb-5">
-                Enter Your Personal Information
-              </p>
-
-              <VRow>
-                <VCol
-                  cols="12"
-                  md="6"
-                >
-                  <VTextField
-                    v-model="form.firstName"
-                    label="First Name"
-                    placeholder="John"
-                  />
-                </VCol>
-
-                <VCol
-                  cols="12"
-                  md="6"
-                >
-                  <VTextField
-                    v-model="form.lastName"
-                    label="Last Name"
-                    placeholder="Doe"
-                  />
-                </VCol>
-
-                <VCol
-                  cols="12"
-                  md="6"
-                >
-                  <VTextField
-                    v-model="form.mobile"
-                    type="number"
-                    label="Mobile"
-                    placeholder="98 7654 3210"
-                  />
-                </VCol>
-
-                <VCol
-                  cols="12"
-                  md="6"
-                >
-                  <VTextField
-                    v-model="form.pincode"
-                    type="number"
-                    label="Pincode"
-                    placeholder="123456"
-                  />
-                </VCol>
-
-                <VCol cols="12">
-                  <VTextField
-                    v-model="form.address"
-                    label="Address"
-                    placeholder="1234 Main St, New York, NY 10001, USA"
-                  />
-                </VCol>
-
-                <VCol cols="12">
-                  <VTextField
-                    v-model="form.landmark"
-                    label="Landmark"
-                    placeholder="Near Central Park"
-                  />
-                </VCol>
-
-                <VCol
-                  cols="12"
-                  md="6"
-                >
-                  <VTextField
-                    v-model="form.city"
-                    label="City"
-                    placeholder="New York"
-                  />
-                </VCol>
-
-                <VCol
-                  cols="12"
-                  md="6"
-                >
-                  <VSelect
-                    v-model="form.state"
-                    label="State"
-                    placeholder="Select State"
-                    :items="['New York', 'California', 'Florida', 'Washington', 'Texas']"
-                  />
-                </VCol>
-              </VRow>
-            </VWindowItem>
-
-            <VWindowItem>
-              <h4 class="text-h4 mb-1">
-                Select Plan
-              </h4>
-              <p class="text-body-1 mb-5">
-                Select plan as per your requirement
-              </p>
-
-              <CustomRadiosWithIcon
-                v-model:selected-radio="form.selectedPlan"
-                :radio-content="radioContent"
-                :grid-column="{ sm: '4', cols: '12' }"
-              >
-                <template #default="{ item }">
-                  <div class="text-center">
-                    <h6 class="text-h6 mb-2">
-                      {{ item.title }}
-                    </h6>
-                    <p class="clamp-text mb-2 text-sm">
-                      {{ item.desc }}
-                    </p>
-
-                    <div class="d-flex align-center justify-center">
-                      <span class="text-primary text-body-2 mb-2">$</span>
-                      <span class="text-h4 text-primary">
-                        {{ item.value }}
-                      </span>
-                      <span class="mt-2 text-sm">/month</span>
-                    </div>
+                    <VBtn type="submit">
+                      Next
+                      <VIcon
+                          icon="ri-arrow-right-line"
+                          end
+                          class="flip-in-rtl"
+                      />
+                    </VBtn>
                   </div>
-                </template>
-              </CustomRadiosWithIcon>
+                </VCol>
 
-              <h4 class="text-h4 mt-12 mb-1">
-                Payment Information
-              </h4>
-              <p class="text-body-1 mb-5">
-                Enter your card information
+              </VRow>
+              </VForm>
+            </VWindowItem>
+
+            <VWindowItem class="text-center">
+              <VForm ref="refSubmitForm" @submit.prevent="validateSubmitForm">
+              <h5 class="text-h5 mb-2 mt-3">
+                Submit 🥳
+              </h5>
+              <p class="text-body-2 mb-4">
+                Submit to kickstart your store.
               </p>
 
-              <VRow>
-                <VCol cols="12">
-                  <VTextField
-                    v-model="form.cardNumber"
-                    type="number"
-                    label="Card Number"
-                    placeholder="1234 1234 1234 1234"
-                  />
-                </VCol>
+              <VImg
+                  :src="illustrationJohn"
+                  width="261"
+                  class="mx-auto"
+              />
+              <VCol cols="12">
+                <div class="d-flex flex-wrap gap-4 justify-sm-space-between justify-center mt-8">
+                  <VBtn
+                      color="secondary"
+                      variant="tonal"
+                      @click="currentStep--"
+                  >
+                    <VIcon
+                        icon="ri-arrow-left-line"
+                        start
+                        class="flip-in-rtl"
+                    />
+                    Previous
+                  </VBtn>
 
-                <VCol
-                  cols="12"
-                  md="6"
-                >
-                  <VTextField
-                    v-model="form.cardName"
-                    label="Name on Card"
-                    placeholder="John Doe"
-                  />
-                </VCol>
-
-                <VCol
-                  cols="6"
-                  md="3"
-                >
-                  <VTextField
-                    v-model="form.expiryDate"
-                    label="Expiry"
-                    placeholder="MM/YY"
-                  />
-                </VCol>
-
-                <VCol
-                  cols="6"
-                  md="3"
-                >
-                  <VTextField
-                    v-model="form.cvv"
-                    type="number"
-                    label="CVV"
-                    placeholder="123"
-                  />
-                </VCol>
-              </VRow>
+                  <VBtn
+                      color="success"
+                      type="submit">
+                    Submit
+                    <VIcon
+                        icon="ri-check-line"
+                        end
+                        class="flip-in-rtl"
+                    />
+                  </VBtn>
+                </div>
+              </VCol>
+              </VForm>
             </VWindowItem>
-          </VForm>
         </VWindow>
-
-        <div class="d-flex flex-wrap justify-space-between justify-center gap-x-4 gap-y-2 my-6">
-          <VBtn
-            color="secondary"
-            variant="outlined"
-            :disabled="currentStep === 0"
-            @click="currentStep--"
-          >
-            <VIcon
-              icon="ri-arrow-left-line"
-              start
-              class="flip-in-rtl"
-            />
-            Previous
-          </VBtn>
-
-          <VBtn
-            v-if="items.length - 1 === currentStep"
-            :disabled="form.processing"
-            color="success"
-            append-icon="ri-check-line"
-            @click="onSubmit"
-          >
-            submit
-          </VBtn>
-
-          <VBtn
-            v-else
-            @click="currentStep++"
-          >
-            Next
-
-            <VIcon
-              icon="ri-arrow-right-line"
-              end
-              class="flip-in-rtl"
-            />
-          </VBtn>
-        </div>
       </VCard>
     </VCol>
   </VRow>
+  <!-- Loading Dialog -->
+  <LoadingDialog :value="showLoadingDialog" :command="commandMessage"/>
 </template>
 
 <style lang="scss">

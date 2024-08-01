@@ -77,7 +77,7 @@ foreach (config('tenancy.central_domains') as $domain) {
                     ->middleware('guest');
                 Route::get('user/login', 'login')->name('user.login')
                     ->middleware('guest');
-                Route::post('user/store', 'store')->name('user.store')
+                Route::post('user/store', 'register')->name('user.store')
                     ->middleware([HandlePrecognitiveRequests::class]);
             });
 

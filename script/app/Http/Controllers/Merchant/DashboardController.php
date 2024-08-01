@@ -33,7 +33,7 @@ class DashboardController extends Controller
         $order_method=Option::where('key','order_method')->first();
         $order_method=$order_method->value ?? '';
 
-        if (Feature::active('vue-homepage')) {
+//        if (Feature::active('vue-homepage')) {
 //            $userData = collect(Auth::user()->toArray())->only(['id','fullName', 'username','avatar','email', 'role'])->toArray();
             $userData = Auth::user()->only(['id','fullName', 'username','avatar','email', 'role']);
 
@@ -59,9 +59,9 @@ class DashboardController extends Controller
             return Inertia::render('dashboards/merchant/dashboard', [
                 'info' => "info",
             ]);
-        }
+//        }
 
-        return view('merchant.dashboard',compact('orders','order_method','total_active_stores'));
+//        return view('merchant.dashboard',compact('orders','order_method','total_active_stores'));
     }
 
     public function staticData()

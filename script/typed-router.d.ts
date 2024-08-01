@@ -125,6 +125,7 @@ declare module 'vue-router/auto-routes' {
     'pages-cards-card-statistics': RouteRecordInfo<'pages-cards-card-statistics', '/pages/cards/card-statistics', Record<never, never>, Record<never, never>>,
     'pages-cards-card-widgets': RouteRecordInfo<'pages-cards-card-widgets', '/pages/cards/card-widgets', Record<never, never>, Record<never, never>>,
     'pages-dialog-examples': RouteRecordInfo<'pages-dialog-examples', '/pages/dialog-examples', Record<never, never>, Record<never, never>>,
+    'pages-dialog-examples-create-store-loader': RouteRecordInfo<'pages-dialog-examples-create-store-loader', '/pages/dialog-examples/CreateStoreLoader', Record<never, never>, Record<never, never>>,
     'pages-faq': RouteRecordInfo<'pages-faq', '/pages/faq', Record<never, never>, Record<never, never>>,
     'pages-icons': RouteRecordInfo<'pages-icons', '/pages/icons', Record<never, never>, Record<never, never>>,
     'pages-misc-coming-soon': RouteRecordInfo<'pages-misc-coming-soon', '/pages/misc/coming-soon', Record<never, never>, Record<never, never>>,
