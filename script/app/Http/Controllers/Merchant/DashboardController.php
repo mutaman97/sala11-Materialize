@@ -34,28 +34,6 @@ class DashboardController extends Controller
         $order_method=$order_method->value ?? '';
 
 //        if (Feature::active('vue-homepage')) {
-//            $userData = collect(Auth::user()->toArray())->only(['id','fullName', 'username','avatar','email', 'role'])->toArray();
-            $userData = Auth::user()->only(['id','fullName', 'username','avatar','email', 'role']);
-
-            // Add the tenants data to the user data array
-            $userData['stores'] = $stores;
-
-            $userAbilityRules = [
-                [
-                    'action' => 'manage',
-                    'subject' => 'all',
-                ],
-            ];
-
-            $sharedData = [
-                'userData' => $userData,
-                'userAbilityRules' => $userAbilityRules,
-                'stores' => function () {
-                      return Tenant::where('user_id', Auth::id())->select('id', 'uid')->get();
-                }
-            ];
-
-            Inertia::share('sharedData', $sharedData);
             return Inertia::render('dashboards/merchant/dashboard', [
                 'info' => "info",
             ]);

@@ -189,9 +189,9 @@ const onSubmit = () => {
               <!-- create account -->
               <VCol cols="12" class="text-body-1 text-center">
                 <span class="d-inline-block">New on our platform?</span>
-                <RouterLink class="text-primary ms-1 d-inline-block text-body-1" :to="{ name: 'register' }">
+                <Link :href="route('user.register')" class="text-primary ms-1 d-inline-block text-body-1" >
                   Create an account
-                </RouterLink>
+                </Link>
               </VCol>
 
               <VCol cols="12" class="d-flex align-center">

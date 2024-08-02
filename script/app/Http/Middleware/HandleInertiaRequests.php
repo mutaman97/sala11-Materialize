@@ -2,8 +2,12 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Tenant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Inertia\Inertia;
 use Inertia\Middleware;
+use Auth;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -35,6 +39,32 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        // Determine if the URL starts with 'partner'
+        $isPartnerNamespace = Str::startsWith($request->url(), url('/partner'));
+        if ($isPartnerNamespace){
+            $stores=Tenant::where('user_id',Auth::id())->get();
+            $userData = Auth::user()->only(['id','fullName', 'username','avatar','email', 'role']);
+
+            // Add the tenants data to the user data array
+            $userData['stores'] = $stores;
+
+            $userAbilityRules = [
+                [
+                    'action' => 'manage',
+                    'subject' => 'all',
+                ],
+            ];
+
+            return array_merge(parent::share($request), [
+                'sharedData' => [
+                    'userData' => $userData,
+                    'userAbilityRules' => $userAbilityRules,
+                    'stores' => function () {
+                        return Tenant::where('user_id', Auth::id())->select('id', 'uid')->get();
+                    }
+                ]
+            ]);
+        }
         return array_merge(parent::share($request), [
             //
         ]);

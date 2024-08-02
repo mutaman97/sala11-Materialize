@@ -103,17 +103,16 @@ const validateSubmitForm = async () => {
 
     commandMessage.value = 'Initializing store...'; // Set initial message
 
-    setTimeout(() => {
-      commandMessage.value = 'Wait a moment, Your store is almost finished!';
-    }, 1500);
-
-    setTimeout(() => {
-      commandMessage.value = 'Your Store is ready to go!';
-    }, 2500); // 2000 milliseconds = 2 seconds
+    // setTimeout(() => {
+    //   commandMessage.value = 'Your Store is ready to go!';
+    // }, 2500); // 2000 milliseconds = 2 seconds
 
     router.post(route('user.store'), combinedData, {
       onStart: () => {
-        // Handle start
+        setTimeout(() => {
+          commandMessage.value = 'Wait a moment, Your store is almost finished!';
+        }, 2000);
+
       },
       onSuccess: () => {
         // Handle success

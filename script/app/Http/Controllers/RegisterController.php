@@ -64,16 +64,11 @@ class RegisterController extends Controller
         SEOTools::twitter()->setSite($seo->twitter_site_title ?? null);
         SEOTools::jsonLd()->addImage(asset('uploads/logo.png'));
 
-//        if (Feature::active('vue-homepage')) {
-//            return Inertia::render('register-multi-steps', [
-//                'info' => "info",
-//            ]);
-//        }
         return Inertia::render('create-store', [
             'info' => "info",
         ]);
 
-        return view('register',compact('email'));
+//        return view('register',compact('email'));
     }
 
     public function login()
