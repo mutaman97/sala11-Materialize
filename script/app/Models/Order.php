@@ -16,6 +16,14 @@ class Order extends Model
      * @var array
      */
     protected $fillable = [
+        'plan_id',
+        'user_id',
+        'getway_id',
+        'tax',
+        'price',
+        'status',
+        'payment_status',
+        'will_expire',
         'invoice_no',
     ];
 

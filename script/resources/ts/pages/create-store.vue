@@ -6,7 +6,7 @@ import { useForm } from "laravel-precognition-vue-inertia"
 import Layout from '@/layouts/blank.vue'
 import LoadingDialog from '@/pages/pages/dialog-examples/CreateStoreLoader.vue'
 import { ref } from "vue"
-import { router} from '@inertiajs/vue3'
+import {router, usePage} from '@inertiajs/vue3'
 import {VForm} from "vuetify/components/VForm"
 
 import illustrationJohn from '@images/pages/illustration-john.png'
@@ -20,6 +20,10 @@ const isConfirmPasswordVisible = ref(false)
 const isSubmitting = ref(false);
 const showLoadingDialog = ref(false);
 const commandMessage = ref(''); // Holds the message to be shown in the dialog
+const ability = useAbility()
+
+const userData = ref<UserData | null>(null);
+const userAbilityRules = ref<UserAbilityRule[]>([]);
 
 const items = [
   {
@@ -54,7 +58,7 @@ const storeForm = useForm('post', route('user.store'), {
   store_name:'',
 });
 
-const accountForm = ref({
+const accountForm = useForm('post', route('user.store'), {
   first_name:'',
   last_name: '',
   email: '',
@@ -75,7 +79,7 @@ const validateStoreForm = () => {
 
 const validateAccountForm = () => {
   refAccountForm.value?.validate().then(valid => {
-    if (valid.valid) {
+    if (valid.valid && accountForm.valid('email') && accountForm.valid('phone_number')) {
       currentStep.value++
       isCurrentStepValid.value = true
     }
@@ -83,6 +87,7 @@ const validateAccountForm = () => {
   })
 }
 
+const page = usePage()
 
 const validateSubmitForm = async () => {
   const valid = await refSubmitForm.value?.validate();
@@ -90,7 +95,7 @@ const validateSubmitForm = async () => {
   if (valid) {
     const combinedData = {
       ...storeForm.data(),
-      ...accountForm.value,
+      ...accountForm.data(),
     };
 
     showLoadingDialog.value = true;
@@ -116,6 +121,19 @@ const validateSubmitForm = async () => {
         isSubmitting.value = false;
         commandMessage.value = 'Store created successfully!';
         // You can add additional success handling here, like redirecting the user
+
+        const userData = page.props.sharedData.userData
+        const userAbilityRules = page.props.sharedData.userAbilityRules
+        const activeStore = page.props.sharedData.stores[0].id
+        console.log(userAbilityRules)
+        console.log(userData)
+        console.log(activeStore)
+
+        // Directly set cookies with the fetched data
+        useCookie('userAbilityRules').value = userAbilityRules
+        ability.update(userAbilityRules)
+        useCookie('userData').value = userData
+        useCookie('activeStore').value = activeStore
       },
       onError: (errors) => {
         // Handle error
@@ -359,6 +377,7 @@ const onSubmit = async () => {
                       v-model="accountForm.first_name"
                       label="First Name"
                       placeholder="John"
+                      :rules="[requiredValidator]"
                   />
                 </VCol>
 
@@ -370,6 +389,7 @@ const onSubmit = async () => {
                       v-model="accountForm.last_name"
                       label="Last Name"
                       placeholder="Doe"
+                      :rules="[requiredValidator]"
                   />
                 </VCol>
 
@@ -382,6 +402,9 @@ const onSubmit = async () => {
                       type="number"
                       label="Mobile"
                       placeholder="98 7654 3210"
+                      @input="accountForm.validate('phone_number')"
+                      :rules="[requiredValidator, regexValidator(matchRegularEx, '^([0-9]+)$'), lengthValidator(specifiedLength, 10)]"
+                      :error-messages="accountForm.errors.phone_number"
                   />
                 </VCol>
 
@@ -393,6 +416,9 @@ const onSubmit = async () => {
                       v-model="accountForm.email"
                       label="Email"
                       placeholder="johndoe@email.com"
+                      @input="accountForm.validate('email')"
+                      :rules="[requiredValidator, emailValidator]"
+                      :error-messages="accountForm.errors.email"
                   />
                 </VCol>
 
@@ -407,6 +433,7 @@ const onSubmit = async () => {
                       :type="isPasswordVisible ? 'text' : 'password'"
                       :append-inner-icon="isPasswordVisible ? 'ri-eye-off-line' : 'ri-eye-line'"
                       @click:append-inner="isPasswordVisible = !isPasswordVisible"
+                      :rules="[requiredValidator, passwordValidator]"
                   />
                 </VCol>
 
@@ -421,6 +448,7 @@ const onSubmit = async () => {
                       :type="isConfirmPasswordVisible ? 'text' : 'password'"
                       :append-inner-icon="isConfirmPasswordVisible ? 'ri-eye-off-line' : 'ri-eye-line'"
                       @click:append-inner="isConfirmPasswordVisible = !isConfirmPasswordVisible"
+                      :rules="[requiredValidator, confirmedValidator(accountForm.password, accountForm.password_confirmation)]"
                   />
                 </VCol>
 
