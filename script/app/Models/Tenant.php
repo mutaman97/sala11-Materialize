@@ -20,7 +20,7 @@ class Tenant extends BaseTenant implements TenantWithDatabase
      * @var array
      */
     protected $fillable = [
-        'id', 'order_id','user_id','will_expire','data','status','auto_renew','uid','long','maintenance_mode',
+        'id', 'order_id','user_id','plan_id','will_expire','data','status','auto_renew','uid','long','maintenance_mode',
     ];
 
     public static function getCustomColumns(): array
@@ -29,6 +29,7 @@ class Tenant extends BaseTenant implements TenantWithDatabase
             'id',
             'order_id',
             'user_id',
+            'plan_id',
             'will_expire',
             'data',
             'status',
@@ -42,11 +43,14 @@ class Tenant extends BaseTenant implements TenantWithDatabase
         ];
     }
 
-
-
     public function user()
     {
         return $this->belongsTo('App\Models\User','user_id');
+    }
+
+    public function plan(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo('App\Models\Plan','plan_id');
     }
 
     public function order()

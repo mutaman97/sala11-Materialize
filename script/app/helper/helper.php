@@ -1,4 +1,6 @@
 <?php
+
+use App\Models\Tenant;
 use App\Terms;
 use App\Models\Option;
 use App\Models\Menu;
@@ -7,6 +9,7 @@ use App\Models\Category;
 use App\Models\Term;
 use GuzzleHttp\Client;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
 
@@ -589,4 +592,24 @@ function generateBanners($count, $bannerType, $bannerWidth, $bannerLocation) : a
         ];
     }
     return $banners;
+}
+
+/**
+ * Get the selected store ID from the request or default to the first store.
+ *
+ * @param Request $request
+ * @return string|null
+ */
+function getSelectedStoreId(Request $request): ?string
+{
+    $stores = Tenant::where('user_id', Auth::id())->get();
+
+    $storeId = $request->cookie('activeStore'); // Get the selected store ID from cookies
+
+    // If no `store_id` is provided, default to the first store
+    if (!$storeId && $stores->isNotEmpty()) {
+        $storeId = $stores->first()->id;
+    }
+
+    return $storeId;
 }

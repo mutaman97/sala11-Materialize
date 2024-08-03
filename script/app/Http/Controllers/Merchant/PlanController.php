@@ -492,6 +492,7 @@ class PlanController extends Controller
    public function changePlan($id)
     {
         $info=Tenant::where('user_id',Auth::id())->with('orderwithplan')->findorFail($id);
+        dd($info);
         //   added by mutaman for plan upgrade only
         $last_order_id=$info->order_id;
         $last_order = Order::where('user_id', Auth::id())->findorFail($last_order_id);

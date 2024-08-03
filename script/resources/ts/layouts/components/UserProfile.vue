@@ -108,10 +108,12 @@ const handleStoreSelection = (storeUrl: string) => {
         v-if="userData && userData.avatar"
         :src="userData.avatar"
       />
-      <VImg
-        v-else
-        :src="`https://ui-avatars.com/api/?name=${selectedStore}&background=random&color=ffffff&rounded=true`"
-      />
+      <span
+          v-else
+          class="text-3xl font-weight-medium"
+      >
+        {{ avatarText(selectedStore) }}
+      </span>
 
       <!-- SECTION Menu -->
       <VMenu
@@ -140,10 +142,12 @@ const handleStoreSelection = (storeUrl: string) => {
                       v-if="userData && userData.avatar"
                       :src="userData.avatar"
                     />
-                    <VImg
-                      v-else
-                      :src="`https://ui-avatars.com/api/?name=${store.id}&background=random&color=ffffff&rounded=true`"
-                    />
+                    <span
+                        v-else
+                        class="text-3xl font-weight-medium"
+                    >
+                      {{ avatarText(store.id) }}
+                    </span>
                   </VAvatar>
 
                   <div>

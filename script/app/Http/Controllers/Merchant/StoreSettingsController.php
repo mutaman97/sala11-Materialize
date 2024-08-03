@@ -26,13 +26,17 @@ use Storage;
 class StoreSettingsController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
+        $storeId = getSelectedStoreId($request);
+//        $plans = Plan::where([['status', 1], ['is_default', 0],['is_trial', 0],['price','>',$last_order_price]])->latest()->get();
+        $posts=Tenant::where('user_id',Auth::id())->with('plan')->first();
+//        dd($posts);
+
         return Inertia::render('dashboards/merchant/setting/index', [
-            'info' => "info",
+            'posts' => $posts,
         ]);
 
-    	$posts=Tenant::where('user_id',Auth::id())->with('orderwithplan')->latest()->paginate(10);
     	return view('merchant.domain.index',compact('posts'));
     }
 

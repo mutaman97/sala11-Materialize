@@ -185,8 +185,8 @@ export default [
     ],
   },
   {
-    title: 'Dialog Examples',
-    icon: { icon: 'ri-tv-2-line' },
-    to: 'pages-dialog-examples',
+    title: 'Store Settings',
+    icon: { icon: 'ri-store-2-line' },
+    to: 'store-settings',
   },
 ]

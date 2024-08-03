@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import Avatar from "@/pages/components/avatar.vue";
+
 interface Props {
   userData: {
     id: number
@@ -16,6 +18,38 @@ interface Props {
     projectDone: number
     taxId: string
     language: string[]
+  },
+  storeData: {
+    avatar: string
+    auth_token: string
+    auto_renew: number
+    barcode: string
+    created_at: string
+    custom_css_js: string
+    custom_domain: string
+    customer_modules: string
+    data: string
+    id: string
+    image_optimization: string
+    lat: string
+    long: string
+    maintenance_mode: string
+    order_id: number
+    pos: string
+    post_limit: string
+    push_notification: string
+    pwa: string
+    qr_code: string
+    staff_limit: string
+    status: number
+    storage_limit: string
+    sub_domain: string
+    tenancy_db_name: string
+    theme: string
+    uid: number
+    updated_at: string
+    user_id: number
+    will_expire: string
   }
 }
 
@@ -59,22 +93,23 @@ const resolveUserRoleVariant = (role: string) => {
             :size="120"
             :color="!props.userData.avatar ? 'primary' : undefined"
             :variant="!props.userData.avatar ? 'tonal' : undefined"
+            :style="{ backgroundColor: '#AEDDFF' }"
           >
             <VImg
-              v-if="props.userData.avatar"
-              :src="props.userData.avatar"
+              v-if="props.storeData.avatar"
+              :src="props.storeData.avatar"
             />
             <span
               v-else
               class="text-5xl font-weight-medium"
             >
-              {{ avatarText(props.userData.fullName) }}
+              {{ avatarText(props.storeData.id) }}
             </span>
           </VAvatar>
 
           <!-- 👉 User fullName -->
           <h5 class="text-h5 mt-4">
-            {{ props.userData.fullName }}
+            {{ props.storeData.id }}
           </h5>
 
           <!-- 👉 Role chip -->

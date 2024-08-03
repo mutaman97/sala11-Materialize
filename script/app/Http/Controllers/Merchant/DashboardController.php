@@ -21,12 +21,7 @@ class DashboardController extends Controller
      */
     public function index(Request $request)
     {
-        $storeId = $request->input('store_id'); // Get the selected store ID from the request
-        $stores=Tenant::where('user_id',Auth::id())->get();
-        // If no `store_id` is provided, default to the first store
-        if (!$storeId && $stores->isNotEmpty()) {
-            $storeId = $stores->first()->id;
-        }
+        $storeId = getSelectedStoreId($request);
 
         $orders = Order::where([['user_id', Auth::id()],['price','>',0]])->with('plan','orderlog')->latest()->take(5)->get();
         $total_active_stores=Tenant::where([['user_id',Auth::id()],['will_expire','>',now()],['status',1]])->count();

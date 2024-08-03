@@ -219,6 +219,7 @@ class RegisterController extends Controller
         $tenant->id = str($storeName)->slug();
         $tenant->uid = Tenant::count() + 1;
         $tenant->order_id = $order->id;
+        $tenant->plan_id = $plan->id;
         $tenant->user_id = $order->user_id;
         $tenant->will_expire = Carbon::now()->addDays($plan->duration)->format('Y-m-d');
         $tenant->save();

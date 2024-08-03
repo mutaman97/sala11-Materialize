@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('auto_renew')->default(0);//0= auto renew 1 = menual renew
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('order_id')->nullable();
+            $table->unsignedBigInteger('plan_id');
             $table->date('will_expire');
             $table->integer('status')->default(1);//1= active 2= pending 3= expired
             $table->json('data')->nullable();
