@@ -30,7 +30,6 @@ declare module 'vue' {
     ConfirmDialog: typeof import('./resources/ts/components/dialogs/ConfirmDialog.vue')['default']
     CreateAppDialog: typeof import('./resources/ts/components/dialogs/CreateAppDialog.vue')['default']
     CreateStoreDialog: typeof import('./resources/ts/components/dialogs/CreateStoreDialog.vue')['default']
-    CreateStoreLoader: typeof import('./resources/ts/views/demos/components/dialog/CreateStoreLoader.vue')['default']
     CustomCheckboxes: typeof import('./resources/ts/@core/components/app-form-elements/CustomCheckboxes.vue')['default']
     CustomCheckboxesWithIcon: typeof import('./resources/ts/@core/components/app-form-elements/CustomCheckboxesWithIcon.vue')['default']
     CustomCheckboxesWithImage: typeof import('./resources/ts/@core/components/app-form-elements/CustomCheckboxesWithImage.vue')['default']
@@ -380,6 +379,7 @@ declare module 'vue' {
     TwoFactorAuthDialog: typeof import('./resources/ts/components/dialogs/TwoFactorAuthDialog.vue')['default']
     UserInfoEditDialog: typeof import('./resources/ts/components/dialogs/UserInfoEditDialog.vue')['default']
     UserUpgradePlanDialog: typeof import('./resources/ts/components/dialogs/UserUpgradePlanDialog.vue')['default']
+    ViewStore: typeof import('./resources/ts/@core/components/ViewStore.vue')['default']
     VueApexCharts: typeof import('vue3-apexcharts')['default']
   }
 }

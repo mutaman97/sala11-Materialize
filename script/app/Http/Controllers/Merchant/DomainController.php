@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Log;
 use App\Mail\DomaintransferOtp;
 use App\Jobs\SendEmailJob;
 use Auth;
+use Inertia\Inertia;
 use Str;
 use Http;
 use Artisan;
@@ -741,11 +742,9 @@ class DomainController extends Controller
             }
         }
         }
-
-
-
-        return redirect(env('APP_PROTOCOL').$domain.'/make-login/'.Crypt::encryptString($data->auth_token));
-
+//       return Inertia::location(env('APP_PROTOCOL').$domain.'/make-login/'.Crypt::encryptString($data->auth_token));
+//        return redirect(env('APP_PROTOCOL').$domain.'/make-login/'.Crypt::encryptString($data->auth_token));
+       return env('APP_PROTOCOL').$domain.'/make-login/'.Crypt::encryptString($data->auth_token);
    }
 
    //login with real domain

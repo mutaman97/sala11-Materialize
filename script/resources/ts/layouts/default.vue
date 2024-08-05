@@ -18,7 +18,6 @@ injectSkinClasses()
 
 
 import {useTheme} from 'vuetify'
-// import BuyNow from '@core/components/BuyNow.vue'
 import ScrollToTop from '@core/components/ScrollToTop.vue'
 import initCore from '@core/initCore'
 import {
@@ -53,7 +52,7 @@ const configStore = useConfigStore()
                 </Component>
             </Suspense>
 
-            <BuyNow/>
+            <ViewStore/>
             <ScrollToTop/>
         </VApp>
     </VLocaleProvider>
