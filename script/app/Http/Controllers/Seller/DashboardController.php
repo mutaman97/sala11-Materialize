@@ -18,9 +18,11 @@ use App\Models\Term;
 use App\Models\Category;
 use App\Models\User;
 use Auth;
+use Inertia\Inertia;
+
 class DashboardController extends Controller
 {
-    public function dashboard()
+    public function dashboard(): \Inertia\Response
     {
         abort_if(!getpermission('dashboard'),401);
 
@@ -28,8 +30,11 @@ class DashboardController extends Controller
         $languages=json_decode($languages->value ?? '');
         $order_method=Option::where('key','order_method')->first();
         $order_method=$order_method->value ?? '';
+        return Inertia::render('dashboards/seller/dashboard', [
+            'info' => "info",
+        ]);
 
-        return view('seller.dashboard',compact('languages','order_method'));
+//        return view('seller.dashboard',compact('languages','order_method'));
     }
 
     // Added By Mutaman For RTL Function on seller Part

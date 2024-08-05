@@ -727,7 +727,7 @@ class DomainController extends Controller
     }
     // end added by mutaman
 
-   public function login($id)
+   public function login($id): string
    {
         $data=Tenant::where([['user_id',Auth::id()],['status',1],['will_expire','>',now()]])->whereHas('active_domains')->with('active_domains')->findorFail($id);
         $data->auth_token=Str::random(40).Auth::id();
