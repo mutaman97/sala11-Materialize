@@ -10,8 +10,9 @@ import authV2LoginIllustrationDark from '@images/pages/auth-v2-login-illustratio
 import authV2LoginIllustrationLight from '@images/pages/auth-v2-login-illustration-light.png'
 import authV2LoginMaskDark from '@images/pages/auth-v2-login-mask-dark.png'
 import authV2LoginMaskLight from '@images/pages/auth-v2-login-mask-light.png'
+import { useForm } from "laravel-precognition-vue-inertia";
 import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
-import { Head, Link, useForm } from '@inertiajs/vue3'
+import { Head, Link } from '@inertiajs/vue3'
 import {usePage} from "@inertiajs/vue3";
 import { ref } from 'vue'
 
@@ -56,7 +57,7 @@ interface UserData {
 
 const refVForm = ref<VForm>()
 
-const form = useForm({
+const form = useForm('post', '/login',{
   email: 'merchant@gmail.com',
   password: '@O999o19o12',
 });
@@ -69,7 +70,7 @@ const userAbilityRules = ref<UserAbilityRule[]>([]);
 const page = usePage()
 
 const submit = async () => {
-  form.post('/login', {
+  form.post(route('login'), {
     onFinish: () => {
       form.reset('password')
     },
@@ -152,6 +153,7 @@ const onSubmit = () => {
               <VCol cols="12">
                 <VTextField
                   v-model="form.email"
+                  @change="form.validate('email')"
                   label="Email"
                   placeholder="johndoe@email.com"
                   type="email"
@@ -165,6 +167,7 @@ const onSubmit = () => {
               <VCol cols="12">
                 <VTextField
                   v-model="form.password"
+                  @change="form.validate('password')"
                   label="Password"
                   placeholder="············"
                   :rules="[requiredValidator]"

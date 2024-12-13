@@ -371,31 +371,31 @@
   </div>
 </div>
 {{-- ADDES BY MUTAMAN FOR DASHBOARD MODAL --}}
-@if(empty($seo->title))
-    @include('seller.manage', ['languages' => $languages, 'order_method' => $order_method])
-    <input type="hidden" id="done" value="0">
-    <script>
-        $('#manage').modal({
-            backdrop: 'static', // Prevents closing the modal by clicking outside of it
-            keyboard: false // Prevents closing the modal by pressing the Escape key
-        });
+{{--@if(empty($seo->title))--}}
+{{--    @include('seller.manage', ['languages' => $languages, 'order_method' => $order_method])--}}
+{{--    <input type="hidden" id="done" value="0">--}}
+{{--    <script>--}}
+{{--        $('#manage').modal({--}}
+{{--            backdrop: 'static', // Prevents closing the modal by clicking outside of it--}}
+{{--            keyboard: false // Prevents closing the modal by pressing the Escape key--}}
+{{--        });--}}
 
-        // Enable the close button only when the form is submitted
-        $('.basicbtn').on('click', function () {
-            $('#done').val(1);
-            $('#manage').modal('hide');
-        });
+{{--        // Enable the close button only when the form is submitted--}}
+{{--        $('.basicbtn').on('click', function () {--}}
+{{--            $('#done').val(1);--}}
+{{--            $('#manage').modal('hide');--}}
+{{--        });--}}
 
-        // Show the modal again if the user tries to close it before submitting the form
-        $('#manage').on('hide.bs.modal', function (e) {
-            if ($('#done').val() != 1) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                $('#manage').modal('show');
-            }
-        });
-    </script>
-@endif
+{{--        // Show the modal again if the user tries to close it before submitting the form--}}
+{{--        $('#manage').on('hide.bs.modal', function (e) {--}}
+{{--            if ($('#done').val() != 1) {--}}
+{{--                e.preventDefault();--}}
+{{--                e.stopImmediatePropagation();--}}
+{{--                $('#manage').modal('show');--}}
+{{--            }--}}
+{{--        });--}}
+{{--    </script>--}}
+{{--@endif--}}
 
 @if(tenant('push_notification') == 'on' && env('FMC_SERVER_API_KEY') != null)
   <div class="notification-button-area notification_button">

@@ -21,7 +21,7 @@ class DashboardController extends Controller
      *
      * @return \Inertia\Response
      */
-    public function index(Request $request): \Inertia\Response
+    public function index(Request $request)
     {
         $storeId = getSelectedStoreId($request);
 

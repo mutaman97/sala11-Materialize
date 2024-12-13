@@ -11,9 +11,9 @@ export default [
       {
         title: 'Product',
         children: [
-          { title: 'List', to: 'product' },
-          { title: 'Add', to: 'product' },
-          { title: 'Category', to: 'product' },
+          { title: 'List', to: 'apps-ecommerce-product-list' },
+          { title: 'Add', to: 'apps-ecommerce-product-add' },
+          { title: 'Category', to: 'apps-ecommerce-product-category-list' },
         ],
       },
       {

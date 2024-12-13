@@ -41,6 +41,8 @@ class HandleInertiaRequests extends Middleware
     {
         // Determine if the URL starts with 'partner'
         $isPartnerNamespace = Str::startsWith($request->url(), url('/partner'));
+        $isSellerNamespace = Str::startsWith($request->url(), url('/seller'));
+
         if ($isPartnerNamespace){
             $stores=Tenant::where('user_id',Auth::id())->get();
             $userData = Auth::user()->only(['id','fullName', 'username','avatar','email', 'role']);
@@ -64,9 +66,27 @@ class HandleInertiaRequests extends Middleware
                     }
                 ]
             ]);
+        }elseif ($isSellerNamespace){
+            $userData = Auth::user()->only(['id','fullName', 'username','avatar','email', 'role']);
+
+            $userAbilityRules = [
+                [
+                    'action' => 'manage',
+                    'subject' => 'all',
+                ],
+            ];
+
+            return array_merge(parent::share($request), [
+                'sharedData' => [
+                    'userData' => $userData,
+                    'userAbilityRules' => $userAbilityRules,
+                ]
+            ]);
+        }else{
+            return array_merge(parent::share($request), [
+                //
+            ]);
         }
-        return array_merge(parent::share($request), [
-            //
-        ]);
+
     }
 }

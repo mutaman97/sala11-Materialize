@@ -36,6 +36,11 @@ foreach (config('tenancy.central_domains') as $domain) {
     Route::domain($domain)->group(function () {
         Auth::routes(['verify' => true]); // Include the 'verify' option to enable email verification routes
 
+        // Apply Precognition middleware specifically to the login POST route
+        Route::post('/login', [\App\Http\Controllers\Auth\LoginController::class, 'login'])
+            ->middleware([HandlePrecognitiveRequests::class])
+            ->name('login.precognitive');
+
         Route::controller(App\Http\Controllers\WelcomeController::class)
             ->group(function () {
                 Route::get('/', 'index')->name('welcome');

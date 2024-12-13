@@ -8,6 +8,7 @@ use App\Models\User;
 use Auth;
 use Hash;
 use Illuminate\Contracts\Encryption\DecryptException;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\Tenant;
 
@@ -44,6 +45,38 @@ class LoginController extends Controller
                 $tenant->save();
                 $user=User::first();
                 Auth::loginUsingId($user->id);
+
+                // Your original array
+                $data = [
+                    ['action' => 'manage', 'subject' => 'all']
+                ];
+
+                Cookie::queue(
+                    'userAbilityRules',
+                    json_encode($data), // Convert array to JSON
+                    null, // Minutes
+                    '/',
+                    null,
+                    false, // Secure
+                    false,  // HttpOnly
+                    false, // Raw
+                    null   // SameSite (set to null to remove)
+                );
+
+                $userData = Auth::user()->only(['id','fullName', 'username','avatar','email', 'role']);
+
+                Cookie::queue(
+                    'userData',
+                    json_encode($userData), // Convert array to JSON
+                    null, // Minutes
+                    '/',
+                    null,
+                    false, // Secure
+                    false,  // HttpOnly
+                    false, // Raw
+                    null   // SameSite (set to null to remove)
+                );
+
                 return redirect('/login');
             }
         } catch (DecryptException $e) {

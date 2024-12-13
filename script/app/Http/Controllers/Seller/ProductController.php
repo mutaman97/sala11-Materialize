@@ -11,6 +11,7 @@ use App\Models\Productoption;
 use DB;
 use DNS1D;
 use DNS2D;
+use Inertia\Inertia;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\ProductImport;
 use Auth;
@@ -19,7 +20,7 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
     public function index(Request $request)
     {
@@ -32,7 +33,11 @@ class ProductController extends Controller
 
         $type= $request->type ?? '';
 
-        return view("seller.product.index",compact('posts','request','type'));
+        return Inertia::render('apps/ecommerce/product/list/index', [
+            'info' => "info",
+        ]);
+
+//        return view("seller.product.index",compact('posts','request','type'));
     }
 
     /**

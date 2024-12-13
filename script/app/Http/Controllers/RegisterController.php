@@ -91,7 +91,11 @@ class RegisterController extends Controller
         SEOTools::twitter()->setTitle('Login');
         SEOTools::twitter()->setSite($seo->twitter_site_title ?? null);
         SEOTools::jsonLd()->addImage(asset('uploads/logo.png'));
-        return view('login');
+//        return view('login');
+
+        return Inertia::render('login', [
+            'info' => "info",
+        ]);
     }
 
     public function store(Request $request)

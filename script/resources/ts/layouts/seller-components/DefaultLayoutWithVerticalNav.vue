@@ -53,9 +53,9 @@ const navItems = ref([])
 const determineNavItems = async () => {
   let navigationModule
   if (page.url.startsWith('/partner')) {
-    navigationModule = await import('@/navigation/vertical')
+    navigationModule = await import('@/navigation/partner/vertical')
   } else if (page.url.startsWith('/seller')) {
-    navigationModule = await import('@/navigation/vertical')
+    navigationModule = await import('@/navigation/seller/vertical')
   } else {
     navigationModule = await import('@/navigation/vertical')
   }

@@ -11,9 +11,9 @@ export default [
       {
         title: 'Product',
         children: [
-          { title: 'List', to: 'product' },
-          { title: 'Add', to: 'product' },
-          { title: 'Category', to: 'product' },
+          { title: 'List', to: 'apps-ecommerce-product-list' },
+          { title: 'Add', to: 'apps-ecommerce-product-add' },
+          { title: 'Category', to: 'apps-ecommerce-product-category-list' },
         ],
       },
       {
@@ -120,8 +120,8 @@ export default [
         children: [
           { title: 'Coming Soon', to: 'pages-misc-coming-soon', target: '_blank' },
           { title: 'Under Maintenance', to: 'pages-misc-under-maintenance', target: '_blank' },
-          { title: 'Page Not Found - 404', to: { name: 'login' }, target: '_blank' },
-          { title: 'Not Authorized - 401', to: { name: 'login' }, target: '_blank' },
+          { title: 'Page Not Found - 404', to: { path: '/pages/misc/not-found' }, target: '_blank' },
+          { title: 'Not Authorized - 401', to: { path: '/pages/misc/not-authorized' }, target: '_blank' },
         ],
       },
     ],
@@ -185,8 +185,8 @@ export default [
     ],
   },
   {
-    title: 'Store Settings',
-    icon: { icon: 'ri-store-2-line' },
-    to: 'store-settings',
+    title: 'Dialog Examples',
+    icon: { icon: 'ri-tv-2-line' },
+    to: 'pages-dialog-examples',
   },
 ]

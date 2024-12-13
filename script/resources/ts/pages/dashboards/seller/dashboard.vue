@@ -12,31 +12,51 @@ import EcommerceVisitsByDay from '@/views/dashboards/ecommerce/EcommerceVisitsBy
 import EcommerceWeeklySalesBg from '@/views/dashboards/ecommerce/EcommerceWeeklySalesBg.vue'
 import illustration1 from '@images/cards/illustration-1.png'
 import illustration2 from '@images/cards/illustration-2.png'
+import axios from 'axios';
+import { ref, onMounted } from 'vue';
 
 import Layout from '@/layouts/seller.vue'
 
 defineOptions({ layout: Layout })
 
-const statisticsWithImages = [
-  {
-    title: 'Ratings',
-    subtitle: 'Year of 2021',
-    stats: '8.14k',
-    change: 15.6,
-    image: illustration1,
-    imgWidth: 99,
-    color: 'primary',
-  },
-  {
-    title: 'Sessions',
-    subtitle: 'Last Month',
-    stats: '12.2k',
-    change: -25.5,
-    image: illustration2,
-    imgWidth: 85,
-    color: 'success',
-  },
-]
+
+// Ref to store statistics
+const statisticsWithImages = ref<any>({}); // Initialize as an empty object or use any type
+
+// Fetch statistics from backend
+const fetchStatistics = async () => {
+  try {
+    const response = await axios.get('/seller/dashboard/static');
+    statisticsWithImages.value = response.data; // Assign the response data
+  } catch (error) {
+    console.error('Error fetching statistics:', error);
+  }
+};
+
+onMounted(async () => {
+  await fetchStatistics();
+});
+
+// const statisticsWithImages = [
+//   {
+//     title: 'Ratings',
+//     subtitle: 'Year of 2021',
+//     stats: '8.14k',
+//     change: 15.6,
+//     image: illustration1,
+//     imgWidth: 99,
+//     color: 'primary',
+//   },
+//   {
+//     title: 'Sessions',
+//     subtitle: 'Last Month',
+//     stats: '12.2k',
+//     change: -25.5,
+//     image: illustration2,
+//     imgWidth: 85,
+//     color: 'success',
+//   },
+// ]
 </script>
 
 <template>
