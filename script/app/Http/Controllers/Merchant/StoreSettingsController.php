@@ -33,11 +33,11 @@ class StoreSettingsController extends Controller
         $posts=Tenant::where('user_id',Auth::id())->with('plan')->first();
 //        dd($posts);
 
-        return Inertia::render('dashboards/merchant/setting/index', [
+        return Inertia::render('partner/setting/index', [
             'posts' => $posts,
         ]);
 
-    	return view('merchant.domain.index',compact('posts'));
+//    	return view('merchant.domain.index',compact('posts'));
     }
 
     public function create()

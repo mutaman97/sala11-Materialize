@@ -618,8 +618,8 @@ Route::group(['as' => 'seller.', 'prefix' => 'seller', 'namespace' => 'Seller', 
         Route::delete('language-remove-key/{id}','keyRemove')->name('language.keyremove');
     });
 
-    Route::get('calender', [App\Http\Controllers\Seller\CalenderController::class, 'index'])->name('calender.index');
-    Route::get('upcominOrders', [App\Http\Controllers\Seller\CalenderController::class, 'upcoming_orders'])->name('seller.order.upcoming');
+    Route::get('calendar', [App\Http\Controllers\Seller\CalendarController::class, 'index'])->name('calendar.index');
+    Route::get('upcominOrders', [App\Http\Controllers\Seller\CalendarController::class, 'upcoming_orders'])->name('seller.order.upcoming');
 
     Route::post('product/barcode/search', [App\Http\Controllers\Seller\BarcodeController::class, 'search'])->name('barcode.search');
     Route::post('barcode/generate', [App\Http\Controllers\Seller\BarcodeController::class, 'generate'])->name('barcode.generate');

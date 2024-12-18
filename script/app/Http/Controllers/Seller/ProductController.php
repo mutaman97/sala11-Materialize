@@ -22,10 +22,10 @@ class ProductController extends Controller
      *
      * @return \Inertia\Response
      */
-    public function index(Request $request)
+    public function oldindex(Request $request)
     {
         abort_if(!getpermission('products'),401);
-        $posts=Term::query()->where('type','product')->with('media','price')->withCount('orders');
+        $posts=Term::query()->where('type','product')->with('media','price', 'category','meta', 'brands')->withCount('orders');
         if (!empty($request->src) && !empty($request->type)) {
            $posts=$posts->where($request->type,'LIKE','%'.$request->src.'%');
         }
@@ -33,17 +33,80 @@ class ProductController extends Controller
 
         $type= $request->type ?? '';
 
-        return Inertia::render('apps/ecommerce/product/list/index', [
-            'info' => "info",
-        ]);
+//        return Inertia::render('seller/product/index', [
+//            'posts' => $posts,
+//        ]);
 
-//        return view("seller.product.index",compact('posts','request','type'));
+        return view("seller.product.index",compact('posts','request','type'));
+    }
+    public function index(Request $request)
+    {
+        abort_if(!getpermission('products'), 401);
+        http://store.localhost/seller/product?q=&page=1&itemsPerPage=10&sortBy=product&orderBy=desc
+        // Common query for products
+        $query = Term::query()
+            ->where('type', 'product')
+            ->with('media', 'price', 'category', 'brands')
+            ->withCount('orders');
+
+        // Apply filters for AJAX requests
+        if ($request->expectsJson()) {
+            $searchQuery = $request->input('q');
+            $stock = $request->input('stock');
+            $category = $request->input('category');
+            $status = $request->input('status');
+            $itemsPerPage = $request->input('itemsPerPage', 10);
+            $sortBy = $request->input('sortBy', 'created_at');
+            $orderBy = $request->input('orderBy', 'desc');
+
+            // Search filter
+            if ($searchQuery) {
+                $query->where('title', 'like', "%{$searchQuery}%");
+            }
+
+            // Stock filter
+            if (!is_null($stock)) {
+                $query->where('stock', $stock ? '>' : '=', 0);
+            }
+
+            // Category filter
+            if ($category) {
+                $query->where('category', $category);
+            }
+
+            // Status filter
+            if ($status) {
+                $query->where('status', $status);
+            }
+
+            // Sorting
+            $query->orderBy($sortBy, $orderBy);
+
+            // Paginate
+            $products = $query->paginate($itemsPerPage)->appends($request->query());
+
+            // Return JSON response for Vue.js fetch
+            return response()->json([
+                'success' => true,
+                'data' => [
+                    'products' => $products->items(),
+                    'total' => $products->total(),
+                ],
+                'message' => 'Products retrieved successfully',
+            ]);
+        }
+
+        // For Inertia response (initial page load)
+        $posts = $query->latest()->paginate(50);
+        return Inertia::render('seller/product/index', [
+            'posts' => $posts,
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
     public function create()
     {
@@ -51,7 +114,12 @@ class ProductController extends Controller
          $attributes=Category::query()->where('type','parent_attribute')->with('categories')->latest()->get();
          $features=Category::query()->where('type','product_feature')->orderBy('menu_status','ASC')->get();
 
-        return view("seller.product.create",compact('attributes','features'));
+
+        return Inertia::render('seller/product/create/index', [
+            'info' => "info",
+        ]);
+
+//        return view("seller.product.create",compact('attributes','features'));
     }
 
     /**

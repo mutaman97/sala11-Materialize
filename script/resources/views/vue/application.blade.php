@@ -8,7 +8,7 @@
   <title>Materialize - Vuejs Admin Template</title>
   <link rel="stylesheet" type="text/css" href="{{ asset('loader.css') }}" />
   @routes
-  @vite(['resources/js/main.js', "resources/ts/Pages/{$page['component']}.vue"])
+  @vite(['resources/js/main.js', "resources/ts/pages/{$page['component']}.vue"])
   @inertiaHead
 </head>
 

@@ -6,12 +6,19 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Auth;
-class CalenderController extends Controller
+use Inertia\Inertia;
+
+class CalendarController extends Controller
 {
     public function index()
     {
        abort_if(!getpermission('calender'),401);
-       return view('seller.calender.index');
+
+        return Inertia::render('seller/calendar', [
+            'info' => "info",
+        ]);
+
+//       return view('seller.calender.index');
     }
 
     public function upcoming_orders()

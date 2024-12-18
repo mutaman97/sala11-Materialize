@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import type { ECommerceProduct } from '@db/apps/ecommerce/types'
 
+
+import Layout from '@/layouts/seller.vue'
+
+defineOptions({ layout: Layout })
+
+
 const widgetData = ref([
   { title: 'In-Store Sales', value: '$5,345', icon: 'ri-home-6-line', desc: '5k orders', change: 5.7 },
   { title: 'Website Sales', value: '$74,347', icon: 'ri-computer-line', desc: '21k orders', change: 12.4 },

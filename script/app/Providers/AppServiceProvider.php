@@ -11,6 +11,8 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Laravel\Pennant\Feature;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Vite;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -28,6 +30,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->configureCommands();
+//        $this->configureModels();
+//        $this->configureUrl();
+        $this->configureVite();
+
+
         Paginator::useBootstrap();
 
         //added by mutaman to disable lazy loading and force eager loading
@@ -45,5 +53,41 @@ class AppServiceProvider extends ServiceProvider
         //$user->isHighTrafficCustomer() => false,
             default => Lottery::odds(1 / 5),
         });
+    }
+
+    /**
+     * Configure the application's commands.
+     */
+    private function configureCommands(): void
+    {
+        DB::prohibitDestructiveCommands(
+            $this->app->isProduction(),
+        );
+    }
+
+    /**
+     * Configure the application's models.
+     */
+    private function configureModels(): void
+    {
+        Model::shouldBeStrict();
+
+        Model::unguard();
+    }
+
+    /**
+     * Configure the application's URL.
+     */
+    private function configureUrl(): void
+    {
+        URL::forceScheme('https');
+    }
+
+    /**
+     * Configure the application's Vite.
+     */
+    private function configureVite(): void
+    {
+        Vite::usePrefetchStrategy('aggressive');
     }
 }

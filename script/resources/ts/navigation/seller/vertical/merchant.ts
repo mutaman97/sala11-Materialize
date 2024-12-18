@@ -1,66 +1,116 @@
 export default [
   { heading: 'Apps & Pages' },
+  // {
+  //
+  //   title: 'Ecommerce',
+  //   icon: { icon: 'ri-shopping-bag-3-line' },
+  //   children: [
+  //     {
+  //       title: 'Dashboard',
+  //       to: 'apps-ecommerce-dashboard',
+  //     },
+  //     {
+  //       title: 'Product',
+  //       children: [
+  //         { title: 'List', to: '/seller/product' },
+  //         { title: 'Add', to: '/seller/product/create' },
+  //         { title: 'Category', to: '/seller/product/category' },
+  //       ],
+  //     },
+  //     {
+  //       title: 'Order',
+  //       children: [
+  //         { title: 'List', to: 'apps-ecommerce-order-list' },
+  //         { title: 'Details', to: { name: 'login', params: { id: '9042' } } },
+  //       ],
+  //     },
+  //     {
+  //       title: 'Customer',
+  //       children: [
+  //         { title: 'List', to: 'apps-ecommerce-customer-list' },
+  //         { title: 'Details', to: { name: 'login', params: { id: 478426 } } },
+  //       ],
+  //     },
+  //     {
+  //       title: 'Manage Review',
+  //       to: 'apps-ecommerce-manage-review',
+  //     },
+  //     {
+  //       title: 'Referrals',
+  //       to: 'apps-ecommerce-referrals',
+  //     },
+  //     {
+  //       title: 'Settings',
+  //       to: 'apps-ecommerce-settings',
+  //     },
+  //   ],
+  // },
   {
-    title: 'Ecommerce',
-    icon: { icon: 'ri-shopping-bag-3-line' },
+    title: 'Dashboard',
+    icon: { icon: 'ri-dashboard-line' },
+    to: '/seller/dashboard',
+  },
+  {
+    title: 'Product',
+    icon: { icon: 'ri-box-3-line' },
     children: [
-      {
-        title: 'Dashboard',
-        to: 'apps-ecommerce-dashboard',
-      },
-      {
-        title: 'Product',
-        children: [
-          { title: 'List', to: 'product' },
-          { title: 'Add', to: 'product' },
-          { title: 'Category', to: 'product' },
-        ],
-      },
-      {
-        title: 'Order',
-        children: [
-          { title: 'List', to: 'apps-ecommerce-order-list' },
-          { title: 'Details', to: { name: 'login', params: { id: '9042' } } },
-        ],
-      },
-      {
-        title: 'Customer',
-        children: [
-          { title: 'List', to: 'apps-ecommerce-customer-list' },
-          { title: 'Details', to: { name: 'login', params: { id: 478426 } } },
-        ],
-      },
-      {
-        title: 'Manage Review',
-        to: 'apps-ecommerce-manage-review',
-      },
-      {
-        title: 'Referrals',
-        to: 'apps-ecommerce-referrals',
-      },
-      {
-        title: 'Settings',
-        to: 'apps-ecommerce-settings',
-      },
+      { title: 'All Products', to: '/seller/product' },
+      { title: 'Add Product', to: '/seller/product/create' },
+      { title: 'Product Features', to: '/product/features' },
+      { title: 'Categories', to: '/product/category' },
+      { title: 'Tags', to: '/product/tag' },
+      { title: 'Brands', to: '/product/brand' },
+      { title: 'Coupons', to: '/product/coupon' },
+      { title: 'Barcodes', to: '/product/barcode' },
+      { title: 'Attributes', to: '/product/attribute' },
+      { title: 'Reviews', to: '/product/review' },
+
     ],
   },
   {
-    title: 'Academy',
-    icon: { icon: 'ri-graduation-cap-line' },
+    title: 'Orders',
+    icon: { icon: 'ri-order-play-fill' },
     children: [
-      { title: 'Dashboard', to: 'apps-academy-dashboard' },
-      { title: 'My Course', to: 'apps-academy-my-course' },
-      { title: 'Course Details', to: 'apps-academy-course-details' },
+      { title: 'All Orders', to: 'order' },
+      { title: 'Order Status', to: 'order/status' },
+      // { title: 'Order Status', to: { name: 'login', params: { id: '9042' } } },
     ],
   },
   {
-    title: 'Logistics',
-    icon: { icon: 'ri-car-line' },
+    title: 'Customer',
+    icon: { icon: 'ri-user-line' },
     children: [
-      { title: 'Dashboard', to: 'apps-logistics-dashboard' },
-      { title: 'Fleet', to: 'apps-logistics-fleet' },
+      { title: 'List', to: 'apps-ecommerce-customer-list' },
+      { title: 'Details', to: { name: 'login', params: { id: 478426 } } },
     ],
   },
+  {
+    title: 'Referrals',
+    icon: { icon: 'ri-reply-all-line' },
+    to: 'apps-ecommerce-referrals',
+  },
+  {
+    title: 'Settings',
+    icon: { icon: 'ri-settings-4-line' },
+    to: 'apps-ecommerce-settings',
+  },
+  // {
+  //   title: 'Academy',
+  //   icon: { icon: 'ri-graduation-cap-line' },
+  //   children: [
+  //     { title: 'Dashboard', to: 'apps-academy-dashboard' },
+  //     { title: 'My Course', to: 'apps-academy-my-course' },
+  //     { title: 'Course Details', to: 'apps-academy-course-details' },
+  //   ],
+  // },
+  // {
+  //   title: 'Logistics',
+  //   icon: { icon: 'ri-car-line' },
+  //   children: [
+  //     { title: 'Dashboard', to: 'apps-logistics-dashboard' },
+  //     { title: 'Fleet', to: 'apps-logistics-fleet' },
+  //   ],
+  // },
   {
     title: 'Email',
     icon: { icon: 'ri-mail-open-line' },
@@ -74,7 +124,7 @@ export default [
   {
     title: 'Calendar',
     icon: { icon: 'ri-calendar-line' },
-    to: 'apps-calendar',
+    to: '/seller/calendar',
   },
   {
     title: 'Kanban',
@@ -92,11 +142,11 @@ export default [
     ],
   },
   {
-    title: 'User',
-    icon: { icon: 'ri-user-line' },
+    title: 'Delivery Riders',
+    icon: { icon: 'ri-e-bike-2-line' },
     children: [
-      { title: 'List', to: 'apps-user-list' },
-      { title: 'View', to: { name: 'login', params: { id: 21 } } },
+      { title: 'All Drivers', to: 'apps-user-list' },
+      { title: 'Add Driver', to: { name: 'login', params: { id: 21 } } },
     ],
   },
   {
@@ -187,6 +237,6 @@ export default [
   {
     title: 'Store Settings',
     icon: { icon: 'ri-store-2-line' },
-    to: 'store-settings',
+    to: '/seller/product/list',
   },
 ]

@@ -30,7 +30,7 @@ class DashboardController extends Controller
         $languages=json_decode($languages->value ?? '');
         $order_method=Option::where('key','order_method')->first();
         $order_method=$order_method->value ?? '';
-        return Inertia::render('dashboards/seller/dashboard', [
+        return Inertia::render('seller/dashboard', [
             'info' => "info",
         ]);
 

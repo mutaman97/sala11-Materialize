@@ -31,7 +31,7 @@ class DashboardController extends Controller
         $order_method=$order_method->value ?? '';
 
 //        if (Feature::active('vue-homepage')) {
-            return Inertia::render('dashboards/merchant/dashboard', [
+            return Inertia::render('partner/dashboard', [
                 'info' => "info",
             ]);
 //        }

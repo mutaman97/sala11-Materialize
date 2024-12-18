@@ -27,7 +27,7 @@ const statisticsWithImages = ref<any>({}); // Initialize as an empty object or u
 const fetchStatistics = async () => {
   try {
     const response = await axios.get('/seller/dashboard/static');
-    statisticsWithImages.value = response.data; // Assign the response data
+    statisticsWithImages.value = [response.data]; // Assign the response data
   } catch (error) {
     console.error('Error fetching statistics:', error);
   }
